@@ -5,7 +5,12 @@ _.o0 TuxlaGL 0o._
 
 (_not an in-game image_)
 
-TuxlaGL is a HTML5/Javascript 3D web browser game.
+TuxlaGL is a HTML5/Javascript 3D web browser game. It is a remake of my [Tuxla3D](http://pi-mobile.com/index.php/product/game/tuxla/view/14/) 
+game which is available only for J2ME enabled handsets. 
+
+This rame would be much different from the original. 
+
+The rules of Tuxla are pretty simple but I would like to experiment with a darker in-game atmosphere including some 3D effects.
 
 # Controls
 
