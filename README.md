@@ -3,14 +3,14 @@ _.o0 TuxlaGL 0o._
 
 ![alt text](http://i.imgur.com/sknV6Zv.gif "Image from Tuxla3D Mobile")
 
-(_not an in-game image_)
+_(not an ingame image)_
 
-TuxlaGL is a HTML5/Javascript 3D web browser game. It is a remake of my [Tuxla3D](http://pi-mobile.com/index.php/product/game/tuxla/view/14/) 
+TuxlaGL is a Javascript/HTML5 3D web browser game. I's a remake of my [Tuxla3D](http://pi-mobile.com/index.php/product/game/tuxla/view/14/) 
 game which is available only for J2ME enabled handsets. 
 
-This rame would be much different from the original. 
+    This game would be **much different** from the original.
 
-The rules of Tuxla are pretty simple but I would like to experiment with a darker in-game atmosphere including some 3D effects.
+The rules of Tuxla are pretty simple but I would like to experiment with a darker ingame atmosphere including some 3D effects.
 
 # Controls
 
