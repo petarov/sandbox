@@ -1,4 +1,4 @@
-_.o0 Tuxla3D 0o._
+_.o0 TuxlaGL 0o._
 ==========================
 
 ![alt text](http://i.imgur.com/sknV6Zv.gif "Image from Tuxla3D Mobile")
