@@ -32,6 +32,11 @@ The rules of Tuxla are pretty simple but I would like to experiment with a darke
     <td>Yes</td>
     <td>19.0</td>
   </tr>
+  <tr>
+    <th>Internet Explorer</th>
+    <td>No</td>
+    <td>-</td>
+  </tr>  
 </table>
 
 
