@@ -52,10 +52,14 @@ require.config({
     urlArgs: "bust=" +  (new Date()).getTime()
 });
     
-require(['game/conf', 'game/init', 'jquery', 'tree', 'plugin/domReady!'], function(conf, inito, $) {
+require(['game/conf', 'game/init', 'game/terrain', 'jquery', 'tree', 'plugin/domReady!'], 
+		function(conf, inito, terrain, $) {
 	
 	var init = new inito();
 	init.init();
+	
+	var ter = new terrain();
+	ter.create(init.scene);
 	
 	// create the sphere's material
 	var sphereMaterial = new THREE.MeshLambertMaterial(
@@ -78,15 +82,16 @@ require(['game/conf', 'game/init', 'jquery', 'tree', 'plugin/domReady!'], functi
 	// and the camera
 	init.scene.add(init.camera);
 
+	// dir light
+	var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
+	light.position.set( 0, 1, 1 ).normalize();
+	init.scene.add( light );
+	
 	// create a point light
 	var pointLight = new THREE.PointLight( 0xFFFFFF );
-
-	// set its position
 	pointLight.position.x = 10;
 	pointLight.position.y = 50;
 	pointLight.position.z = 230;
-
-	// add to the scene
 	init.scene.add(pointLight);
 
 	init.render(sphere, pointLight);

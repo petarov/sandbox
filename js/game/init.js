@@ -52,14 +52,13 @@ define(['jquery'], function($) {
 			var scene = new THREE.Scene();
 
 			// the camera starts at 0,0,0 so pull it back
-			camera.position.z = 300;
+			camera.position.set(0, 185, 2500);
 
 			// start the renderer
 			renderer.setSize(WIDTH, HEIGHT);
 
 			// attach the render-supplied DOM element
 			$container.append(renderer.domElement);
-
 			
 			// set
 			self.renderer = renderer;
