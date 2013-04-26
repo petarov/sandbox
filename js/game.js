@@ -39,6 +39,7 @@ require.config({
         tree: 'three.min',
         stats: 'stats.min',
         underscore: 'underscore-min',
+        modernizr: 'modernizr.custom.65167',
         // require.js plugins
         goog: '../plugins/goog',
         async: '../plugins/async',
@@ -53,6 +54,14 @@ require.config({
     urlArgs: "bust=" +  (new Date()).getTime()
 });
     
+(function() {
+	if (!Modernizr.webgl) {
+		var msg = 'With a different browser you’ll get to see the WebGL experience here: get.webgl.org.';
+		document.getElementById('#notice').innerHTML = msg;
+	}	
+	
+});
+
 require(['game/conf', 'game/renderer', 'game/scene.game', 'jquery', 'tree', 'stats', 'plugin/domReady!'], 
 		function(conf, Renderer, GameScene, $) {
 	
@@ -61,7 +70,7 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'jquery', 'tree', 'sta
 	
 	var gameScene = new GameScene();
 	gameScene.create();
-
+	
 	if (conf.showStats) {
 		var stats = new Stats();
 		stats.setMode(0); // FPS
