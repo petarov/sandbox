@@ -21,22 +21,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define([], function() {
-    var config = {
-    		
-    		server: {
-    			baseUrl: location.protocol+'//'+location.hostname+(location.port ? ':' + location.port: '') + '/',
-    		},
-    		build: {
-    			env: 'dev',
-    			scene: ''
-    		},
-    		
-    		forceDebug: true,
-//    		debug: (build.env === 'dev') || forceDebug,
-    		stats: true,
-    		
-    };
-    
-    return config;
+define(['jquery', 'game/terrain'], function($, Terrain) {
+	
+	function GameScene() {
+		var self = this;
+		
+		self.create = function(renderer) {
+			
+			var scene = new THREE.Scene();
+			
+			var terrain = new Terrain();
+			terrain.create(scene);			
+			
+			// dir light
+			var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
+			light.position.set( 0, 1, 1 ).normalize();
+			scene.add(light);			
+			
+			
+			this.scene = scene;
+		};
+			
+		self.render = function(renderer) {
+			renderer.render(this.scene);
+		};
+		
+	}
+	
+	return GameScene;
+	
 });

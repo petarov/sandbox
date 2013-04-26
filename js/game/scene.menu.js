@@ -21,22 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define([], function() {
-    var config = {
-    		
-    		server: {
-    			baseUrl: location.protocol+'//'+location.hostname+(location.port ? ':' + location.port: '') + '/',
-    		},
-    		build: {
-    			env: 'dev',
-    			scene: ''
-    		},
-    		
-    		forceDebug: true,
-//    		debug: (build.env === 'dev') || forceDebug,
-    		stats: true,
-    		
-    };
-    
-    return config;
+define(['jquery'], function($) {
+	
+	function MenuScene() {
+		var self = this;
+		
+		self.create = function() {
+			
+			
+		};
+			
+		self.render = function() {
+			
+		};
+		
+	}
+	
+	return MenuScene;
+	
 });

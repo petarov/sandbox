@@ -52,48 +52,44 @@ require.config({
     urlArgs: "bust=" +  (new Date()).getTime()
 });
     
-require(['game/conf', 'game/init', 'game/terrain', 'jquery', 'tree', 'plugin/domReady!'], 
-		function(conf, inito, terrain, $) {
+require(['game/conf', 'game/init', 'game/scene.game', 'jquery', 'tree', 'plugin/domReady!'], 
+		function(conf, inito, GameScene, $) {
 	
 	var init = new inito();
 	init.init();
 	
-	var ter = new terrain();
-	ter.create(init.scene);
+	var gameScene = new GameScene();
+	gameScene.create();
+
 	
-	// create the sphere's material
-	var sphereMaterial = new THREE.MeshLambertMaterial(
-	{
-	    color: 0xFCFF00
-	});	
+//	// create the sphere's material
+//	var sphereMaterial = new THREE.MeshLambertMaterial(
+//	{
+//	    color: 0xFCFF00
+//	});	
+//	
+//	// set up the sphere vars
+//	var radius = 50, segments = 16, rings = 16;
+//
+//	// create a new mesh with sphere geometry -
+//	// we will cover the sphereMaterial next!
+//	var sphere = new THREE.Mesh(
+//	   new THREE.SphereGeometry(radius, segments, rings),
+//	   sphereMaterial);
+//
+//	// add the sphere to the scene
+//	init.scene.add(sphere);
+//
+//	// and the camera
+//	init.scene.add(init.camera);
+
 	
-	// set up the sphere vars
-	var radius = 50, segments = 16, rings = 16;
+//	// create a point light
+//	var pointLight = new THREE.PointLight( 0xFFFFFF );
+//	pointLight.position.x = 10;
+//	pointLight.position.y = 50;
+//	pointLight.position.z = 230;
+//	init.scene.add(pointLight);
 
-	// create a new mesh with sphere geometry -
-	// we will cover the sphereMaterial next!
-	var sphere = new THREE.Mesh(
-	   new THREE.SphereGeometry(radius, segments, rings),
-	   sphereMaterial);
-
-	// add the sphere to the scene
-	init.scene.add(sphere);
-
-	// and the camera
-	init.scene.add(init.camera);
-
-	// dir light
-	var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
-	light.position.set( 0, 1, 1 ).normalize();
-	init.scene.add( light );
-	
-	// create a point light
-	var pointLight = new THREE.PointLight( 0xFFFFFF );
-	pointLight.position.x = 10;
-	pointLight.position.y = 50;
-	pointLight.position.z = 230;
-	init.scene.add(pointLight);
-
-	init.render(sphere, pointLight);
-	init.animate();
+	gameScene.render(init);
 });
