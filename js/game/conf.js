@@ -34,7 +34,7 @@ define([], function() {
     		
     		forceDebug: true,
 //    		debug: (build.env === 'dev') || forceDebug,
-    		stats: true,
+    		showStats: true,
     		
     };
     

@@ -37,6 +37,7 @@ require.config({
     	// libs
     	jquery: "http://code.jquery.com/jquery-1.9.1.min",
         tree: 'three.min',
+        stats: 'stats.min',
         underscore: 'underscore-min',
         // require.js plugins
         goog: '../plugins/goog',
@@ -52,15 +53,29 @@ require.config({
     urlArgs: "bust=" +  (new Date()).getTime()
 });
     
-require(['game/conf', 'game/init', 'game/scene.game', 'jquery', 'tree', 'plugin/domReady!'], 
-		function(conf, inito, GameScene, $) {
+require(['game/conf', 'game/renderer', 'game/scene.game', 'jquery', 'tree', 'stats', 'plugin/domReady!'], 
+		function(conf, Renderer, GameScene, $) {
 	
-	var init = new inito();
-	init.init();
+	var renderer = new Renderer();
+	renderer.init();
 	
 	var gameScene = new GameScene();
 	gameScene.create();
 
+	if (conf.showStats) {
+		var stats = new Stats();
+		stats.setMode(0); // FPS
+		
+		// Align top-left
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.left = '0px';
+		stats.domElement.style.top = '0px';
+		document.body.appendChild( stats.domElement );
+		
+		setInterval(function() {
+		    stats.update();
+		}, 1000 / 60 );		
+	}
 	
 //	// create the sphere's material
 //	var sphereMaterial = new THREE.MeshLambertMaterial(
@@ -91,5 +106,5 @@ require(['game/conf', 'game/init', 'game/scene.game', 'jquery', 'tree', 'plugin/
 //	pointLight.position.z = 230;
 //	init.scene.add(pointLight);
 
-	gameScene.render(init);
+	gameScene.render(renderer);
 });
