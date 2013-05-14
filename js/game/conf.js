@@ -40,9 +40,9 @@ define([], function() {
     		 * Define game gfx, logic & physics update intervals 
     		 */
     		intervals: {
-    			render: {id: null, fps: 16},
-    			logic: {id: null, fps: 20},
-    			physics: {id: null, fps: 33}
+    			render: {id: null, fps: 16},	// 60 FPS
+    			logic: {id: null, fps: 20},		// 50 FPS
+    			physics: {id: null, fps: 20}	// 50 FPS
     		},
     		
     };

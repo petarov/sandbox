@@ -26,6 +26,8 @@ define(['jquery', 'game/terrain'], function($, Terrain) {
 	function GameScene() {
 		var self = this;
 		
+		var cube;
+		
 		self.create = function(renderer) {
 			
 			var scene = new THREE.Scene();
@@ -38,10 +40,33 @@ define(['jquery', 'game/terrain'], function($, Terrain) {
 			light.position.set( 0, 1, 1 ).normalize();
 			scene.add(light);			
 			
+			// add cube
+			
+			var cube = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), new THREE.MeshNormalMaterial() );
+			cube.position.y = 50;
+			cube.position.z = 2050;
+			scene.add(cube);
+			self.cube = cube;
 			
 			this.scene = scene;
 		};
+
+		/*
+		 * Update logic
+		 */
+		self.updateLogic = function() {
 			
+		};
+		/*
+		 * Update motion of objects
+		 */
+		self.updatePhysics = function() {
+		    self.cube.rotation.x += 0.05;
+		    self.cube.rotation.y += 0.07;		
+		};
+		/*
+		 * Render game scene
+		 */	
 		self.render = function(renderer) {
 			renderer.render(this.scene);
 		};

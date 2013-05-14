@@ -148,6 +148,7 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'jquer
 		// TODO physics
 		switch(gameState) {
 		default:
+			gameScene.updatePhysics();
 			break;
 		}
 		
