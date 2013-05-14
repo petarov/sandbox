@@ -36,6 +36,15 @@ define([], function() {
 //    		debug: (build.env === 'dev') || forceDebug,
     		showStats: true,
     		
+    		/*
+    		 * Define game gfx, logic & physics update intervals 
+    		 */
+    		intervals: {
+    			render: {id: null, fps: 16},
+    			logic: {id: null, fps: 20},
+    			physics: {id: null, fps: 33}
+    		},
+    		
     };
     
     return config;

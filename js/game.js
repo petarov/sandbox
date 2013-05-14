@@ -62,14 +62,16 @@ require.config({
 	
 });
 
-require(['game/conf', 'game/renderer', 'game/scene.game', 'jquery', 'tree', 'stats', 'plugin/domReady!'], 
-		function(conf, Renderer, GameScene, $) {
+require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'jquery', 'tree', 'stats', 'plugin/domReady!'], 
+		function(conf, Renderer, GameScene, Globals, $) {
 	
 	var renderer = new Renderer();
 	renderer.init();
 	
 	var gameScene = new GameScene();
 	gameScene.create();
+	
+	var gameState = Globals.GameStates.GAMEPLAY;
 	
 	if (conf.showStats) {
 		var stats = new Stats();
@@ -114,6 +116,52 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'jquery', 'tree', 'sta
 //	pointLight.position.y = 50;
 //	pointLight.position.z = 230;
 //	init.scene.add(pointLight);
-
-	gameScene.render(renderer);
+	
+//	self.animate = function() {
+//    // note: three.js includes requestAnimationFrame shim
+//	requestAnimationFrame( self.animate );
+//	
+//    self.mesh.rotation.x += 0.01;
+//    self.mesh.rotation.y += 0.02;		
+//    self.ptlight.position.z -= 0.1;
+//    self.render(self.mesh, self.ptlight);
+//};
+	
+	/* 
+	 * Game update loops
+	 */
+	
+	function blit() {
+		switch(gameState) {
+		case Globals.GameStates.GAMEPLAY:
+			gameScene.render(renderer);
+			break;
+			
+		default:
+			break;
+		}
+		// tell browser to use this call to update gfx
+		requestAnimationFrame(blit);
+	}	
+	
+	conf.intervals.physics.id = setInterval(function() {
+		// TODO physics
+		switch(gameState) {
+		default:
+			break;
+		}
+		
+	}, conf.intervals.physics.fps );
+	
+	conf.intervals.logic.id = setInterval(function() {
+		// TODO logic
+		switch(gameState) {
+		default:
+			break;
+		}
+		
+	}, conf.intervals.logic.fps );			
+	
+	blit();
+	
 });
