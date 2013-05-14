@@ -51,7 +51,7 @@ define(['jquery'], function($) {
 			                                FAR  );
 			
 			// the camera starts at 0,0,0 so pull it back
-			camera.position.set(0, 185, 2500);
+			camera.position.set(0, 400, 3500);
 
 			// start the renderer
 			renderer.setSize(WIDTH, HEIGHT);
@@ -65,24 +65,9 @@ define(['jquery'], function($) {
 		};
 		
 		self.render = function(scene) {
-			// draw!
-//			self.mesh = mesh;
-//			self.ptlight = ptlight;
-			
 			self.renderer.render(scene, self.camera);	
 		};
-		
-//		self.animate = function() {
-//	        // note: three.js includes requestAnimationFrame shim
-//			requestAnimationFrame( self.animate );
-//			
-//	        self.mesh.rotation.x += 0.01;
-//	        self.mesh.rotation.y += 0.02;		
-//	        self.ptlight.position.z -= 0.1;
-//	        self.render(self.mesh, self.ptlight);
-//		};
 	}
-
 	
 	return init;
 	
