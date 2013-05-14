@@ -27,6 +27,7 @@ define(['jquery'], function($) {
 		var self = this;
 		
 		var floor;
+		var frame;
 		
 		self.create = function(scene) {
 			
@@ -42,17 +43,12 @@ define(['jquery'], function($) {
 			floor.scale.set(25, 25, 25);
 			scene.add(floor);
 			
-			floor = new THREE.Mesh(planeTesselated, matWire);
-			floor.rotation.x = - Math.PI / 2;
-			floor.scale.set(25, 25, 25);
-			scene.add(floor);
+			frame = new THREE.Mesh(planeTesselated, matWire);
+			frame.rotation.x = - Math.PI / 2;
+			frame.scale.set(25, 25, 25);
+			scene.add(frame);
 			
 		};
-			
-		self.render = function() {
-			
-		};
-		
 	}
 	
 	return terrain;
