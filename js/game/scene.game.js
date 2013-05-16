@@ -24,14 +24,20 @@
 define(['jquery', 'game/terrain'], function($, Terrain) {
 	
 	function GameScene() {
+		/*
+		 * Private members
+		 */
 		var self = this;
 		
-		var cube;
-		
-		self.create = function(renderer) {
+		/*
+		 * Privileged methods
+		 */
+		self.init = function(input, state) {
+			
+			self.input = input;
+			self.gameState = state;
 			
 			var scene = new THREE.Scene();
-			
 			var terrain = new Terrain();
 			terrain.create(scene);			
 			
@@ -50,29 +56,38 @@ define(['jquery', 'game/terrain'], function($, Terrain) {
 			
 			this.scene = scene;
 		};
-
+	};
+	
+	/*
+	 * Public methods
+	 */
+	
+	GameScene.prototype = {
+			
 		/*
 		 * Update logic
 		 */
-		self.updateLogic = function() {
-			
-		};
+		updateLogic: function() {
+			if (this.input.isMoveLeft()) {
+				console.log('LEFT');
+			}			
+		},
 		/*
 		 * Update motion of objects
 		 */
-		self.updatePhysics = function() {
-		    self.cube.rotation.x += 0.05;
-		    self.cube.rotation.y += 0.07;		
-		};
+		updatePhysics: function() {
+		    this.cube.rotation.x += 0.05;
+		    this.cube.rotation.y += 0.07;		
+		},
 		/*
 		 * Render game scene
 		 */	
-		self.render = function(renderer) {
+		render: function(renderer) {
 			renderer.render(this.scene);
-		};
+		}
 		
-	}
-	
+	};
+
 	return GameScene;
 	
 });

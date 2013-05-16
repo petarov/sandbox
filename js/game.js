@@ -62,16 +62,18 @@ require.config({
 	
 });
 
-require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'jquery', 'tree', 'stats', 'plugin/domReady!'], 
-		function(conf, Renderer, GameScene, Globals, $) {
+require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'game/input', 'jquery', 'tree', 'stats', 'plugin/domReady!'], 
+		function(conf, Renderer, GameScene, Globals, Input, $) {
 	
 	var renderer = new Renderer();
 	renderer.init();
 	
-	var gameScene = new GameScene();
-	gameScene.create();
-	
 	var gameState = Globals.GameStates.GAMEPLAY;
+	var input = Input.create();
+	
+	var gameScene = new GameScene();
+	gameScene.init(input, gameState);
+	
 	
 	if (conf.showStats) {
 		var stats = new Stats();
@@ -88,81 +90,25 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'jquer
 		}, 1000 / 60 );		
 	}
 	
-//	// create the sphere's material
-//	var sphereMaterial = new THREE.MeshLambertMaterial(
-//	{
-//	    color: 0xFCFF00
-//	});	
-//	
-//	// set up the sphere vars
-//	var radius = 50, segments = 16, rings = 16;
-//
-//	// create a new mesh with sphere geometry -
-//	// we will cover the sphereMaterial next!
-//	var sphere = new THREE.Mesh(
-//	   new THREE.SphereGeometry(radius, segments, rings),
-//	   sphereMaterial);
-//
-//	// add the sphere to the scene
-//	init.scene.add(sphere);
-//
-//	// and the camera
-//	init.scene.add(init.camera);
-
-	
-//	// create a point light
-//	var pointLight = new THREE.PointLight( 0xFFFFFF );
-//	pointLight.position.x = 10;
-//	pointLight.position.y = 50;
-//	pointLight.position.z = 230;
-//	init.scene.add(pointLight);
-	
-//	self.animate = function() {
-//    // note: three.js includes requestAnimationFrame shim
-//	requestAnimationFrame( self.animate );
-//	
-//    self.mesh.rotation.x += 0.01;
-//    self.mesh.rotation.y += 0.02;		
-//    self.ptlight.position.z -= 0.1;
-//    self.render(self.mesh, self.ptlight);
-//};
-	
-	/* 
-	 * Game update loops
+	/*
+	 * Loop: Render graphics
 	 */
-	
 	function blit() {
-		switch(gameState) {
-		case Globals.GameStates.GAMEPLAY:
-			gameScene.render(renderer);
-			break;
-			
-		default:
-			break;
-		}
-		// tell browser to use this call to update gfx
+		gameScene.render(renderer);
 		requestAnimationFrame(blit);
 	}	
-	
+	/*
+	 * Loop: Positions, Collisions, Movement, etc.
+	 */
 	conf.intervals.physics.id = setInterval(function() {
-		// TODO physics
-		switch(gameState) {
-		default:
-			gameScene.updatePhysics();
-			break;
-		}
-		
+		gameScene.updatePhysics();
 	}, conf.intervals.physics.fps );
-	
+	/*
+	 * Loop: Game logic
+	 */
 	conf.intervals.logic.id = setInterval(function() {
-		// TODO logic
-		switch(gameState) {
-		default:
-			break;
-		}
-		
-	}, conf.intervals.logic.fps );			
+		gameScene.updateLogic();
+	}, conf.intervals.logic.fps );
 	
 	blit();
-	
 });
