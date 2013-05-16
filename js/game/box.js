@@ -21,70 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
-	
-	function GameScene() {
-		/*
-		 * Private members
-		 */
-		var self = this;
-		
-		/*
-		 * Privileged methods
-		 */
-		self.init = function(input, state) {
-			
-			self.input = input;
-			self.gameState = state;
-			
-			var scene = new THREE.Scene();
-			var terrain = new Terrain();
-			terrain.create(scene);			
-			
-			// dir light
-			var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
-			light.position.set( 0, 1, 1 ).normalize();
-			scene.add(light);			
-			
-			// add cube
-			var box = new Box();
-			box.create(scene);
+define([], function() {
 
-			self.box = box;
+	function Box() {
+		var self = this;
+
+		self.create = function(scene) {
+			var cube = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100), new THREE.MeshNormalMaterial());
+			cube.position.y = 50;
+			cube.position.z = 2050;
+			scene.add(cube);
 			
-			this.scene = scene;
+			self.cube = cube;
 		};
 	};
-	
-	/*
-	 * Public methods
-	 */
-	
-	GameScene.prototype = {
-			
-		/*
-		 * Update logic
-		 */
-		updateLogic: function() {
-			if (this.input.isMoveLeft()) {
-				console.log('LEFT');
-			}			
-		},
-		/*
-		 * Update motion of objects
-		 */
-		updatePhysics: function() {
-			this.box.rotate();
-		},
-		/*
-		 * Render game scene
-		 */	
-		render: function(renderer) {
-			renderer.render(this.scene);
+
+	Box.prototype = {
+
+		rotate: function() {
+		    this.cube.rotation.x += 0.05;
+		    this.cube.rotation.y += 0.07;				
 		}
-		
+
 	};
 
-	return GameScene;
-	
+	return Box;
+
 });
