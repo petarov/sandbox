@@ -30,7 +30,7 @@ define(['jquery'], function($) {
 			
 			// set the scene size
 			var WIDTH = 800,
-			    HEIGHT = 470;
+			    HEIGHT = 480;
 
 			// set some camera attributes
 			var VIEW_ANGLE = 45,
@@ -51,7 +51,8 @@ define(['jquery'], function($) {
 			                                FAR  );
 			
 			// the camera starts at 0,0,0 so pull it back
-			camera.position.set(0, 400, 3500);
+			camera.position.set(0, 150, 400);
+			camera.lookAt(new THREE.Vector3(0, 80, 0));
 
 			// start the renderer
 			renderer.setSize(WIDTH, HEIGHT);
