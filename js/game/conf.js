@@ -22,30 +22,41 @@
  * THE SOFTWARE.
  */
 define([], function() {
+	
     var config = {
-    		
-    		server: {
-    			baseUrl: location.protocol+'//'+location.hostname+(location.port ? ':' + location.port: '') + '/',
-    		},
-    		build: {
-    			env: 'dev',
-    			scene: ''
-    		},
-    		
-    		forceDebug: true,
-//    		debug: (build.env === 'dev') || forceDebug,
-    		showStats: true,
-    		
-    		/*
-    		 * Define game gfx, logic & physics update intervals 
-    		 */
-    		intervals: {
-    			render: {id: null, fps: 16},	// 60 FPS
-    			logic: {id: null, fps: 20},		// 50 FPS
-    			physics: {id: null, fps: 20}	// 50 FPS
-    		},
-    		
-    };
+
+		server : {
+			baseUrl : location.protocol + '//' + location.hostname
+					+ (location.port ? ':' + location.port : '') + '/',
+		},
+		build : {
+			env : 'dev',
+			scene : ''
+		},
+
+		forceDebug : true,
+		// debug: (build.env === 'dev') || forceDebug,
+		showStats : true,
+
+		/*
+		 * Define game gfx, logic & physics update intervals
+		 */
+		intervals : {
+			render : {
+				id : null,
+				fps : 16	// 60 FPS
+			}, 
+			logic : {
+				id : null,
+				fps : 20	// 50 FPS
+			}, 
+			physics : {
+				id : null,
+				fps : 20	// 50 FPS
+			}
+		},
+
+	};
     
     return config;
 });
