@@ -22,15 +22,18 @@
  * THE SOFTWARE.
  */
 define([], function() {
-    var Globals = {
-    		GameStates: {
-    			LOADING: 0,
-    			INTRO: 1,
-    			MENU: 2,
-    			LEADERBOARD: 3,
-    			GAMEPLAY: 4,
-    		}
-    };
-    
-    return Globals;
+
+	var Globals = {
+		GameStates : {
+			LOADING : 0,
+			INTRO : 1,
+			MENU : 2,
+			LEADERBOARD : 3,
+			GAMEPLAY : 4,
+		},
+		
+		
+	};
+
+	return Globals;
 });
