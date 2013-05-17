@@ -23,30 +23,52 @@
  */
 define(['jquery'], function($) {
 	
+	var Constants = {
+		TERRAIN_SIZE: 50,
+		TERRAIN_SCALE: 10,
+	};	
+	
 	function Terrain(scene) {
 		var self = this;
 		
 		self.cache = window._cache;
 		
-		var floor;
-		var frame;
-			
-		var plane = new THREE.PlaneGeometry(300, 300);
-		var planeTesselated = new THREE.PlaneGeometry(300, 300, 25, 25);
+		/*
+		 * Mapped floor 
+		 */
+		var textureFloor = self.cache.getSet('texFloor', function() {
+			return THREE.ImageUtils.loadTexture('tex/synthetic_metal_04_diffuse.png');
+		});
+		var textureFloorSpec = self.cache.getSet('texFloorSpec', function() {
+			return THREE.ImageUtils.loadTexture('tex/synthetic_metal_04_specular.png');
+		});		
 		
-		var matWire = new THREE.MeshBasicMaterial({ color: 0xa00000, wireframe: true, wireframeLinewidth: 2});
-		var matSolid = new THREE.MeshBasicMaterial({ color: 0x999999});
+		textureFloor.wrapS = THREE.RepeatWrapping;
+		textureFloor.wrapT = THREE.RepeatWrapping;
+		textureFloor.repeat.set(2, 2);
 		
-		floor = new THREE.Mesh(plane, matSolid);
+		var matSolid = new THREE.MeshLambertMaterial({
+			map: textureFloor,
+			spectacularMap: textureFloorSpec});
+		
+		var plane = new THREE.PlaneGeometry(Constants.TERRAIN_SIZE, Constants.TERRAIN_SIZE);
+		var floor = new THREE.Mesh(plane, matSolid);
+		
 		floor.rotation.x = - Math.PI / 2;
-		floor.position.y = -10;
-		floor.scale.set(25, 25, 25);
+		floor.scale.set(Constants.TERRAIN_SCALE, Constants.TERRAIN_SCALE, Constants.TERRAIN_SCALE);
 		scene.add(floor);
 		
-		frame = new THREE.Mesh(planeTesselated, matWire);
+		/*
+		 * Wireframe 
+		 */
+		var matWire = new THREE.MeshBasicMaterial({ color: 0xa00000, wireframe: true, wireframeLinewidth: 2});
+		var planeTesselated = new THREE.PlaneGeometry(Constants.TERRAIN_SIZE, Constants.TERRAIN_SIZE, 25, 25);
+		var frame = new THREE.Mesh(planeTesselated, matWire);
+		
 		frame.rotation.x = - Math.PI / 2;
-		frame.scale.set(25, 25, 25);
-		scene.add(frame);
+		floor.position.y = -2;
+		frame.scale.set(Constants.TERRAIN_SCALE, Constants.TERRAIN_SCALE, Constants.TERRAIN_SCALE);
+//		scene.add(frame);
 	}
 	
 	return {
