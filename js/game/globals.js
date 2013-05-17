@@ -32,7 +32,14 @@ define([], function() {
 			GAMEPLAY : 4,
 		},
 		
-		
+		CubeColors: [
+			{color: 0xCC0000},	// dark red
+			{color: 0x990099},	// violet
+			{color: 0x009900},	// dark green 
+			{color: 0xFF9900},	// orange
+			{color: 0x3366FF},	// blue
+			{color: 0x00FFFF},	// cyan
+		]
 	};
 
 	return Globals;

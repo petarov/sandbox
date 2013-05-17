@@ -23,36 +23,35 @@
  */
 define(['jquery'], function($) {
 	
-	function Terrain(cache) {
+	function Terrain(scene) {
 		var self = this;
 		
-		self.cache = cache;
+		self.cache = window._cache;
 		
 		var floor;
 		var frame;
+			
+		var plane = new THREE.PlaneGeometry(300, 300);
+		var planeTesselated = new THREE.PlaneGeometry(300, 300, 25, 25);
 		
-		self.create = function(scene) {
-			
-			var plane = new THREE.PlaneGeometry(300, 300);
-			var planeTesselated = new THREE.PlaneGeometry(300, 300, 25, 25);
-			
-			var matWire = new THREE.MeshBasicMaterial({ color: 0xa00000, wireframe: true, wireframeLinewidth: 2});
-			var matSolid = new THREE.MeshBasicMaterial({ color: 0x999999});
-			
-			floor = new THREE.Mesh(plane, matSolid);
-			floor.rotation.x = - Math.PI / 2;
-			floor.position.y = -10;
-			floor.scale.set(25, 25, 25);
-			scene.add(floor);
-			
-			frame = new THREE.Mesh(planeTesselated, matWire);
-			frame.rotation.x = - Math.PI / 2;
-			frame.scale.set(25, 25, 25);
-			scene.add(frame);
-			
-		};
+		var matWire = new THREE.MeshBasicMaterial({ color: 0xa00000, wireframe: true, wireframeLinewidth: 2});
+		var matSolid = new THREE.MeshBasicMaterial({ color: 0x999999});
+		
+		floor = new THREE.Mesh(plane, matSolid);
+		floor.rotation.x = - Math.PI / 2;
+		floor.position.y = -10;
+		floor.scale.set(25, 25, 25);
+		scene.add(floor);
+		
+		frame = new THREE.Mesh(planeTesselated, matWire);
+		frame.rotation.x = - Math.PI / 2;
+		frame.scale.set(25, 25, 25);
+		scene.add(frame);
 	}
 	
-	return Terrain;
-	
+	return {
+		create: function(scene) {
+			return new Terrain(scene);
+		}
+	};		
 });

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
+define(['jquery', 'game/globals', 'game/terrain', 'game/box'], function($, Globals, Terrain, Box) {
 	
 	function GameScene() {
 		/*
@@ -30,8 +30,7 @@ define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
 		var self = this;
 		
 		self.cache = new MicroCache();
-		self.terrain = new Terrain(self.cache);
-		self.box = new Box(self.cache);
+		window._cache = self.cache;
 		
 		/*
 		 * Privileged methods
@@ -42,13 +41,13 @@ define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
 			self.gameState = state;
 			
 			self.scene = new THREE.Scene();
-			self.terrain.create(self.scene);			
 			
 			// dir light
 			var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 			light.position.set( 0, 1, 1 ).normalize();
 			self.scene.add(light);
 			
+			self.terrain = Terrain.create(self.scene);
 			self.createBox();
 		};
 	};
@@ -60,9 +59,8 @@ define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
 	GameScene.prototype = {
 			
 		createBox: function() {
-			
 			// add cube
-			this.box.create(this.scene);			
+			this.box = Box.create(this.scene, Globals.CubeColors[0]);			
 		},
 			
 		/*

@@ -22,27 +22,31 @@
  * THE SOFTWARE.
  */
 define([], function() {
+	
+	var BoxConstants = {
+		CUBE_SIZE: 100,
+	};
 
-	function Box(cache) {
+	function Box(scene, color) {
 		var self = this;
 		
-		self.cache = cache;
-
-		self.create = function(scene) {
-			
-			var texture = self.cache.getSet('texCrate', function() {
-				console.log('load texture');
-				return THREE.ImageUtils.loadTexture('tex/cratetex.png');
-			});
-			var mat = new THREE.MeshLambertMaterial({map: texture});
-			
-			var cube = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100), mat);
-			cube.position.y = 50;
-			cube.position.z = 2050;
-			scene.add(cube);
-			
-			self.cube = cube;
-		};
+		self.cache = window._cache;
+		self.scene = scene;
+		
+		var texture = self.cache.getSet('texCrate', function() {
+			console.log('load texture');
+			return THREE.ImageUtils.loadTexture('tex/cratetex.png');
+		});
+		
+		var mat = new THREE.MeshLambertMaterial({map: texture, color: color.color});
+		var cube = new THREE.Mesh(new THREE.CubeGeometry(BoxConstants.CUBE_SIZE, 
+				BoxConstants.CUBE_SIZE, BoxConstants.CUBE_SIZE), mat);
+		
+		cube.position.y = 50;
+		cube.position.z = 2050;
+		self.scene.add(cube);
+		
+		self.cube = cube;
 	};
 
 	Box.prototype = {
@@ -54,6 +58,10 @@ define([], function() {
 
 	};
 
-	return Box;
+	return {
+		create: function(scene, color) {
+			return new Box(scene, color);
+		}
+	};	
 
 });
