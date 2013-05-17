@@ -23,8 +23,10 @@
  */
 define(['jquery'], function($) {
 	
-	function terrain() {
+	function Terrain(cache) {
 		var self = this;
+		
+		self.cache = cache;
 		
 		var floor;
 		var frame;
@@ -51,6 +53,6 @@ define(['jquery'], function($) {
 		};
 	}
 	
-	return terrain;
+	return Terrain;
 	
 });

@@ -23,11 +23,20 @@
  */
 define([], function() {
 
-	function Box() {
+	function Box(cache) {
 		var self = this;
+		
+		self.cache = cache;
 
 		self.create = function(scene) {
-			var cube = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100), new THREE.MeshNormalMaterial());
+			
+			var texture = self.cache.getSet('texCrate', function() {
+				console.log('load texture');
+				return THREE.ImageUtils.loadTexture('tex/cratetex.png');
+			});
+			var mat = new THREE.MeshLambertMaterial({map: texture});
+			
+			var cube = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100), mat);
 			cube.position.y = 50;
 			cube.position.z = 2050;
 			scene.add(cube);

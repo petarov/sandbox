@@ -62,7 +62,8 @@ require.config({
 	
 });
 
-require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'game/input', 'jquery', 'tree', 'stats', 'plugin/domReady!'], 
+require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'game/input', 
+         'jquery', 'tree', 'stats', 'microcache', 'plugin/domReady!'], 
 		function(conf, Renderer, GameScene, Globals, Input, $) {
 	
 	var renderer = new Renderer();

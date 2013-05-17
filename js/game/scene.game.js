@@ -29,6 +29,10 @@ define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
 		 */
 		var self = this;
 		
+		self.cache = new MicroCache();
+		self.terrain = new Terrain(self.cache);
+		self.box = new Box(self.cache);
+		
 		/*
 		 * Privileged methods
 		 */
@@ -37,22 +41,15 @@ define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
 			self.input = input;
 			self.gameState = state;
 			
-			var scene = new THREE.Scene();
-			var terrain = new Terrain();
-			terrain.create(scene);			
+			self.scene = new THREE.Scene();
+			self.terrain.create(self.scene);			
 			
 			// dir light
 			var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 			light.position.set( 0, 1, 1 ).normalize();
-			scene.add(light);			
+			self.scene.add(light);
 			
-			// add cube
-			var box = new Box();
-			box.create(scene);
-
-			self.box = box;
-			
-			this.scene = scene;
+			self.createBox();
 		};
 	};
 	
@@ -61,6 +58,12 @@ define(['jquery', 'game/terrain', 'game/box'], function($, Terrain, Box) {
 	 */
 	
 	GameScene.prototype = {
+			
+		createBox: function() {
+			
+			// add cube
+			this.box.create(this.scene);			
+		},
 			
 		/*
 		 * Update logic
