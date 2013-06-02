@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 define([], function() {
-	
+
     var config = {
 
 		server : {
@@ -45,18 +45,18 @@ define([], function() {
 			render : {
 				id : null,
 				fps : 16	// 60 FPS
-			}, 
+			},
 			logic : {
 				id : null,
 				fps : 20	// 50 FPS
-			}, 
+			},
 			physics : {
 				id : null,
 				fps : 20	// 50 FPS
 			}
-		},
+		}
 
 	};
-    
+
     return config;
 });

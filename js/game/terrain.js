@@ -22,12 +22,12 @@
  * THE SOFTWARE.
  */
 define(['jquery'], function($) {
-	
+
 	var Constants = {
 		TERRAIN_SIZE: 50,
 		TERRAIN_SCALE: 10,
-	};	
-	
+	};
+		
 	function Terrain(scene) {
 		var self = this;
 		

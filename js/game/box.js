@@ -42,8 +42,8 @@ define([], function() {
 		var cube = new THREE.Mesh(new THREE.CubeGeometry(BoxConstants.CUBE_SIZE, 
 				BoxConstants.CUBE_SIZE, BoxConstants.CUBE_SIZE), mat);
 		
-		cube.position.y = 50;
-		cube.position.z = 2050;
+		cube.position.y = -10;
+		cube.position.z = -200;
 		self.scene.add(cube);
 		
 		self.cube = cube;

@@ -29,7 +29,7 @@ define([], function() {
 			INTRO : 1,
 			MENU : 2,
 			LEADERBOARD : 3,
-			GAMEPLAY : 4,
+			GAMEPLAY : 4
 		},
 		
 		CubeColors: [
