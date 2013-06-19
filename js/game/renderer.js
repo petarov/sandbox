@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define(['jquery'], function($) {
+define(['jquery', 'game/conf'], function($, conf) {
 	
 	function init() {
 		var self = this;
@@ -29,18 +29,22 @@ define(['jquery'], function($) {
 		self.init = function() {
 			
 			// set the scene size
-			var WIDTH = 800,
-			    HEIGHT = 480;
+			var WIDTH = conf.screen.width;
+			var HEIGHT = conf.screen.height;
+
+
+			// get the DOM element to attach to
+			// - assume we've got jQuery to hand
+			var $container = $(conf.screen.canvas_id);
+
+			$container.css('width', WIDTH + 'px');
+			$container.css('height',  HEIGHT + 'px');
 
 			// set some camera attributes
 			var VIEW_ANGLE = 45,
 			    ASPECT = WIDTH / HEIGHT,
 			    NEAR = 0.1,
 			    FAR = 10000;
-
-			// get the DOM element to attach to
-			// - assume we've got jQuery to hand
-			var $container = $('#container');
 
 			// create a WebGL renderer, camera
 			// and a scene
@@ -71,5 +75,4 @@ define(['jquery'], function($) {
 	}
 	
 	return init;
-	
 });

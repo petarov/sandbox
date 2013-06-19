@@ -34,6 +34,12 @@ define([], function() {
 			scene : ''
 		},
 
+		screen: {
+			canvas_id: '#container',
+			width: 1024,
+			height: 768
+		},
+
 		forceDebug : true,
 		// debug: (build.env === 'dev') || forceDebug,
 		showStats : true,
