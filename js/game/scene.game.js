@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define(['jquery', 'game/globals', 'game/terrain', 'game/box'], function($, Globals, Terrain, Box) {
+define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Globals, Terrain, Box) {
 	
 	function GameScene() {
 		/*
@@ -47,7 +47,7 @@ define(['jquery', 'game/globals', 'game/terrain', 'game/box'], function($, Globa
 			light.position.set( 0, 1, 1 ).normalize();
 			self.scene.add(light);
 			
-			self.terrain = Terrain.create(self.scene);
+			//self.terrain = Terrain.create(self.scene);
 			self.createBox();
 		};
 	};

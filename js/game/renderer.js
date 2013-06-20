@@ -55,7 +55,7 @@ define(['jquery', 'game/conf'], function($, conf) {
 			                                FAR  );
 			
 			// the camera starts at 0,0,0 so pull it back
-			camera.position.set(0, 150, 400);
+			camera.position.set(0, 150, 300);
 			camera.lookAt(new THREE.Vector3(0, 80, 0));
 
 			// start the renderer

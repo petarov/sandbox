@@ -32,18 +32,23 @@ define([], function() {
 		
 		self.cache = window._cache;
 		self.scene = scene;
+
+		var materialArray = [];
+		for (var i = 1; i <= 6; i++) {
+			var texture = self.cache.getSet('texCrate' + i, function() {
+				return THREE.ImageUtils.loadTexture('tex/face' + i + '.png');
+			});
+
+			materialArray.push(new THREE.MeshBasicMaterial({map: texture}));
+		}
+
+		var mat = new THREE.MeshFaceMaterial(materialArray);
+		var geometry = new THREE.CubeGeometry(BoxConstants.CUBE_SIZE, 
+			BoxConstants.CUBE_SIZE, BoxConstants.CUBE_SIZE);
+		var cube = new THREE.Mesh(geometry, mat);
 		
-		var texture = self.cache.getSet('texCrate', function() {
-			console.log('load texture');
-			return THREE.ImageUtils.loadTexture('tex/cratetex.png');
-		});
-		
-		var mat = new THREE.MeshLambertMaterial({map: texture, color: color.color});
-		var cube = new THREE.Mesh(new THREE.CubeGeometry(BoxConstants.CUBE_SIZE, 
-				BoxConstants.CUBE_SIZE, BoxConstants.CUBE_SIZE), mat);
-		
-		cube.position.y = -10;
-		cube.position.z = -200;
+		cube.position.y = 60;
+		cube.position.z = -10;
 		self.scene.add(cube);
 		
 		self.cube = cube;
@@ -52,8 +57,8 @@ define([], function() {
 	Box.prototype = {
 
 		rotate: function() {
-		    this.cube.rotation.x += 0.05;
-		    this.cube.rotation.y += 0.07;				
+		    this.cube.rotation.x += 0.01;
+		    this.cube.rotation.y += 0.02;				
 		}
 
 	};
