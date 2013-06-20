@@ -70,11 +70,14 @@ define([], function() {
 		cube.position.y = 60;
 		cube.position.z = -10;
 		self.scene.add(cube);
+
+		cube.useQuaternion = true;
 		
 		self.cube = cube;
 
 		// defaults
 		self.rotateDir = Globals.Directions.NONE;
+		self.destQuat = null;
 		//self.rotationMatrix = new THREE.Matrix4().identity();
 	};
 
@@ -83,42 +86,67 @@ define([], function() {
 		rotate: function(direction) {
 			this.rotateDir = direction;
 			console.log('rot');
+
+			var quaternion = new THREE.Quaternion();
+
+			switch(this.rotateDir) {
+				case Globals.Directions.NORTH:
+				quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), Math.PI );
+				break;
+
+				case Globals.Directions.SOUTH:
+				quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), -Math.PI / 2 );
+				break;
+
+				case Globals.Directions.EAST:
+				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+				break;
+
+				case Globals.Directions.WEST:
+				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), -Math.PI / 2 );
+				break;
+			}
+
+			this.destQuat = quaternion;
+
+			//this.cube.quaternion.slerp(this.destQuat, 0.2);
 		},
 
 		update: function(delta) {
 
-			var rot = true;
-			var rotationMatrix;
-			var rotateAngle = Math.PI / 2 * delta;
+			// var rot = true;
+			// var rotationMatrix;
+			// var rotateAngle = Math.PI / 2 * delta;
 
-			switch(this.rotateDir) {
-				case Globals.Directions.NORTH:
-				rotationMatrix = new THREE.Matrix4().makeRotationX(rotateAngle);
-				break;
+			// switch(this.rotateDir) {
+			// 	case Globals.Directions.NORTH:
+			// 	rotationMatrix = new THREE.Matrix4().makeRotationX(rotateAngle);
+			// 	break;
 
-				case Globals.Directions.SOUTH:
-				rotationMatrix = new THREE.Matrix4().makeRotationX(-rotateAngle);
-				break;
+			// 	case Globals.Directions.SOUTH:
+			// 	rotationMatrix = new THREE.Matrix4().makeRotationX(-rotateAngle);
+			// 	break;
 
-				case Globals.Directions.EAST:
-				rotationMatrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
-				break;
+			// 	case Globals.Directions.EAST:
+			// 	rotationMatrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
+			// 	break;
 
-				case Globals.Directions.WEST:
-				rotationMatrix = new THREE.Matrix4().makeRotationY(rotateAngle);
-				break;
+			// 	case Globals.Directions.WEST:
+			// 	rotationMatrix = new THREE.Matrix4().makeRotationY(rotateAngle);
+			// 	break;
 
-				case Globals.Directions.NONE:
-				default:
-				rot = false;
-				break;
-			}
+			// 	case Globals.Directions.NONE:
+			// 	default:
+			// 	rot = false;
+			// 	break;
+			// }
 
 
-			if (rot) {
-				//var rotationMatrix = THREE.Matrix4().identity();
-				this.cube.matrix.multiply(rotationMatrix);
-				this.cube.rotation.setEulerFromRotationMatrix(this.cube.matrix);
+			if (this.rotateDir != Globals.Directions.NONE) {
+				this.cube.quaternion.slerp(this.destQuat, delta * 2);
+
+				// this.cube.matrix.multiply(rotationMatrix);
+				// this.cube.rotation.setEulerFromRotationMatrix(this.cube.matrix);
 			}			
 		}
 

@@ -33,7 +33,10 @@ define(['THREEx.KeyboardState'], function() {
 		},
 		isRotateRight: function() {
 			return this.keyboard.pressed('right'); 
-		},		
+		},
+		isPressed: function(what) {
+			return this.keyboard.pressed(what);
+		}
 
 	};
 	

@@ -63,6 +63,12 @@ define(['jquery', 'game/world'], function($, World) {
 			if (this.input.isRotateRight()) {
 				this.world.rotate(Globals.Directions.WEST);	
 			}
+			if (this.input.isPressed('up')) {
+				this.world.rotate(Globals.Directions.NORTH);
+			}
+			if (this.input.isPressed('down')) {
+				this.world.rotate(Globals.Directions.SOUTH);
+			}
 		},
 		/*
 		 * Update motion of objects
