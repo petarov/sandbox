@@ -27,7 +27,7 @@ define([], function() {
 		CUBE_SIZE: 100,
 	};
 
-	function Box(scene, color) {
+	function World(scene) {
 		var self = this;
 		
 		self.cache = window._cache;
@@ -39,13 +39,37 @@ define([], function() {
 				return THREE.ImageUtils.loadTexture('tex/face' + i + '.png');
 			});
 
-			materialArray.push(new THREE.MeshBasicMaterial({map: texture}));
+			materialArray.push(new THREE.MeshPhongMaterial({map: texture, color: 0xaabbff}));
 		}
 
 		var mat = new THREE.MeshFaceMaterial(materialArray);
 		var geometry = new THREE.CubeGeometry(BoxConstants.CUBE_SIZE, 
 			BoxConstants.CUBE_SIZE, BoxConstants.CUBE_SIZE);
 		var cube = new THREE.Mesh(geometry, mat);
+
+		// LIGHT
+		var light = new THREE.PointLight(0xffffff);
+		light.position.set(0, 150, 80);
+
+		// ambient light
+		var light2 = new THREE.AmbientLight(0x333333);
+		light2.position.set( light.position );
+		self.scene.add(light2);
+		self.scene.add(light);
+
+		// var lightbulbGeometry = new THREE.SphereGeometry( 10, 16, 8 );
+		// var lightbulbMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff, transparent: true,  opacity: 0.8, blending: THREE.AdditiveBlending } );
+		// var wireMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } );
+		// var materialArray = [lightbulbMaterial, wireMaterial];
+		// var lightbulb = THREE.SceneUtils.createMultiMaterialObject( lightbulbGeometry, materialArray );	
+		// lightbulb.position = light.position;
+		// self.scene.add(lightbulb);
+
+		
+		// dir light
+		//var light = new THREE.DirectionalLight( 0x1212ff, 1.5 );
+		//light.position.set( 0, 80, -10 ).normalize();
+		//self.scene.add(light);		
 		
 		cube.position.y = 60;
 		cube.position.z = -10;
@@ -54,7 +78,7 @@ define([], function() {
 		self.cube = cube;
 	};
 
-	Box.prototype = {
+	World.prototype = {
 
 		rotate: function() {
 		    this.cube.rotation.x += 0.01;
@@ -64,8 +88,8 @@ define([], function() {
 	};
 
 	return {
-		create: function(scene, color) {
-			return new Box(scene, color);
+		create: function(scene) {
+			return new World(scene);
 		}
 	};	
 

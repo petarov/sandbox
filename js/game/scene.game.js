@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Globals, Terrain, Box) {
+define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Globals, Terrain, World) {
 	
 	function GameScene() {
 		/*
@@ -42,13 +42,8 @@ define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Glo
 			
 			self.scene = new THREE.Scene();
 			
-			// dir light
-			var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
-			light.position.set( 0, 1, 1 ).normalize();
-			self.scene.add(light);
-			
-			//self.terrain = Terrain.create(self.scene);
-			self.createBox();
+			// create gameplay terrain
+			self.world = World.create(this.scene);
 		};
 	};
 	
@@ -57,12 +52,7 @@ define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Glo
 	 */
 	
 	GameScene.prototype = {
-			
-		createBox: function() {
-			// add cube
-			this.box = Box.create(this.scene, Globals.CubeColors[0]);			
-		},
-			
+						
 		/*
 		 * Update logic
 		 */
@@ -75,7 +65,7 @@ define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Glo
 		 * Update motion of objects
 		 */
 		updatePhysics: function() {
-			this.box.rotate();
+			this.world.rotate();
 		},
 		/*
 		 * Render game scene
