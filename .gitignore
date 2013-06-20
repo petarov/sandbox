@@ -3,6 +3,8 @@
 
 # Eclipse
 .settings/*
+.buildpath*
+.externalToolBuilders*
 
 # Build
 build/*
