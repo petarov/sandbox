@@ -28,12 +28,12 @@ define(['THREEx.KeyboardState'], function() {
 		init: function() {
 			this.keyboard = new THREEx.KeyboardState();
 		},
-		isMoveLeft: function() {
+		isRotateLeft: function() {
 			return this.keyboard.pressed('left'); 
 		},
-		isMoveRight: function() {
+		isRotateRight: function() {
 			return this.keyboard.pressed('right'); 
-		}		
+		},		
 
 	};
 	

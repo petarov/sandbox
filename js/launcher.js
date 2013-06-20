@@ -48,7 +48,7 @@ require.config({
     shim: {
     	'underscore': {
     		exports: '_'
-    	},
+    	}
     },
     waitSeconds: 10,
     urlArgs: "bust=" +  (new Date()).getTime()
@@ -62,15 +62,16 @@ require.config({
 	
 });
 
-require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'game/input', 
+require(['game/conf', 'game/renderer', 'game/scene.game', 'game/input', 
          'jquery', 'tree', 'stats', 'microcache', 'plugin/domReady!'], 
-		function(conf, Renderer, GameScene, Globals, Input, $) {
+		function(conf, Renderer, GameScene, Input, $) {
 	
 	var renderer = new Renderer();
 	renderer.init();
 	
 	var gameState = Globals.GameStates.GAMEPLAY;
 	var input = Input.create();
+	var clock = new THREE.Clock();
 	
 	var gameScene = new GameScene();
 	gameScene.init(input, gameState);
@@ -102,7 +103,8 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'game/globals', 'game/
 	 * Loop: Positions, Collisions, Movement, etc.
 	 */
 	conf.intervals.physics.id = setInterval(function() {
-		gameScene.updatePhysics();
+		var delta = clock.getDelta();
+		gameScene.updatePhysics(delta);
 	}, conf.intervals.physics.fps );
 	/*
 	 * Loop: Game logic

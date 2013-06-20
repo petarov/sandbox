@@ -21,26 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define([], function() {
 
-	var Globals = {
-		GameStates : {
-			LOADING : 0,
-			INTRO : 1,
-			MENU : 2,
-			LEADERBOARD : 3,
-			GAMEPLAY : 4
-		},
-		
-		CubeColors: [
-			{color: 0xCC0000},	// dark red
-			{color: 0x990099},	// violet
-			{color: 0x009900},	// dark green 
-			{color: 0xFF9900},	// orange
-			{color: 0x3366FF},	// blue
-			{color: 0x00FFFF},	// cyan
-		]
-	};
+var Globals = {
+	GameStates : {
+		LOADING : 0,
+		INTRO : 1,
+		MENU : 2,
+		LEADERBOARD : 3,
+		GAMEPLAY : 4
+	},
+	
+	CubeColors: [
+		{color: 0xCC0000},	// dark red
+		{color: 0x990099},	// violet
+		{color: 0x009900},	// dark green 
+		{color: 0xFF9900},	// orange
+		{color: 0x3366FF},	// blue
+		{color: 0x00FFFF},	// cyan
+	],
 
-	return Globals;
-});
+	CUBE_SIZE: 100,
+	Directions: {
+		NONE: 0,
+		NORTH: 1,
+		SOUTH: 2,
+		EAST: 3,
+		WEST: 4
+	}
+
+};

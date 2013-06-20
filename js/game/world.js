@@ -23,10 +23,6 @@
  */
 define([], function() {
 	
-	var BoxConstants = {
-		CUBE_SIZE: 100,
-	};
-
 	function World(scene) {
 		var self = this;
 		
@@ -43,8 +39,8 @@ define([], function() {
 		}
 
 		var mat = new THREE.MeshFaceMaterial(materialArray);
-		var geometry = new THREE.CubeGeometry(BoxConstants.CUBE_SIZE, 
-			BoxConstants.CUBE_SIZE, BoxConstants.CUBE_SIZE);
+		var geometry = new THREE.CubeGeometry(Globals.CUBE_SIZE, 
+			Globals.CUBE_SIZE, Globals.CUBE_SIZE);
 		var cube = new THREE.Mesh(geometry, mat);
 
 		// LIGHT
@@ -76,13 +72,54 @@ define([], function() {
 		self.scene.add(cube);
 		
 		self.cube = cube;
+
+		// defaults
+		self.rotateDir = Globals.Directions.NONE;
+		//self.rotationMatrix = new THREE.Matrix4().identity();
 	};
 
 	World.prototype = {
 
-		rotate: function() {
-		    this.cube.rotation.x += 0.01;
-		    this.cube.rotation.y += 0.02;				
+		rotate: function(direction) {
+			this.rotateDir = direction;
+			console.log('rot');
+		},
+
+		update: function(delta) {
+
+			var rot = true;
+			var rotationMatrix;
+			var rotateAngle = Math.PI / 2 * delta;
+
+			switch(this.rotateDir) {
+				case Globals.Directions.NORTH:
+				rotationMatrix = new THREE.Matrix4().makeRotationX(rotateAngle);
+				break;
+
+				case Globals.Directions.SOUTH:
+				rotationMatrix = new THREE.Matrix4().makeRotationX(-rotateAngle);
+				break;
+
+				case Globals.Directions.EAST:
+				rotationMatrix = new THREE.Matrix4().makeRotationY(-rotateAngle);
+				break;
+
+				case Globals.Directions.WEST:
+				rotationMatrix = new THREE.Matrix4().makeRotationY(rotateAngle);
+				break;
+
+				case Globals.Directions.NONE:
+				default:
+				rot = false;
+				break;
+			}
+
+
+			if (rot) {
+				//var rotationMatrix = THREE.Matrix4().identity();
+				this.cube.matrix.multiply(rotationMatrix);
+				this.cube.rotation.setEulerFromRotationMatrix(this.cube.matrix);
+			}			
 		}
 
 	};

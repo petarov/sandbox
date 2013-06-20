@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Globals, Terrain, World) {
+define(['jquery', 'game/world'], function($, World) {
 	
 	function GameScene() {
 		/*
@@ -57,15 +57,18 @@ define(['jquery', 'game/globals', 'game/terrain', 'game/world'], function($, Glo
 		 * Update logic
 		 */
 		updateLogic: function() {
-			if (this.input.isMoveLeft()) {
-				console.log('LEFT');
-			}			
+			if (this.input.isRotateLeft()) {
+				this.world.rotate(Globals.Directions.EAST);
+			} 
+			if (this.input.isRotateRight()) {
+				this.world.rotate(Globals.Directions.WEST);	
+			}
 		},
 		/*
 		 * Update motion of objects
 		 */
-		updatePhysics: function() {
-			this.world.rotate();
+		updatePhysics: function(delta) {
+			this.world.update(delta);
 		},
 		/*
 		 * Render game scene
