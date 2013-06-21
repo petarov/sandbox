@@ -52,5 +52,5 @@ TuxlaGL uses the following javascript libraries:
 
 
 # License
-Read the [LICNESE]() file for more info.
-
+Game source code is under GPL license. Please refer to the [COPYING](COPYING) file for licensing info.
+Please note that game textures and art are **NOT** under GPL license.
