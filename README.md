@@ -34,7 +34,7 @@ Incassum is a Javascript/HTML5 3D web browser game.
 
 
 # Open Source Libraries
-TuxlaGL uses the following javascript libraries:
+The following javascript libraries are used:
 
   * [Three.js](http://mrdoob.github.com/three.js/) - JavaScript 3D library.  
   * [jQuery](http://jquery.com/) - The Write Less, Do More, JavaScript Library.
