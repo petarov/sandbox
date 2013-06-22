@@ -36,6 +36,16 @@ define([], function() {
 		var mat = new THREE.MeshFaceMaterial(materialArray);
 		var geometry = new THREE.CubeGeometry(Globals.CUBE_SIZE, 
 			Globals.CUBE_SIZE, Globals.CUBE_SIZE);
+
+		/*
+		This is how textures are applied:
+			  3
+			5 1 6 2
+			  4
+
+			Euler rotation around Y-axis of (-PI/2) sends us to world => 1	
+		*/
+		geometry.applyMatrix( new THREE.Matrix4().makeRotationY( -Globals.Maths.PI / 2) ); 			
 		var cube = new THREE.Mesh(geometry, mat);
 
 		// LIGHT
@@ -60,7 +70,7 @@ define([], function() {
 		// dir light
 		//var light = new THREE.DirectionalLight( 0x1212ff, 1.5 );
 		//light.position.set( 0, 80, -10 ).normalize();
-		//self.scene.add(light);		
+		//self.scene.add(light);
 		
 		cube.position.y = 60;
 		cube.position.z = -10;
@@ -86,7 +96,7 @@ define([], function() {
 
 			switch(this.rotateDir) {
 				case Globals.Directions.NORTH:
-				quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), Math.PI );
+				quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), Math.PI / 2 );
 				break;
 
 				case Globals.Directions.SOUTH:
@@ -102,7 +112,7 @@ define([], function() {
 				break;
 			}
 
-			this.destQuat = quaternion;
+			this.destQuat = new THREE.Quaternion().multiplyQuaternions(quaternion, this.cube.quaternion);
 
 			//this.cube.quaternion.slerp(this.destQuat, 0.2);
 		},
@@ -138,7 +148,7 @@ define([], function() {
 
 
 			if (this.rotateDir != Globals.Directions.NONE) {
-				this.cube.quaternion.slerp(this.destQuat, delta * 2);
+				this.cube.quaternion.slerp(this.destQuat, delta);
 
 				// this.cube.matrix.multiply(rotationMatrix);
 				// this.cube.rotation.setEulerFromRotationMatrix(this.cube.matrix);

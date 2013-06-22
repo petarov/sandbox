@@ -17,6 +17,13 @@
 */
 
 var Globals = {
+
+	Maths: {
+		PI: Math.PI,
+		PI2: 2 * Math.PI,
+		PI_2: Math.PI / 2
+	},
+
 	GameStates : {
 		LOADING : 0,
 		INTRO : 1,
