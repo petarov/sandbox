@@ -18,7 +18,7 @@
 
 define(['jquery', 'game/world'], function($, World) {
 	
-	function GameScene() {
+	function GameScene(renderer, input, state) {
 		/*
 		 * Private members
 		 */
@@ -26,20 +26,17 @@ define(['jquery', 'game/world'], function($, World) {
 		
 		self.cache = new MicroCache();
 		window._cache = self.cache;
+
+		self.renderer = renderer;
 		
-		/*
-		 * Privileged methods
-		 */
-		self.init = function(input, state) {
 			
-			self.input = input;
-			self.gameState = state;
+		self.input = input;
+		self.gameState = state;
 			
-			self.scene = new THREE.Scene();
+		self.scene = new THREE.Scene();
 			
-			// create gameplay terrain
-			self.world = World.create(this.scene);
-		};
+		// create gameplay terrain
+		self.world = World.create(this.scene);
 	};
 	
 	/*
@@ -64,22 +61,37 @@ define(['jquery', 'game/world'], function($, World) {
 			if (this.input.isPressed('s')) {
 				this.world.rotate(Globals.Directions.SOUTH);
 			}
+
+			if (this.input.isPressed('up')) {
+				this.renderer.rotateCamera(Globals.Directions.NORTH);
+			}
+			if (this.input.isPressed('down')) {
+				this.renderer.rotateCamera(Globals.Directions.SOUTH);
+			}				
 		},
 		/*
 		 * Update motion of objects
 		 */
 		updatePhysics: function(delta) {
 			this.world.update(delta);
+
+			this.renderer.updateCamera(delta);
 		},
 		/*
 		 * Render game scene
 		 */	
-		render: function(renderer) {
-			renderer.render(this.scene);
+		render: function() {
+			this.renderer.render(this.scene);
+			
 		}
 		
 	};
 
-	return GameScene;
+	return {
+		create: function(renderer, input, state) {
+			var scene = new GameScene(renderer, input, state);
+			return scene;
+		}
+	};
 	
 });

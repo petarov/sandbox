@@ -59,15 +59,15 @@ require.config({
 require(['game/conf', 'game/renderer', 'game/scene.game', 'game/input', 
          'jquery', 'tree', 'stats', 'microcache', 'plugin/domReady!'], 
 		function(conf, Renderer, GameScene, Input, $) {
+
+	var clock = new THREE.Clock();
 	
 	var renderer = Renderer.create();
 	var input = Input.create();
+
 	var gameState = Globals.GameStates.GAMEPLAY;
+	var gameScene = GameScene.create(renderer, input, gameState);
 	
-	var gameScene = new GameScene();
-	gameScene.init(input, gameState);
-	
-	var clock = new THREE.Clock();
 	
 	if (conf.showStats) {
 		var stats = new Stats();
@@ -88,7 +88,7 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'game/input',
 	 * Loop: Render graphics
 	 */
 	function blit() {
-		gameScene.render(renderer);
+		gameScene.render();
 		requestAnimationFrame(blit);
 	}	
 	/*
