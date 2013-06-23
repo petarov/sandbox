@@ -60,16 +60,14 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'game/input',
          'jquery', 'tree', 'stats', 'microcache', 'plugin/domReady!'], 
 		function(conf, Renderer, GameScene, Input, $) {
 	
-	var renderer = new Renderer();
-	renderer.init();
-	
-	var gameState = Globals.GameStates.GAMEPLAY;
+	var renderer = Renderer.create();
 	var input = Input.create();
-	var clock = new THREE.Clock();
+	var gameState = Globals.GameStates.GAMEPLAY;
 	
 	var gameScene = new GameScene();
 	gameScene.init(input, gameState);
 	
+	var clock = new THREE.Clock();
 	
 	if (conf.showStats) {
 		var stats = new Stats();
