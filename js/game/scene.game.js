@@ -52,16 +52,16 @@ define(['jquery', 'game/world'], function($, World) {
 		 * Update logic
 		 */
 		updateLogic: function() {
-			if (this.input.isRotateLeft()) {
+			if (this.input.isPressed('d')) {
 				this.world.rotate(Globals.Directions.EAST);
 			} 
-			if (this.input.isRotateRight()) {
+			if (this.input.isPressed('a')) {
 				this.world.rotate(Globals.Directions.WEST);	
 			}
-			if (this.input.isPressed('up')) {
+			if (this.input.isPressed('w')) {
 				this.world.rotate(Globals.Directions.NORTH);
 			}
-			if (this.input.isPressed('down')) {
+			if (this.input.isPressed('s')) {
 				this.world.rotate(Globals.Directions.SOUTH);
 			}
 		},
