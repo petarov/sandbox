@@ -46,7 +46,7 @@ define(['jquery', 'game/conf'], function($, conf) {
 		
 		// the camera starts at 0,0,0 so pull it back
 		camera.position.set(0, 0, 300);
-		//camera.useQuaternion = true;
+		camera.useQuaternion = true;
 
 		// start the renderer
 		renderer.setSize(WIDTH, HEIGHT);
@@ -80,6 +80,15 @@ define(['jquery', 'game/conf'], function($, conf) {
 			this.cameraRotateAngle = 0;
 			this.cameraMovementMat = new THREE.Matrix4().identity();
 
+			this.cameraRot = {
+				x: this.camera.rotation.x,
+				y: this.camera.rotation.y,
+				z: this.camera.rotation.z,
+
+			};
+
+			console.log(this.cameraRot);
+
 			// var quaternion = new THREE.Quaternion();
 
 			// switch(this.cameraRotateDir) {
@@ -109,15 +118,34 @@ define(['jquery', 'game/conf'], function($, conf) {
 
 		updateCamera: function(delta) {
 			if (this.cameraRotateDir != Globals.Directions.NONE) {
+
+				this.cameraRot.x += delta * 0.8;
+				this.cameraRot.y -= delta * 0.8;
+
+				this.cameraRot.y = this.cameraRot.y > Globals.Maths.PI2 ? this.cameraRot.y - Globals.Maths.PI2 : this.cameraRot.y;
+				this.cameraRot.y = this.cameraRot.y < -Globals.Maths.PI2 ? this.cameraRot.y + Globals.Maths.PI2 : this.cameraRot.y;
+
+				var rotation = new THREE.Quaternion().setFromEuler(new THREE.Vector3(0, this.cameraRot.x , 0));
+				var position = new THREE.Vector3(0.0, 0.0, 210).applyQuaternion(rotation);
+
+				//console.log(rotation);
+				//console.log(position);
+
+				var mat = new THREE.Matrix4();
+				this.camera.quaternion = rotation; //mat.makeRotationFromQuaternion(rotation);
+				this.camera.position = position;
+
+				this.camera.updateMatrix();
+
 				//this.camera.quaternion.slerp(this.destQuat, delta);
 
 				// this.cameraMovementMat.makeTranslation(Math.cos(this.cameraRotateAngle) * 210, 
 				// 	0.0,
 				// 	-Math.sin(this.cameraRotateAngle) * 210);
 
-				this.camera.position.x = Math.cos(this.cameraRotateAngle) * 210;
-				this.camera.position.y = 60;
-				this.camera.position.z = -60 + -Math.sin(this.cameraRotateAngle) * 210;
+				// this.camera.position.x = Math.sin(this.cameraRotateAngle) * Math.sin(this.cameraRotateAngle) * 300;
+				// this.camera.position.y = Math.cos(this.cameraRotateAngle) * 300 + 60;
+				// this.camera.position.z = 60 + Math.sin(this.cameraRotateAngle) * Math.cos(this.cameraRotateAngle) * 300;
 
 				this.cameraRotateAngle += delta * 0.5;
 				if (this.cameraRotateAngle > Globals.Maths.PI)
