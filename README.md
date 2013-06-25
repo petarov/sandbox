@@ -3,7 +3,10 @@ _.o0 Incassum 0o._
 
 ![alt text](http://i.imgur.com/slXm8lO.png "proto")
 
-Incassum is a Javascript/HTML5 3D web browser game. 
+Incassum is a highly abstract and somehow minimalistic Javascript/HTML5 3D web game. 
+
+You are the manifestation of intent. Your goal is to uncover the shape of the very idea of Minerva. Goddess of war and wisdom. She is the divine impersonation of inventive power. 
+You need to fight the dark thoughts of Jupiter and uncover the seed of Minerva's shape.
 
 # Controls
 
