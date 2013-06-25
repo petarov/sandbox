@@ -76,6 +76,7 @@ define(['jquery', 'game/world'], function($, World) {
 			this.world.update(delta);
 
 			this.renderer.updateCamera(delta);
+			this.renderer.getCamera().lookAt(this.world.getPosition());
 		},
 		/*
 		 * Render game scene

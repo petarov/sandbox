@@ -47,6 +47,12 @@ define([], function() {
 		*/
 		geometry.applyMatrix( new THREE.Matrix4().makeRotationY( -Globals.Maths.PI / 2) ); 			
 		var cube = new THREE.Mesh(geometry, mat);
+		cube.position.y = 60;
+		cube.position.z = -10;
+		cube.useQuaternion = true;
+		self.scene.add(cube);
+
+		self.cube = cube;		
 
 		// LIGHT
 		var light = new THREE.PointLight(0xffffff);
@@ -66,19 +72,10 @@ define([], function() {
 		// lightbulb.position = light.position;
 		// self.scene.add(lightbulb);
 
-		
 		// dir light
 		//var light = new THREE.DirectionalLight( 0x1212ff, 1.5 );
 		//light.position.set( 0, 80, -10 ).normalize();
 		//self.scene.add(light);
-		
-		cube.position.y = 60;
-		cube.position.z = -10;
-		self.scene.add(cube);
-
-		cube.useQuaternion = true;
-		
-		self.cube = cube;
 
 		// defaults
 		self.rotateDir = Globals.Directions.NONE;
@@ -115,6 +112,10 @@ define([], function() {
 			this.destQuat = new THREE.Quaternion().multiplyQuaternions(quaternion, this.cube.quaternion);
 
 			//this.cube.quaternion.slerp(this.destQuat, 0.2);
+		},
+
+		getPosition: function() {
+			return this.cube.position;
 		},
 
 		update: function(delta) {

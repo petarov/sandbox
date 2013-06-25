@@ -42,16 +42,11 @@ define(['jquery', 'game/conf'], function($, conf) {
 		// create a WebGL renderer, camera
 		// and a scene
 		var renderer = new THREE.WebGLRenderer();
-		var camera = new THREE.PerspectiveCamera(  VIEW_ANGLE,
-		                                ASPECT,
-		                                NEAR,
-		                                FAR  );
+		var camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 		
 		// the camera starts at 0,0,0 so pull it back
 		camera.position.set(0, 0, 300);
-		camera.lookAt(new THREE.Vector3(0, 80, 0));
-
-		camera.useQuaternion = true;
+		//camera.useQuaternion = true;
 
 		// start the renderer
 		renderer.setSize(WIDTH, HEIGHT);
@@ -62,6 +57,9 @@ define(['jquery', 'game/conf'], function($, conf) {
 		// set
 		self.renderer = renderer;
 		self.camera = camera;
+
+		// defaults
+		self.cameraRotateAngle = 0.0;
 		self.cameraRotateDir = Globals.Directions.NONE;
 	};
 
@@ -79,36 +77,54 @@ define(['jquery', 'game/conf'], function($, conf) {
 			this.cameraRotateDir = direction;
 			console.log('camera rot');
 
-			var quaternion = new THREE.Quaternion();
+			this.cameraRotateAngle = 0;
+			this.cameraMovementMat = new THREE.Matrix4().identity();
 
-			switch(this.cameraRotateDir) {
-				case Globals.Directions.NORTH:
-				//quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), Math.PI / 2 );
-				quaternion = quaternion.setFromEuler(new THREE.Vector3(0, Math.PI / 2, 0));
-				break;
+			// var quaternion = new THREE.Quaternion();
 
-				case Globals.Directions.SOUTH:
-				quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), -Math.PI / 2 );
-				break;
+			// switch(this.cameraRotateDir) {
+			// 	case Globals.Directions.NORTH:
+			// 	//quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), Math.PI / 2 );
+			// 	quaternion = quaternion.setFromEuler(new THREE.Vector3(0, Math.PI / 2, 0));
+			// 	break;
 
-				case Globals.Directions.EAST:
-				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
-				break;
+			// 	case Globals.Directions.SOUTH:
+			// 	quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0 ), -Math.PI / 2 );
+			// 	break;
 
-				case Globals.Directions.WEST:
-				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), -Math.PI / 2 );
-				break;
-			}
+			// 	case Globals.Directions.EAST:
+			// 	quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
 
-			this.destQuat = quaternion; //new THREE.Quaternion().multiplyQuaternions(quaternion, this.cube.quaternion);
 
-			
 
+			// 	break;
+
+			// 	case Globals.Directions.WEST:
+			// 	quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), -Math.PI / 2 );
+			// 	break;
+			// }
+
+			// this.destQuat = quaternion; //new THREE.Quaternion().multiplyQuaternions(quaternion, this.cube.quaternion);
 		},
 
 		updateCamera: function(delta) {
 			if (this.cameraRotateDir != Globals.Directions.NONE) {
-				this.camera.quaternion.slerp(this.destQuat, delta);
+				//this.camera.quaternion.slerp(this.destQuat, delta);
+
+				// this.cameraMovementMat.makeTranslation(Math.cos(this.cameraRotateAngle) * 210, 
+				// 	0.0,
+				// 	-Math.sin(this.cameraRotateAngle) * 210);
+
+				this.camera.position.x = Math.cos(this.cameraRotateAngle) * 210;
+				this.camera.position.y = 60;
+				this.camera.position.z = -60 + -Math.sin(this.cameraRotateAngle) * 210;
+
+				this.cameraRotateAngle += delta * 0.5;
+				if (this.cameraRotateAngle > Globals.Maths.PI)
+					this.cameraRotateDir = Globals.Directions.NONE;
+
+				//this.camera.applyMatrix(this.cameraMovementMat);
+				//console.log(this.camera.position.z);
 			}
 		}
 	};
