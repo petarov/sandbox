@@ -60,6 +60,26 @@ require(['game/conf', 'game/renderer', 'game/scene.game', 'game/input',
          'jquery', 'tree', 'stats', 'microcache', 'plugin/domReady!'], 
 		function(conf, Renderer, GameScene, Input, $) {
 
+/*
+**TODO** List v0.9
+
+- [x] Add js AMD structure
+- [ ] Add camera rotations to all 6 surfaces
+- [ ] Add proper lights when rotating camera
+- [ ] Add player entity and (keyboard) controls
+- [ ] Add player/camera/world transition algorithm
+- [ ] Add game mechanics #1: player uncovers world surface
+- [ ] Add game mechanics #3: enemies and enemy movement types
+- [ ] Add game mechanics #2: player kills enemies
+- [ ] Add game mechanics #4: game timer (per level), time based difficulty, enemy spawning
+- [ ] Add game gfx: player surface uncover fx
+- [ ] Add game gfx: enemies lights and particles fx
+- [ ] Add game gfx: world completed animation
+- [ ] Add game backgrounds - stars, ...
+- [ ] Add game pause
+- [ ] Add leaderboards
+*/
+
 	var clock = new THREE.Clock();
 	
 	var renderer = Renderer.create();
