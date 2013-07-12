@@ -10,6 +10,14 @@ You need to fight the dark thoughts of Jupiter and uncover the seed of Minerva's
 
 # Controls
 
+  * Move player with **arrow keys**.
+  * Hold **Z** or **Y** while moving to uncover world shape.
+  * When player is at one of the world edges press **arrow key** twice (*fast*) to go to next world.  
+
+# How To Play
+
+The goal of the game is to uncover the complete cube-world shape. You must fight and destroy Jupiter's dark thoughts by trapping them between intent lines.
+
 # Supported Browsers
 
 <table>
