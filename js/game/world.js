@@ -56,7 +56,7 @@ define([], function() {
 
 		// LIGHT
 		var light = new THREE.PointLight(0xffffff);
-		light.position.set(0, 150, 80);
+		light.position.set(0, 150, 100);
 
 		// ambient light
 		var light2 = new THREE.AmbientLight(0x333333);
@@ -147,13 +147,29 @@ define([], function() {
 			// 	break;
 			// }
 
-
 			if (this.rotateDir != Globals.Directions.NONE) {
 				this.cube.quaternion.slerp(this.destQuat, delta);
 
+				console.log('cube: ' + this.cube.quaternion.toArray());
+				console.log('dest: ' + this.destQuat.toArray());
+
+				var dot = new THREE.Vector3( 0, this.cube.quaternion.y, 0 ).dot(new THREE.Vector3( 0, this.destQuat.y, 0 ));
+				console.log('dot:' + dot);
+
+				if (this.rotateDir == Globals.Directions.WEST) {
+					if (dot > 0.52) {
+						this.rotateDir = Globals.Directions.NONE;
+					}
+				} else if (this.rotateDir == Globals.Directions.EAST) {
+					if (dot < 0.05) {
+						this.rotateDir = Globals.Directions.NONE;
+					}					
+				}
+
 				// this.cube.matrix.multiply(rotationMatrix);
 				// this.cube.rotation.setEulerFromRotationMatrix(this.cube.matrix);
-			}			
+			}	
+			//console.log('update');		
 		}
 
 	};
