@@ -29,7 +29,7 @@ require.config({
     	game: '../game',
     	plugin: '../plugins',
     	// libs
-    	jquery: "http://code.jquery.com/jquery-1.9.1.min",
+    	jquery: 'jquery-1.10.2.min',
         tree: 'three.min',
         stats: 'stats.min',
         underscore: 'underscore-min',
