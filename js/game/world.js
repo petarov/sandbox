@@ -45,7 +45,7 @@ define([], function() {
 
 			Euler rotation around Y-axis of (-PI/2) sends us to world => 1	
 		*/
-		geometry.applyMatrix( new THREE.Matrix4().makeRotationY( -Globals.Maths.PI / 2) ); 			
+		//geometry.applyMatrix( new THREE.Matrix4().makeRotationY(-Globals.Maths.PI / 2) ); 			
 		var cube = new THREE.Mesh(geometry, mat);
 		cube.position.y = 60;
 		cube.position.z = -10;
@@ -79,6 +79,7 @@ define([], function() {
 
 		// defaults
 		self.rotateDir = Globals.Directions.NONE;
+		self.destPI = null;
 		self.destQuat = null;
 		//self.rotationMatrix = new THREE.Matrix4().identity();
 	};
@@ -101,17 +102,21 @@ define([], function() {
 				break;
 
 				case Globals.Directions.EAST:
-				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), -Math.PI / 2 );
 				break;
 
 				case Globals.Directions.WEST:
-				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), -Math.PI / 2 );
+				quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
 				break;
 			}
 
 			this.destQuat = new THREE.Quaternion().multiplyQuaternions(quaternion, this.cube.quaternion);
 
-			//this.cube.quaternion.slerp(this.destQuat, 0.2);
+			var dot = new THREE.Vector3( 0, this.cube.quaternion.y, 0 ).dot(new THREE.Vector3( 0, 1, 0 ));
+			console.log('dot:' + dot);
+			var arcdot = Math.acos(dot);
+			console.log('arcdot: ' + arcdot);
+
 		},
 
 		getPosition: function() {
@@ -150,26 +155,34 @@ define([], function() {
 			if (this.rotateDir != Globals.Directions.NONE) {
 				this.cube.quaternion.slerp(this.destQuat, delta);
 
-				console.log('cube: ' + this.cube.quaternion.toArray());
-				console.log('dest: ' + this.destQuat.toArray());
+				//console.log('cube: ' + this.cube.quaternion.toArray());
+				//console.log('dest: ' + this.destQuat.toArray());
 
-				var dot = new THREE.Vector3( 0, this.cube.quaternion.y, 0 ).dot(new THREE.Vector3( 0, this.destQuat.y, 0 ));
-				console.log('dot:' + dot);
+				//var dot = new THREE.Vector3( 0, this.cube.quaternion.y, 0 ).dot(new THREE.Vector3( 0, this.destQuat.y, 0 ));
+				//console.log('dot:' + dot);
+				//var arcdot = Math.acos(dot);
+				//console.log('arcdot: ' + arcdot);
 
 				if (this.rotateDir == Globals.Directions.WEST) {
-					if (dot > 0.52) {
-						this.rotateDir = Globals.Directions.NONE;
-					}
+					//if (dot > 0.52) {
+					//	this.rotateDir = Globals.Directions.NONE;
+					//}
 				} else if (this.rotateDir == Globals.Directions.EAST) {
-					if (dot < 0.05) {
-						this.rotateDir = Globals.Directions.NONE;
-					}					
+					//if (dot < 0.05) {
+					//	this.rotateDir = Globals.Directions.NONE;
+					//}					
 				}
 
+				//if (arcdot > 1.56) {
+					//this.rotateDir = Globals.Directions.NONE;
+					//this.cube.quaternion.setFromAxisAngle(new THREE.Vector3(0 ,1, 0), Math.PI / 2);
+				//	console.log('end');
+				//}	
+
+				this.rotateDir = Globals.Directions.NONE;	
 				// this.cube.matrix.multiply(rotationMatrix);
 				// this.cube.rotation.setEulerFromRotationMatrix(this.cube.matrix);
 			}	
-			//console.log('update');		
 		}
 
 	};
