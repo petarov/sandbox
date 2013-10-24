@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Event SourceExample</title>
+</head>
+<body>
+<p>Received events will get logged below:</p>
+<div id="content"></div>
+<ul id="eventList">
+</ul>
+<script>
+    
+    var evtSource = new EventSource("http://localhost:8080/events");
+    var eventList = document.getElementById("eventList");
+
+    /*
+     * Once you've instantiated your event source, you can begin listening for messages:
+     */
+    evtSource.onmessage = function(e) {
+        var newElement = document.createElement("li");
+
+        newElement.innerHTML = "message: " + e.data;
+        eventList.appendChild(newElement);
+    }
+
+    evtSource.onerror = function(e) {
+        console.error(e);
+    };
+
+</script>
+</body>
+</html>
