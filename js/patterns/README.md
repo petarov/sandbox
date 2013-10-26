@@ -1,1 +1,3 @@
-Javascript Design Patterns
+## Javascript Design Patterns
+
+Impl. & Tests of standard js patterns
