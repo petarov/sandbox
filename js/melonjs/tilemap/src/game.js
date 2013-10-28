@@ -1,16 +1,19 @@
 /* game namespace */
 var game = {
     // Run on page load.
-    "onload" : function () {
+    onload: function () {
         // Initialize the video.
-        if (!me.video.init("screen", _Globals.screenWidth, _Globals.screenHeight, false, 
-            me.device.isMobile ? 'auto' : null)) {
+        if (!me.video.init("screen", _Globals.screenWidth, _Globals.screenHeight, true, 
+            me.device.isMobile ? 2.0 : null)) {
             
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
+
+        me.sys.preRender = true;
+        me.sys.gravity = 0;
          
-        // // add "#debug" to the URL to enable the debug Panel
+        // add "#debug" to the URL to enable the debug Panel
         // if (document.location.hash === "#debug") {
         //     window.onReady(function () {
         //         me.plugin.register.defer(debugPanel, "debug");
@@ -30,14 +33,22 @@ var game = {
         me.state.change(me.state.LOADING);
     },
  
- 
- 
     // Run on game resources loaded.
-    "loaded" : function () {
+    loaded: function () {
         //me.state.set(me.state.MENU, new game.TitleScreen());
         me.state.set(me.state.PLAY, new game.PlayScreen());
- 
-        // Start the game.
-        me.state.change(me.state.PLAY);
+     
+        // add our player entity in the entity pool
+        me.entityPool.add("mainPlayer", game.PlayerEntity);
+                 
+        // enable the keyboard
+        me.input.bindKey(me.input.KEY.LEFT,  "left");
+        me.input.bindKey(me.input.KEY.RIGHT, "right");
+        me.input.bindKey(me.input.KEY.UP,  "up");
+        me.input.bindKey(me.input.KEY.DOWN, "down");        
+        me.input.bindKey(me.input.KEY.X,     "jump", true);
+          
+        // start the game 
+        me.state.change(me.state.PLAY);        
     }
 };
