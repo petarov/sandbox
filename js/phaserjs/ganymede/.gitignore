@@ -1,0 +1,6 @@
+# ignored
+
+assets/*.jpg
+assets/*.gif
+
+*.sublime-*
