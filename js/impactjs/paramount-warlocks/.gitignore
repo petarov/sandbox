@@ -1,0 +1,11 @@
+# Eclipse
+.settings/*
+
+# ijs
+client/weltmeister.html
+client/lib/impact/*
+client/lib/weltmeister/*
+client/tools/*
+
+# server
+server/lib/node_modules/*
