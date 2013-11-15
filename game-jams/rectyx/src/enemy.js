@@ -1,3 +1,9 @@
+/**
+ * enemy.js
+ *
+ * https://github.com/petarov/sandbox/tree/master/game-jams/rectyx
+ */
+
 Crafty.c('Enemy', {
     Enemy: function(playerEntity) {
         //setup animations 96x256
