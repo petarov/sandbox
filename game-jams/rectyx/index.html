@@ -39,21 +39,15 @@
     </div>
     <div id="loading">Loading ...</div>
     <div id="fps" style="position: absolute; float: left; color: white;"></div>    
-    <script>
-    var _Globals = {
-        render: "Canvas",
-        ScreenWidth: 627,
-        ScreenHeight: 418,
-        zbase: 1
-    };  
-    </script>
     <!-- libraries -->
     <script src="vendor/jquery.min.js"></script>
     <script src="vendor/crafty.js"></script>
     <!-- game -->
-    <script type="text/javascript" src="src/launcher.js"></script>
-    <script type="text/javascript" src="src/game.js"></script>
-    <script type="text/javascript" src="src/enemy.js"></script>
+    <script src="src/globals.js"></script>
+    <script src="src/launcher.js"></script>
+    <script src="src/game.js"></script>
+    <script src="src/enemy.js"></script>
+    <script src="src/player.js"></script>
     <script>window.addEventListener('load', launcher.init);</script>    
 </body>
 </html>

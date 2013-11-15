@@ -4,6 +4,41 @@
  * https://github.com/petarov/sandbox/tree/master/game-jams/rectyx
  */
 
+Crafty.c('Qube', {
+    Qube: function() {
+        return this;
+    },
+    init: function() {
+    	this.requires('Collision');
+    },
+    checkCollision: function() {
+        this.x += this.xspeed;
+        this.y += this.yspeed;
+
+        if (this.x < 0) {
+            this.xspeed = -this.xspeed;
+        } else if (this.x + this.w > _Globals.ScreenWidth) {
+            this.xspeed = -this.xspeed;
+        }
+        if (this.y - 1 < 0) {
+            this.yspeed = -this.yspeed;
+        } else if (this.y + this.h > _Globals.ScreenHeight) {
+            this.yspeed = -this.yspeed;
+        }
+
+        var hits = this.hit('Qube');
+        if (hits) {
+            var e = hits[0].obj;
+            var tmpx = this.xspeed;
+            var tmpy = this.yspeed;
+            this.xspeed = e.xspeed;
+            this.yspeed = e.yspeed;
+            e.xspeed = tmpx;
+            e.yspeed = tmpy;
+        }    	
+    }
+});
+
 Crafty.scene("game", function() {
 
 	var render = _Globals.render;
@@ -14,7 +49,8 @@ Crafty.scene("game", function() {
         $('#fps').text('FPS: ' + fps.value);
     });
 
- 
+
+	player.create(); 
 
     enemy.add(enemy.positions.topLeft);
     enemy.add(enemy.positions.topRight, {x: 2.5, y: 2.5});
