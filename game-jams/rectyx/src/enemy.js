@@ -27,3 +27,14 @@ Crafty.c('Enemy', {
         return this;
     }
 });
+
+var enemy = {
+
+    add: function() {
+
+    },
+
+    removeAll: function() {
+
+    }
+};

@@ -34,12 +34,12 @@ Crafty.scene("game", function() {
         this.moving = true;
         if (this.x < 0) {
             this.x = from.x;
-        } else if (this.x + 75 > _Globals.ScreenWidth) {
+        } else if (this.x + this.w > _Globals.ScreenWidth) {
             this.x = from.x;
         }
-        if (this.y -5 < 0) {
+        if (this.y - 1 < 0) {
             this.y = from.y;
-        } else if (this.y + 45 > _Globals.ScreenHeight) {
+        } else if (this.y + this.h > _Globals.ScreenHeight) {
             this.y = from.y;
         }
     })
