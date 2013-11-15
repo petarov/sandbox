@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Game Jolt Contest 10 - Rectyx</title>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    body, html { 
+        /*overflow:hidden; */
+        background: #000;
+        font-family: Tahoma, Sans-serif, Helvetica;
+    } 
+    #cr-stage { 
+        margin: 0 auto; 
+        position: relative;
+        width: 627px;
+        height: 418px;
+        border: solid 1px white;
+        cursor: crosshair;
+    }       
+    #loading {
+        color: white;
+    }
+    </style>
+</head>
+<body>
+<!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <h1 style="color: white; margin: 0 auto; text-align: center;">Rectyx - Rectangle party</h1>
+    <div id="cr-stage"></div>
+    <div id="instructions" style="color: white; margin: 0 auto; text-align: center;">
+        <p>Use <b>WASD</b> to move and mouse to shoot</p>
+        <p>HP: <span id="hp"></span></p>
+        <p>Kills: <span id="kills"></span></p>
+    </div>
+    <div id="loading">Loading ...</div>
+    <div id="fps" style="position: absolute; float: left; color: white;"></div>    
+    <script>
+    var _Globals = {
+        render: "Canvas",
+        ScreenWidth: 627,
+        ScreenHeight: 418
+    };  
+    </script>
+    <!-- libraries -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="vendor/crafty.js"></script>
+    
+    <!-- game -->
+    <script type="text/javascript" src="src/craftyMFace.js"></script>
+    <script type="text/javascript" src="src/launcher.js"></script>
+    <script type="text/javascript" src="src/game.js"></script>
+    <script type="text/javascript" src="src/enemy.js"></script>
+    <script>window.addEventListener('load', launcher.init);</script>    
+</body>
+</html>
