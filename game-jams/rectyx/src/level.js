@@ -11,16 +11,21 @@ var level = {
     init: function() {
         this.current = 0;
         this.exit = null;
+        this.eMinSpeed = _Globals.enemyMinSpeed;
+        this.eMaxSpeed = _Globals.enemyMaxSpeed;
     },
 
     nextLevel: function() {
-
+        // remove exit
         if (this.exit) {
             this.exit.destroy();
             this.exit = null;
         }
 
+        // increment level props
         this.current += 1;
+        // this.eMinSpeed += _Globals.enemyIncSpeed;
+        // this.eMaxSpeed += _Globals.enemyIncSpeed;
 
         var size = 20;
         var pos = {
@@ -47,13 +52,41 @@ var level = {
             }
         });
 
-        //
-        //
         player.create();
 
-        enemy.add(enemy.positions.topLeft);
-        enemy.add(enemy.positions.topRight, {x: 2.5, y: 2.5});
-        enemy.add(enemy.positions.bottomRight, {x: 1.5, y: 2.5});
+        switch(this.current) {
+            case 1:
+                enemy.add(enemy.positions.topLeft, this.getRandomSpeed());
+                enemy.add(enemy.positions.bottomRight, this.getRandomSpeed());
+            break;
+            case 2:
+                enemy.add(enemy.positions.topLeft, this.getRandomSpeed());
+                enemy.add(enemy.positions.topRight, this.getRandomSpeed());
+                enemy.add(enemy.positions.bottomRight, this.getRandomSpeed());
+            break;
+            default:
+                this.eMinSpeed += _Globals.enemyIncSpeed;
+                this.eMaxSpeed += _Globals.enemyIncSpeed;            
+                enemy.add(enemy.positions.topLeft, this.getRandomSpeed());
+                enemy.add(enemy.positions.topRight, this.getRandomSpeed());
+                enemy.add(enemy.positions.bottomRight, this.getRandomSpeed());            
+                enemy.add(enemy.positions.bottomLeft, this.getRandomSpeed());
+            break;
+        }
+    },
+
+    getRandomSpeed: function() {
+        var vec = {
+            x: Math.random() * (this.eMaxSpeed - this.eMinSpeed) + this.eMinSpeed,
+            y: Math.random() * (this.eMaxSpeed - this.eMinSpeed) + this.eMinSpeed
+        };
+        if (Math.random() * 10 > 5) {
+            vec.x = -vec.x;
+        }
+        if (Math.random() * 10 > 5) {
+            vec.y = -vec.y;
+        }         
+        return vec;      
     },
 
     getLevel: function() {

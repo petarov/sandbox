@@ -177,9 +177,9 @@ var enemy = {
             break;
         }
 
-        if (typeof vSpeed === 'undefined') {
-            vSpeed = {x: 0.5, y: 0.5};
-        }
+        // if (typeof vSpeed === 'undefined') {
+        //     vSpeed = {x: 0.5, y: 0.5};
+        // }
 
         var entity = Crafty.e("2D, " + _Globals.render + ", Qube, enemy, Color, Tint")
         .attr({

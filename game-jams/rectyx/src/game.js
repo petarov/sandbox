@@ -5,23 +5,20 @@
  */
 
 Crafty.scene("game", function() {
-
-    var render = _Globals.render;
-
-    level.init();
-    player.init();
-    enemy.init();
     
     // show FPS
-    Crafty.e("2D, " + render + ", FPS").attr({maxValues:10})
-    .bind("MessureFPS", function(fps) {
-        $('#fps').text('FPS: ' + fps.value);
-    });
+    if (_Globals.isDebug) {
+        Crafty.e("2D, " + _Globals.render + ", FPS").attr({maxValues:10})
+        .bind("MessureFPS", function(fps) {
+            $('#fps').text('FPS: ' + fps.value);
+        });
+    }
 
     Crafty.bind("nextLevel", function() {
         player.remove();
         enemy.removeAll();
         level.nextLevel();
+        $('#level').html(level.getLevel());
     });
     Crafty.trigger('nextLevel');
 });

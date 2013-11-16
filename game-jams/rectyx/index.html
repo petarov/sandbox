@@ -26,19 +26,27 @@
     #loading {
         color: white;
     }
+    p.level {
+        font-weight: bold;
+    }
+    span.exit {
+        color:red;
+        font-weight: bold;
+    }
     </style>
 </head>
 <body>
 <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
     <h1 style="color: white; margin: 0 auto; text-align: center;">Rectyx - Rectangle party</h1>
     <div id="cr-stage"></div>
+    <br>
     <div id="instructions" style="color: white; margin: 0 auto; text-align: center;">
-        <p>Use <b>WASD</b> or <b>Arrow keys</b> to move and mouse to shoot</p>
-        <p>HP: <span id="hp"></span></p>
-        <p>Kills: <span id="kills"></span></p>
+        <p class="level">Level <span id="level"></span></p>
+        <br>
+        <p>Find the <span class="exit">exit</span>. Use <b>WASD</b> or <b>arrow keys</b> to move</p>
+        <br>
+        <div id="fps"></div>
     </div>
-    <div id="loading">Loading ...</div>
-    <div id="fps" style="position: absolute; float: left; color: white;"></div>    
     <!-- libraries -->
     <script src="vendor/jquery.min.js"></script>
     <script src="vendor/crafty.js"></script>
