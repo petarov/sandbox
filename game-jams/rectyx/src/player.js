@@ -18,13 +18,13 @@ var player = {
             z: _Globals.zbase + 1,
             w: _Globals.qubeWidth, h: _Globals.qubeHeight,
             xspeed: 0,
-            yspeed: 0
+            yspeed: 0,
+            acc: 0.05
         })
         .origin('center')
         .color("#FA5656")
         .tint("#00aaa2", 0.3)
         .bind("Moved", function(from) {
-            this.moving = true;
             if (this.x < 0) {
                 this.x = from.x;
             } else if (this.x + this.w > _Globals.ScreenWidth) {
@@ -37,12 +37,45 @@ var player = {
             }
         })
         .bind("EnterFrame", function() {
+            var moving = this.move.up || this.move.down || this.move.left || this.move.right;
+            if (this.move.up) {
+                this.yspeed -= this.acc;
+            } 
+            if (this.move.down) {
+                this.yspeed += this.acc;
+            } 
+            if (this.move.left) {
+                this.xspeed -= this.acc;
+            } 
+            if (this.move.right) {
+                this.xspeed += this.acc;
+            }
+
             this.checkCollision();
-
         })
-        .multiway(2, {W: -90, S: 90, D: 0, A: 180});
+        .bind("KeyDown", function(e) {
+            if (e.keyCode === Crafty.keys.RIGHT_ARROW) {
+                this.move.right = true;
+            } else if(e.keyCode === Crafty.keys.LEFT_ARROW) {
+                this.move.left = true;
+            } else if(e.keyCode === Crafty.keys.UP_ARROW) {
+                this.move.up = true;            
+            } else if(e.keyCode === Crafty.keys.DOWN_ARROW) { 
+                this.move.down = true;
+            }
+        })
+        .bind("KeyUp", function(e) {
+            if (e.keyCode === Crafty.keys.RIGHT_ARROW) {
+                this.move.right = false;
+            } else if(e.keyCode === Crafty.keys.LEFT_ARROW) {
+                this.move.left = false;
+            } else if(e.keyCode === Crafty.keys.UP_ARROW) {
+                this.move.up = false;            
+            } else if(e.keyCode === Crafty.keys.DOWN_ARROW) { 
+                this.move.down = false;
+            }
+        });
 
-        this.entity = player;
     },
 
     remove: function() {

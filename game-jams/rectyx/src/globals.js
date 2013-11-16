@@ -9,6 +9,6 @@ var _Globals = {
     ScreenWidth: 627,
     ScreenHeight: 418,
     zbase: 1,
-    qubeWidth: 50,
-    qubeHeight: 50,
+    qubeWidth: 35,
+    qubeHeight: 35,
 }; 
