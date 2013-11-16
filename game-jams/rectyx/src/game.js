@@ -11,19 +11,23 @@ Crafty.c('Qube', {
     init: function() {
     	this.requires('Collision');
     },
-    checkCollision: function() {
+    doPhysics: function() {
         this.x += this.xspeed;
         this.y += this.yspeed;
 
         if (this.x < 0) {
             this.xspeed = -this.xspeed;
+            this.x = 1;
         } else if (this.x + this.w > _Globals.ScreenWidth) {
             this.xspeed = -this.xspeed;
+            this.x = _Globals.ScreenWidth - this.w;
         }
         if (this.y - 1 < 0) {
             this.yspeed = -this.yspeed;
+            this.y = 1;
         } else if (this.y + this.h > _Globals.ScreenHeight) {
             this.yspeed = -this.yspeed;
+            this.y = _Globals.ScreenHeight - this.h;
         }
 
         var hits = this.hit('Qube');

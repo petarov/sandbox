@@ -49,7 +49,7 @@ var enemy = {
         .origin('center')
         .color("#00aaa2")
         .bind("EnterFrame", function() {
-            this.checkCollision();
+            this.doPhysics();
 
         });
 

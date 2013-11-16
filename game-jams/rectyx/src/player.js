@@ -51,7 +51,7 @@ var player = {
                 this.xspeed += this.acc;
             }
 
-            this.checkCollision();
+            this.doPhysics();
         })
         .bind("KeyDown", function(e) {
             if (e.keyCode === Crafty.keys.RIGHT_ARROW) {
