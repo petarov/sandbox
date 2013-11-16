@@ -11,4 +11,5 @@ var _Globals = {
     zbase: 1,
     qubeWidth: 35,
     qubeHeight: 35,
+    playerAcc: 0.05
 }; 

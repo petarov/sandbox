@@ -4,51 +4,13 @@
  * https://github.com/petarov/sandbox/tree/master/game-jams/rectyx
  */
 
-Crafty.c('Qube', {
-    Qube: function() {
-        return this;
-    },
-    init: function() {
-    	this.requires('Collision');
-    },
-    doPhysics: function() {
-        this.x += this.xspeed;
-        this.y += this.yspeed;
-
-        if (this.x + this.w < 0) {
-            //this.xspeed = -this.xspeed;
-            this.x = _Globals.ScreenWidth;
-        } else if (this.x > _Globals.ScreenWidth) {
-            // this.xspeed = -this.xspeed;
-            // this.x = _Globals.ScreenWidth - this.w;
-            this.x = -this.w;
-        }
-        if (this.y + this.h < 0) {
-            // this.yspeed = -this.yspeed;
-            // this.y = 1;
-            this.y = _Globals.ScreenHeight;
-        } else if (this.y > _Globals.ScreenHeight) {
-            // this.yspeed = -this.yspeed;
-            // this.y = _Globals.ScreenHeight - this.h;
-            this.y = -this.h;
-        }
-
-        var hits = this.hit('Qube');
-        if (hits) {
-            var e = hits[0].obj;
-            var tmpx = this.xspeed;
-            var tmpy = this.yspeed;
-            this.xspeed = e.xspeed;
-            this.yspeed = e.yspeed;
-            e.xspeed = tmpx;
-            e.yspeed = tmpy;
-        }    	
-    }
-});
-
 Crafty.scene("game", function() {
 
-	var render = _Globals.render;
+    var render = _Globals.render;
+
+    level.init();
+    player.init();
+    enemy.init();
     
     // show FPS
     Crafty.e("2D, " + render + ", FPS").attr({maxValues:10})
@@ -56,11 +18,10 @@ Crafty.scene("game", function() {
         $('#fps').text('FPS: ' + fps.value);
     });
 
-
-	player.create(); 
-
-    enemy.add(enemy.positions.topLeft);
-    enemy.add(enemy.positions.topRight, {x: 2.5, y: 2.5});
-    enemy.add(enemy.positions.bottomRight, {x: 1.5, y: 2.5});
-
+    Crafty.bind("nextLevel", function() {
+        player.remove();
+        enemy.removeAll();
+        level.nextLevel();
+    });
+    Crafty.trigger('nextLevel');
 });
