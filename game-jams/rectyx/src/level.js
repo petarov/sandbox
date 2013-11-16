@@ -40,10 +40,17 @@ var level = {
             y: pos.y, 
             z: _Globals.zbase + 1,
             w: size, h: size,
+            alpha: 0.0
         })
         .origin('center')
         .color("#EE1111")
         .bind("EnterFrame", function() {
+
+            // dim if distance from player is too much
+            if (_Globals.dim) {
+                var player = Crafty("player");
+                this.alpha = _Globals.interpAlpha(player.x, player.y, this.x, this.y, _Globals.dimRadiusExit);
+            }            
 
             var hits = this.hit('player');
             if (hits) {

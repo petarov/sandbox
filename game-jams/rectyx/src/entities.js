@@ -42,7 +42,12 @@ Crafty.c('Qube', {
             this.yspeed = e.yspeed;
             e.xspeed = tmpx;
             e.yspeed = tmpy;
-        }       
+        }
+
+        // dim if distance from player is too much
+        if (_Globals.dim) {
+            this.alpha = _Globals.interpAlpha(player.getX(), player.getY(), this.x, this.y);
+        }
     }
 });
 /**
@@ -98,6 +103,9 @@ var player = {
             if (this.move.right) {
                 this.xspeed += this.acc;
             }
+
+            this.xspeed = Math.min(this.xspeed, _Globals.playerMaxSpeed);
+            this.yspeed = Math.min(this.yspeed, _Globals.playerMaxSpeed);
 
             this.doPhysics();
         })
