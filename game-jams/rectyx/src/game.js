@@ -15,19 +15,22 @@ Crafty.c('Qube', {
         this.x += this.xspeed;
         this.y += this.yspeed;
 
-        if (this.x < 0) {
-            this.xspeed = -this.xspeed;
-            this.x = 1;
-        } else if (this.x + this.w > _Globals.ScreenWidth) {
-            this.xspeed = -this.xspeed;
-            this.x = _Globals.ScreenWidth - this.w;
+        if (this.x + this.w < 0) {
+            //this.xspeed = -this.xspeed;
+            this.x = _Globals.ScreenWidth;
+        } else if (this.x > _Globals.ScreenWidth) {
+            // this.xspeed = -this.xspeed;
+            // this.x = _Globals.ScreenWidth - this.w;
+            this.x = -this.w;
         }
-        if (this.y - 1 < 0) {
-            this.yspeed = -this.yspeed;
-            this.y = 1;
-        } else if (this.y + this.h > _Globals.ScreenHeight) {
-            this.yspeed = -this.yspeed;
-            this.y = _Globals.ScreenHeight - this.h;
+        if (this.y + this.h < 0) {
+            // this.yspeed = -this.yspeed;
+            // this.y = 1;
+            this.y = _Globals.ScreenHeight;
+        } else if (this.y > _Globals.ScreenHeight) {
+            // this.yspeed = -this.yspeed;
+            // this.y = _Globals.ScreenHeight - this.h;
+            this.y = -this.h;
         }
 
         var hits = this.hit('Qube');
