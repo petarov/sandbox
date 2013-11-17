@@ -5,12 +5,12 @@ HTML5/Javascript web browser game. Entry for [Game Jolt Contest 10](http://gamej
 
 ![alt text](http://i.imgur.com/wtmwUzP.png "Lights Off Party - Game Jolt Contest 10")
 
-Play it [here](http://vexelon.net/~necroleak/0hgame/).
-
 # How to play
-Find the exit (red square) of the room.
+Find the exit (red square) out of the room.
 
   * **WASD** or **Arrow keys** - Move player
+
+Play it [here](http://lightsoffparty.herokuapp.com/).
 
 # Open Source Libraries
 The following javascript libraries were used:
