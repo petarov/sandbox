@@ -22,16 +22,27 @@ var level = {
             this.exit = null;
         }
 
+        player.create();
+
         // increment level props
         this.current += 1;
         // this.eMinSpeed += _Globals.enemyIncSpeed;
         // this.eMaxSpeed += _Globals.enemyIncSpeed;
 
         var size = 20;
-        var pos = {
-            x: Math.random() * (_Globals.ScreenWidth - size) + 5,
-            y: Math.random() * (_Globals.ScreenHeight - size) + 5
-        };
+        var pos = {};
+        var ok = false;
+        var i = 0;
+
+        do {
+            pos.x = Math.random() * (_Globals.ScreenWidth - size) + 5;
+            pos.y = Math.random() * (_Globals.ScreenHeight - size) + 5;
+            ok = !(_Globals.getDistance(pos.x, pos.y, player.getX(), player.getY()) < _Globals.dimRadiusExit);
+            if (++i > 15) {
+                console.debug("spawning exit anyway");
+                ok = true;
+            }
+        } while(!ok);
 
         this.exit = Crafty.e("2D, " + _Globals.render + ", goal, Color, Tint, Collision")
         .attr({
@@ -40,7 +51,7 @@ var level = {
             y: pos.y, 
             z: _Globals.zbase + 1,
             w: size, h: size,
-            alpha: 0.0
+            alpha: _Globals.dim ? 0.0 : 1.0
         })
         .origin('center')
         .color("#EE1111")
@@ -58,8 +69,6 @@ var level = {
                 Crafty.trigger('nextLevel');
             }
         });
-
-        player.create();
 
         switch(this.current) {
             case 1:
