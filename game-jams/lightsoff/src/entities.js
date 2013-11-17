@@ -62,17 +62,27 @@ Crafty.c('Qube', {
         }
 
         if (warped) {
-            var hitsb = this.hit('Qube');
-            if (hitsb) {
-                var plr = hitsb[0].obj;
-                if (this.x < plr.x) {
-                    this.x = plr.x - this.w - 2;
-                    this.y = plr.y - this.h - 2;
+            var collide = false;
+            var i = 0;
+            do {
+                if (++i > 15)
+                    break; // prevent deadlock
+
+                var hitsb = this.hit('Qube');
+                if (hitsb) {
+                    var e = hitsb[0].obj;
+                    if (this.x < e.x) {
+                        this.x = e.x - this.w - 2;
+                        this.y = e.y - this.h - 2;
+                    } else {
+                        this.x = e.x + e.w + 2;
+                        this.y = e.y + e.h + 2;
+                    }
+                    collide = true;
                 } else {
-                    this.x = plr.x + plr.w + 2;
-                    this.y = plr.y + plr.h + 2;
+                    collide = false;
                 }
-            }
+            } while(collide);
         }
 
         // dim if distance from player is too much

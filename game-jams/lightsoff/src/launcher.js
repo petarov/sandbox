@@ -50,7 +50,7 @@ var launcher = {
                 level.init();
                 player.init();
                 enemy.init();
-                Crafty.audio.play('music', -1);
+                _Globals.isMusic && Crafty.audio.play('music', -1);
                 Crafty.scene('game');
             },
             function(e) {
