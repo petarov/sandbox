@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Game Jolt Contest 10 - Rectyx Party</title>
+    <title>Game Jolt Contest 10 - Lights off pary</title>
     <style type="text/css">
     * {
         margin: 0px;
@@ -15,6 +15,9 @@
         background: #000;
         font-family: Tahoma, Sans-serif, Helvetica;
     } 
+    h1 {
+        text-shadow: 1px 1px 1px #ccc;
+    }
     #cr-stage { 
         margin: 0 auto; 
         position: relative;
@@ -27,17 +30,20 @@
         color: white;
     }
     p.level {
-        font-weight: bold;
+        text-shadow: 1px 1px 1px #ccc;
     }
     span.exit {
         color:red;
         font-weight: bold;
     }
+    a {
+        color: #ccc;
+    }
     </style>
 </head>
 <body>
 <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-    <h1 style="color: white; margin: 0 auto; text-align: center;">Rectyx - Rectangle party</h1>
+    <h1 style="color: white; margin: 0 auto; text-align: center;">Lights Off Party</h1>
     <div id="cr-stage"></div>
     <br>
     <div id="instructions" style="color: white; margin: 0 auto; text-align: center;">
@@ -46,6 +52,7 @@
         <p>Find the <span class="exit">exit</span>. Use <b>WASD</b> or <b>arrow keys</b> to move</p>
         <br>
         <div id="fps"></div>
+        <p>by <a href="https://github.com/petarov/sandbox/tree/master/game-jams/rectyx">petarov</a></p>
     </div>
     <!-- libraries -->
     <script src="vendor/jquery.min.js"></script>

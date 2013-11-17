@@ -19,7 +19,7 @@ var _Globals = {
     dim: true,
     dimRadiusExit: 90,
     // DBG
-    isDebug: true,
+    isDebug: false,
     debug: function() {
     	if (this.isDebug)
     		console.log(arguments);

@@ -110,24 +110,24 @@ var player = {
             this.doPhysics();
         })
         .bind("KeyDown", function(e) {
-            if (e.keyCode === Crafty.keys.RIGHT_ARROW) {
+            if (e.keyCode === Crafty.keys.RIGHT_ARROW || e.keyCode === Crafty.keys.D) {
                 this.move.right = true;
-            } else if(e.keyCode === Crafty.keys.LEFT_ARROW) {
+            } else if(e.keyCode === Crafty.keys.LEFT_ARROW || e.keyCode === Crafty.keys.A) {
                 this.move.left = true;
-            } else if(e.keyCode === Crafty.keys.UP_ARROW) {
+            } else if(e.keyCode === Crafty.keys.UP_ARROW || e.keyCode === Crafty.keys.W) {
                 this.move.up = true;            
-            } else if(e.keyCode === Crafty.keys.DOWN_ARROW) { 
+            } else if(e.keyCode === Crafty.keys.DOWN_ARROW || e.keyCode === Crafty.keys.S) { 
                 this.move.down = true;
             }
         })
         .bind("KeyUp", function(e) {
-            if (e.keyCode === Crafty.keys.RIGHT_ARROW) {
+            if (e.keyCode === Crafty.keys.RIGHT_ARROW || e.keyCode === Crafty.keys.D) {
                 this.move.right = false;
-            } else if(e.keyCode === Crafty.keys.LEFT_ARROW) {
+            } else if(e.keyCode === Crafty.keys.LEFT_ARROW || e.keyCode === Crafty.keys.A) {
                 this.move.left = false;
-            } else if(e.keyCode === Crafty.keys.UP_ARROW) {
+            } else if(e.keyCode === Crafty.keys.UP_ARROW || e.keyCode === Crafty.keys.W) {
                 this.move.up = false;            
-            } else if(e.keyCode === Crafty.keys.DOWN_ARROW) { 
+            } else if(e.keyCode === Crafty.keys.DOWN_ARROW || e.keyCode === Crafty.keys.S) { 
                 this.move.down = false;
             }
         });
