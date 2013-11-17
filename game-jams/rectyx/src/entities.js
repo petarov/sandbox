@@ -158,7 +158,8 @@ var enemy = {
         topLeft: 'topleft',
         topRight: 'topRight',
         bottomLeft: 'bottomLeft',
-        bottomRight: 'bottomRight'
+        bottomRight: 'bottomRight',
+        Random: 'random'
     },
 
     enemies: null,
@@ -183,6 +184,18 @@ var enemy = {
             case this.positions.bottomRight:
                 vPos.x = _Globals.ScreenWidth - 55; vPos.y = _Globals.ScreenHeight - 50 - 5;
             break;
+        }
+        if (where == this.positions.Random) {
+            var i = 0;
+            do {
+                vPos.x = Math.random() * (_Globals.ScreenWidth);
+                vPos.y = Math.random() * (_Globals.ScreenHeight);
+                ok = !(_Globals.getDistance(vPos.x, vPos.y, player.getX(), player.getY()) < _Globals.dimRadiusExit);
+                if (++i > 15) {
+                    console.debug("spawning enemy anyway");
+                    ok = true;
+                }
+            } while(!ok);            
         }
 
         // if (typeof vSpeed === 'undefined') {
@@ -212,5 +225,6 @@ var enemy = {
         for (var i = this.enemies.length - 1; i >= 0; i--) {
             this.enemies[i].destroy();
         }
+        this.enemies.length = 0;
     }
 };

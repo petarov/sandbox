@@ -7,9 +7,11 @@
 var level = {
 
     current: 0,
+    extraEnemies: 0,
 
     init: function() {
         this.current = 0;
+        this.extraEnemies = -2;
         this.exit = null;
         this.eMinSpeed = _Globals.enemyMinSpeed;
         this.eMaxSpeed = _Globals.enemyMaxSpeed;
@@ -26,6 +28,7 @@ var level = {
 
         // increment level props
         this.current += 1;
+        this.extraEnemies += 1;
         // this.eMinSpeed += _Globals.enemyIncSpeed;
         // this.eMaxSpeed += _Globals.enemyIncSpeed;
 
@@ -87,6 +90,9 @@ var level = {
                 enemy.add(enemy.positions.topRight, this.getRandomSpeed());
                 enemy.add(enemy.positions.bottomRight, this.getRandomSpeed());            
                 enemy.add(enemy.positions.bottomLeft, this.getRandomSpeed());
+                for (var i = this.extraEnemies - 1; i >= 0; i--) {
+                    enemy.add(enemy.positions.Random, this.getRandomSpeed());
+                }
             break;
         }
     },
