@@ -14,6 +14,22 @@ Crafty.scene("game", function() {
         });
     }
 
+    Crafty.e("Keyboard").bind('KeyDown', function() {
+        if (this.isDown('M')) {
+            _Globals.isMusic = !_Globals.isMusic;
+            $('#music').html(_Globals.isMusic ? 'On' : 'Off');
+            if (!_Globals.isMusic) {
+                Crafty.audio.stop('music');
+            } else {
+                Crafty.audio.play('music', -1);
+            }
+        }
+        if (this.isDown('N')) {
+            _Globals.isAudio = !_Globals.isAudio;
+            $('#sound').html(_Globals.isAudio ? 'On' : 'Off');
+        }        
+    });
+
     Crafty.bind("nextLevel", function() {
         player.remove();
         enemy.removeAll();

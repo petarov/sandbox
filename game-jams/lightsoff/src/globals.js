@@ -19,6 +19,7 @@ var _Globals = {
     dim: true,
     dimRadiusExit: 90,
     isAudio: true,
+    isMusic: true,
     // DBG
     isDebug: false,
     debug: function() {

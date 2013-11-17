@@ -68,7 +68,11 @@ var level = {
 
             var hits = this.hit('player');
             if (hits) {
-                var player = hits[0].obj;
+                // var player = hits[0].obj;
+                // play sound
+                if (_Globals.isAudio) {
+                    Crafty.audio.play('exit');
+                }
                 Crafty.trigger('nextLevel');
             }
         });

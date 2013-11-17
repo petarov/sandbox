@@ -13,10 +13,15 @@
     body, html { 
         /*overflow:hidden; */
         background: #000;
-        font-family: Tahoma, Sans-serif, Helvetica;
+        font-family: Helvetica, Tahoma, Sans-serif;
+        font-size: 11pt;
     } 
     h1 {
+        color: white;
         text-shadow: 1px 1px 1px #ccc;
+    }
+    .center {
+        margin: 0 auto; text-align: center;
     }
     #cr-stage { 
         margin: 0 auto; 
@@ -31,6 +36,7 @@
     }
     p.level {
         text-shadow: 1px 1px 1px #ccc;
+        font-size: 14pt;
     }
     span.exit {
         color:red;
@@ -43,16 +49,17 @@
 </head>
 <body>
 <!--[if lt IE 8]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-    <h1 style="color: white; margin: 0 auto; text-align: center;">Lights Off Party</h1>
+    <h1 class="center">Lights Off Party</h1>
+    <p class="center" id="loading"><span id="ld">0</span>% loaded</p>
     <div id="cr-stage"></div>
     <br>
     <div id="instructions" style="color: white; margin: 0 auto; text-align: center;">
         <p class="level">Level <span id="level"></span></p>
         <br>
-        <p>Find the <span class="exit">exit</span>. Use <b>WASD</b> or <b>arrow keys</b> to move</p>
+        <p>Find the <span class="exit">exit</span>. Use <b>WASD</b> or <b>arrow keys</b> to move.</p>
+        <p>[<b>M</b>] Music is <span id="music">On</span> [<b>N</b>] Sound is <span id="sound">On</span></p>
         <br>
         <div id="fps"></div>
-        <p>by <a href="https://github.com/petarov/sandbox/tree/master/game-jams/rectyx">petarov</a></p>
     </div>
     <!-- libraries -->
     <script src="vendor/jquery.min.js"></script>

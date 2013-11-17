@@ -17,24 +17,6 @@ Crafty.c('Qube', {
         this.x += this.xspeed;
         this.y += this.yspeed;
 
-        if (this.x + this.w < 0) {
-            //this.xspeed = -this.xspeed;
-            this.x = _Globals.ScreenWidth;
-        } else if (this.x > _Globals.ScreenWidth) {
-            // this.xspeed = -this.xspeed;
-            // this.x = _Globals.ScreenWidth - this.w;
-            this.x = -this.w;
-        }
-        if (this.y + this.h < 0) {
-            // this.yspeed = -this.yspeed;
-            // this.y = 1;
-            this.y = _Globals.ScreenHeight;
-        } else if (this.y > _Globals.ScreenHeight) {
-            // this.yspeed = -this.yspeed;
-            // this.y = _Globals.ScreenHeight - this.h;
-            this.y = -this.h;
-        }
-
         var hits = this.hit('Qube');
         if (hits) {
             var e = hits[0].obj;
@@ -45,12 +27,50 @@ Crafty.c('Qube', {
             e.xspeed = tmpx;
             e.yspeed = tmpy;
             isHit = true;
+            
             // play sound
-            if ((e.isPlayer || this.isPlayer) && _Globals.isAudio) {
-                if (Math.random() * 10 > 5) {
-                    Crafty.audio.play('hit1');    
-                } else {
+            if (_Globals.isAudio) {
+                if (this.isPlayer) {
+                    Crafty.audio.play('hit1');
+                } else if (e.isPlayer) {
                     Crafty.audio.play('hit2');
+                }
+            }
+        }
+
+        var warped = false;
+        if (this.x + this.w < 0) {
+            //this.xspeed = -this.xspeed;
+            this.x = _Globals.ScreenWidth;
+            warped = true;
+        } else if (this.x > _Globals.ScreenWidth) {
+            // this.xspeed = -this.xspeed;
+            // this.x = _Globals.ScreenWidth - this.w;
+            this.x = -this.w;
+            warped = true;
+        }
+        if (this.y + this.h < 0) {
+            // this.yspeed = -this.yspeed;
+            // this.y = 1;
+            this.y = _Globals.ScreenHeight;
+            warped = true;
+        } else if (this.y > _Globals.ScreenHeight) {
+            // this.yspeed = -this.yspeed;
+            // this.y = _Globals.ScreenHeight - this.h;
+            this.y = -this.h;
+            warped = true;
+        }
+
+        if (warped) {
+            var hitsb = this.hit('Qube');
+            if (hitsb) {
+                var plr = hitsb[0].obj;
+                if (this.x < plr.x) {
+                    this.x = plr.x - this.w - 2;
+                    this.y = plr.y - this.h - 2;
+                } else {
+                    this.x = plr.x + plr.w + 2;
+                    this.y = plr.y + plr.h + 2;
                 }
             }
         }

@@ -24,7 +24,9 @@ var launcher = {
                 'assets/jumpland.mp3',
                 'assets/jumpland.ogg',
                 'assets/sfx_push_boulder.mp3',
-                'assets/sfx_push_boulder.ogg'], 
+                'assets/sfx_push_boulder.ogg', 
+                'assets/buildy.mp3',
+                'assets/buildy.ogg'], 
             function() {
 
                 Crafty.audio.add({
@@ -37,18 +39,23 @@ var launcher = {
                     exit: [
                         'assets/sfx_push_boulder.mp3',
                         'assets/sfx_push_boulder.ogg'],
+                    music: [
+                        'assets/buildy.ogg',
+                        'assets/buildy.mp3'],                        
                 });
                 // all loaded, start game
-                console.log('wa');
+                $('#loading').hide();
 
                 // init game objects
                 level.init();
                 player.init();
-                enemy.init();                
+                enemy.init();
+                Crafty.audio.play('music', -1);
                 Crafty.scene('game');
             },
             function(e) {
                 // progress
+                $('#ld').html(Math.floor(e.percent));
             },
             function(e) {
                 // error
