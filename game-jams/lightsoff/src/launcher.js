@@ -16,7 +16,7 @@ var launcher = {
     load: function() {
         Crafty.scene('loading', function() {
             // see https://groups.google.com/forum/#!topic/craftyjs/h57GV5Lp0Sk
-            Crafty.audio._canPlay();
+            Crafty.audio.canPlay();
 
             Crafty.load([
                 'assets/BounceYoFrankie.mp3',
