@@ -1,7 +1,7 @@
 /**
  * entities.js
  *
- * https://github.com/petarov/sandbox/tree/master/game-jams/rectyx
+ * https://github.com/petarov/sandbox/tree/master/game-jams/lightsoff
  */
 
 Crafty.c('Qube', {
@@ -12,6 +12,8 @@ Crafty.c('Qube', {
         this.requires('Collision');
     },
     doPhysics: function() {
+        var isHit = false;
+
         this.x += this.xspeed;
         this.y += this.yspeed;
 
@@ -42,12 +44,23 @@ Crafty.c('Qube', {
             this.yspeed = e.yspeed;
             e.xspeed = tmpx;
             e.yspeed = tmpy;
+            isHit = true;
+            // play sound
+            if ((e.isPlayer || this.isPlayer) && _Globals.isAudio) {
+                if (Math.random() * 10 > 5) {
+                    Crafty.audio.play('hit1');    
+                } else {
+                    Crafty.audio.play('hit2');
+                }
+            }
         }
 
         // dim if distance from player is too much
         if (_Globals.dim) {
             this.alpha = _Globals.interpAlpha(player.getX(), player.getY(), this.x, this.y);
         }
+
+        return isHit;
     }
 });
 /**
@@ -72,7 +85,8 @@ var player = {
             w: _Globals.qubeWidth, h: _Globals.qubeHeight,
             xspeed: 0,
             yspeed: 0,
-            acc: _Globals.playerAcc
+            acc: _Globals.playerAcc,
+            isPlayer: true
         })
         .origin('center')
         .color("#FA5656")
@@ -209,7 +223,8 @@ var enemy = {
             z: _Globals.zbase + 1,
             w: _Globals.qubeWidth, h: _Globals.qubeHeight,
             xspeed: vSpeed.x,
-            yspeed: vSpeed.y
+            yspeed: vSpeed.y,
+            isPlayer: false
         })
         .origin('center')
         .color("#00aaa2")

@@ -1,7 +1,7 @@
 /**
  * level.js
  *
- * https://github.com/petarov/sandbox/tree/master/game-jams/rectyx
+ * https://github.com/petarov/sandbox/tree/master/game-jams/lightsoff
  */
 
 var level = {

@@ -1,7 +1,7 @@
 /**
  * globals.js
  *
- * https://github.com/petarov/sandbox/tree/master/game-jams/rectyx
+ * https://github.com/petarov/sandbox/tree/master/game-jams/lightsoff
  */
 
 var _Globals = {
@@ -18,6 +18,7 @@ var _Globals = {
     enemyIncSpeed: 0.025,
     dim: true,
     dimRadiusExit: 90,
+    isAudio: true,
     // DBG
     isDebug: false,
     debug: function() {

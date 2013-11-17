@@ -1,7 +1,7 @@
 /**
  * game.js
  *
- * https://github.com/petarov/sandbox/tree/master/game-jams/rectyx
+ * https://github.com/petarov/sandbox/tree/master/game-jams/lightsoff
  */
 
 Crafty.scene("game", function() {
