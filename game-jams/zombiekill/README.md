@@ -5,7 +5,7 @@ HTML5/Javascript web browser game. Entry for [0h Game Jam](http://0hgame.eu/) 20
 
 ![alt text](http://i.imgur.com/jQiMwpw.png "Zombie Kill - 0h Game Jam")
 
-Play it [here](http://vexelon.net/~necroleak/0hgame/).
+Play it [here](http://petarov.github.io/sandbox/game-jams/zombiekill).
 
 # How to play
 Just shoot at the zombies and try to survive.
