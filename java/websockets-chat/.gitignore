@@ -1,0 +1,4 @@
+# ignored resources
+
+target/*
+.settings/*
