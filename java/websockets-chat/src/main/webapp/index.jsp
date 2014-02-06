@@ -4,11 +4,13 @@
         <meta charset=UTF-8>
         <title>WebSocket Chat</title>
         <script>
+        	var MSG_JOIN = 100;
+        	var MSG_CHAT = 110;
             var ws;
 
             function openConn(callback) {
             	if (!ws) {
-            		ws = new WebSocket("ws://localhost:8083/ws");
+            		ws = new WebSocket("ws://localhost:8080/ws");
                     ws.onopen = function() {
                     	callback(true);
                     };
@@ -29,10 +31,23 @@
 //             		return;
 //             	}
             	openConn(function(justOpened) {
+            		var packet = {};
+            		
             		if (justOpened) {
-            			ws.send(document.getElementById("name").value + ' joined chat.');	
+            			// user joined packet
+            			packet.msg = document.getElementById("name").value + ' joined chat.'
+            			packet.who = document.getElementById("name").value;
+            			packet.type = MSG_JOIN;
+            			ws.send(JSON.stringify(packet));
             		}
-                    ws.send(document.getElementById("msg").value);
+            		// chat msg packet
+            		packet = {
+            			msg: document.getElementById("msg").value,
+            			who: document.getElementById("name").value,
+            			type: MSG_CHAT
+            		};
+                    ws.send(JSON.stringify(packet));
+                    
                     document.getElementById("msg").value = "";
             	});
             }

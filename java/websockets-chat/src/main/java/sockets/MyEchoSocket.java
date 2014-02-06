@@ -1,6 +1,5 @@
 package sockets;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,10 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
+
+import protocol.Packet;
+
+import com.google.gson.Gson;
 
 @WebSocket(maxTextMessageSize = 64 * 1024)
 public class MyEchoSocket {
@@ -35,9 +38,14 @@ public class MyEchoSocket {
 
 	@OnWebSocketMessage
 	public void onText(Session session, String message) {
+		Gson gson = new Gson();
+		Packet packet = gson.fromJson(message, Packet.class);
+		
+		System.out.println(packet.toString());
+		
 		for (Session s : sessionsList) {
 			if (s.isOpen()) {
-				s.getRemote().sendStringByFuture(message);
+				s.getRemote().sendStringByFuture(packet.toEchoMessage());
 			}
 		}
 	}
