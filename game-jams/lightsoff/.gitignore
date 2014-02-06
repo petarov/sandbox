@@ -1,3 +1,4 @@
 # ignored
 #vendor/crafty.js
 src/*.old.js
+*.zip

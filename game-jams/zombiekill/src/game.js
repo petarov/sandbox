@@ -7,7 +7,7 @@
 $(document).ready(function() {
     var render = _Globals.render;
     // Init Crafty Engine
-    Crafty.init(_Globals.ScreenWidth, _Globals.ScreenHeight, 60).canvas.init();
+    Crafty.init(_Globals.ScreenWidth, _Globals.ScreenHeight).canvas.init();
     Crafty.background('#000');
     // Load assets
     Crafty.scene("load", function() {
