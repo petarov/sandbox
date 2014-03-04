@@ -1,0 +1,6 @@
+# ignored
+
+out/*
+*.iws
+workspace.xml
+tasks.xml
