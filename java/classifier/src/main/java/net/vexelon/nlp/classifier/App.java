@@ -1,38 +1,36 @@
 package net.vexelon.nlp.classifier;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import opennlp.tools.doccat.DoccatModel;
-import opennlp.tools.doccat.DocumentCategorizerEvaluator;
 import opennlp.tools.doccat.DocumentCategorizerME;
-import opennlp.tools.util.StringUtil;
 
 /**
- * Hello world!
+ * Natural Language Processing Test App
  *
  */
 public class App 
 {
+	private final static Logger log = LoggerFactory.getLogger(App.class);
+	
     public static void main( String[] args )
     {
         App app = new App();
         try {
         	app.start();
         } catch (Exception e) {
-        	e.printStackTrace();
+        	log.error("Fatal Error", e);
         }
     }
     
@@ -49,7 +47,7 @@ public class App
     	List<DoccatModel> models = loadModels();
     	
     	for (String path : testFiles) {
-    		System.out.println("----- Reading file " + path);
+    		log.info("----- Testing: {} ------", path);
 			String contents = readFile(path);
 			categorize(contents, models);
 		}
@@ -58,7 +56,8 @@ public class App
     
     private String readFile(String filePath) throws IOException {
     	List<String> lines = Files.readAllLines(FileSystems.getDefault().getPath(filePath), Charset.forName("utf-8"));
-    	System.out.println("Read lines " + lines.size());
+    	log.trace("Lines Read: {}", lines.size());
+    	
     	String text = StringUtils.join(lines.toArray());
     	return text;
     }
@@ -69,7 +68,8 @@ public class App
     		DocumentCategorizerME categorizer = new DocumentCategorizerME(doccatModel);
     		double[] outcome = categorizer.categorize(text);
     		String category = categorizer.getBestCategory(outcome);
-    		System.out.println("CAT: " + category);
+    		
+    		log.info("Category found: {}", category);
 		}
     	
     }
@@ -86,6 +86,7 @@ public class App
     	try {
     		
     		for (String path : modelFiles) {
+    			log.info("Loading model: {}", path);
     			is = new FileInputStream(path);
     			DoccatModel model = new DoccatModel(is);
     			modelsList.add(model);
