@@ -77,18 +77,20 @@ public class App
     private List<DoccatModel> loadModels() throws IOException {
     	
     	List<DoccatModel> modelsList = new ArrayList<DoccatModel>();
-    	String[] modelFiles = {
-    			"data/en-comets.bin",
-    			"data/en-mars.bin"
-    	};
-    		
-		for (String path : modelFiles) {
-			log.info("Loading model: {}", path);
-			try (InputStream is = new FileInputStream(path)) {
-				DoccatModel model = new DoccatModel(is);
-				modelsList.add(model);
-			}
-		}
+    	
+    	// load all models from data/
+    	try (DirectoryStream<Path> ds = Files.newDirectoryStream(FileSystems.getDefault().getPath("data"))) {
+    		for (Path file : ds) {
+    			String ext = FilenameUtils.getExtension(file.getFileName().toString());
+    			if (ext.equals("bin")) {
+    				log.info("Loading model: {}", file);
+    				try (InputStream is = new FileInputStream(file.toFile())) {
+    					DoccatModel model = new DoccatModel(is);
+    					modelsList.add(model);
+    				}   	
+    			}
+    		}
+    	}
     	
     	return modelsList;
     }
