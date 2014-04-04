@@ -40,7 +40,7 @@ public class App
     			"data/test/Cosmic barometer could reveal violent events in universe's past.txt",
     			"data/test/Mars-mimicking chamber explores habitability of other planets.txt",
     			"data/test/NASA Mars Orbiter images may show 1971 Soviet lander.txt",
-    			//"data/test/Observatory.txt",
+    			"data/test/Observatory.txt",
     			"data/test/Space tool for lunar exploration.txt"
     	};
     	
@@ -69,7 +69,7 @@ public class App
     		double[] outcome = categorizer.categorize(text);
     		String category = categorizer.getBestCategory(outcome);
     		
-    		log.info("Category found: {}", category);
+    		log.info("Category/Results: {} / {}", category, categorizer.getNumberOfCategories());
 		}
     	
     }

@@ -1,7 +1,7 @@
 The biggest civil Earth-observation programme ever conceived begins its rollout on Thursday with the launch of a radar satellite from French Guiana.
 The EU's Sentinel-1a spacecraft will be followed into orbit by a fleet of other satellites in the coming years.
 Together, they will return an unprecedented volume of data on the state of the planet.
-European nations have so far committed 7.5bn euros (£6.2bn; $10.3bn) to the project, through to the decade's end.
+European nations have so far committed 7.5bn euros (6.2bn; $10.3bn) to the project, through to the decade's end.
 But the vision is that Copernicus, to give the venture its official title, is unending - that every Sentinel satellite is replaced at the demise of its mission, to ensure there is continuity of information deep into this century.
 "There is no Earth observation project as big as this," said Prof Anne Glover, the European Union's chief scientific adviser.
 "It will give European scientists and European citizens the ability to understand precisely what is happening on our planet - from the poles, to the oceans, to the land," she told BBC News.
