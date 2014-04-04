@@ -1,0 +1,102 @@
+package net.vexelon.nlp.classifier;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
+import opennlp.tools.doccat.DoccatModel;
+import opennlp.tools.doccat.DocumentCategorizerEvaluator;
+import opennlp.tools.doccat.DocumentCategorizerME;
+import opennlp.tools.util.StringUtil;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        App app = new App();
+        try {
+        	app.start();
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+    }
+    
+    public void start() throws Exception {
+    	
+    	String[] testFiles = {
+    			"data/test/Cosmic barometer could reveal violent events in universe's past.txt",
+    			"data/test/Mars-mimicking chamber explores habitability of other planets.txt",
+    			"data/test/NASA Mars Orbiter images may show 1971 Soviet lander.txt",
+    			//"data/test/Observatory.txt",
+    			"data/test/Space tool for lunar exploration.txt"
+    	};
+    	
+    	List<DoccatModel> models = loadModels();
+    	
+    	for (String path : testFiles) {
+    		System.out.println("----- Reading file " + path);
+			String contents = readFile(path);
+			categorize(contents, models);
+		}
+    	
+    }
+    
+    private String readFile(String filePath) throws IOException {
+    	List<String> lines = Files.readAllLines(FileSystems.getDefault().getPath(filePath), Charset.forName("utf-8"));
+    	System.out.println("Read lines " + lines.size());
+    	String text = StringUtils.join(lines.toArray());
+    	return text;
+    }
+    
+    private void categorize(String text, List<DoccatModel> models) {
+    	
+    	for (DoccatModel doccatModel : models) {
+    		DocumentCategorizerME categorizer = new DocumentCategorizerME(doccatModel);
+    		double[] outcome = categorizer.categorize(text);
+    		String category = categorizer.getBestCategory(outcome);
+    		System.out.println("CAT: " + category);
+		}
+    	
+    }
+    
+    private List<DoccatModel> loadModels() throws IOException {
+    	
+    	List<DoccatModel> modelsList = new ArrayList<DoccatModel>();
+    	String[] modelFiles = {
+    			"data/en-comets.bin",
+    			"data/en-mars.bin"
+    	};
+    	
+    	InputStream is = null;
+    	try {
+    		
+    		for (String path : modelFiles) {
+    			is = new FileInputStream(path);
+    			DoccatModel model = new DoccatModel(is);
+    			modelsList.add(model);
+			}
+    		
+    	} finally {
+    		if (is != null) {
+    			is.close();
+    		}
+    	}
+    	
+    	return modelsList;
+    }
+}

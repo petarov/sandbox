@@ -1,0 +1,21 @@
+Comets	The Philae lander, which Europe hopes to put on the surface of a comet later this year, has been re-activated after three years in deep-space hibernation.
+	The small probe is currently riding piggy-back on the Rosetta satellite. This was despatched 10 years ago to rendezvous with the Comet 67P/Churyumov-Gerasimenko, and was itself awoken in January.
+	"Mothership" and lander should arrive at the huge ice object in August.
+	After a period of mapping, Rosetta will then release Philae on its challenging bid to attach itself to 67P in November.
+	Being only 4km across, the comet's gravitational field will be very weak, and the 100kg box of instruments will use harpoons and ice screws to try to hold itself down.
+	The German space agency (DLR) confirmed receipt of the activation message from Philae just after 1500 Central European Time (1400 GMT).
+	Philae's wake-up is part of a sequence of commissioning activities taking place over the next few weeks.
+	The main probe was sent so far from Earth to chase down 67P that it went beyond the distance where solar panels could pick up enough energy to run all onboard systems.
+	Engineers therefore took the decision to close down operations on the satellite for a period of 31 months.
+	Now that Rosetta is moving closer to the Sun again, those systems - and, in particular, the various scientific instruments - are all being switched back on, one by one.
+	Most will be switched straight back off again after an initial health-check because power availability remains constrained in the short-term.
+	The key exception is Rosetta's imaging system, Osiris. It will stay on because it is needed to help plot the precise position of 67P on the sky.
+	This leads to the next big event in the mission - the major manoeuvre that will start to refine Rosetta's trajectory to the comet.
+	This will be initiated on 21 May with a seven-hour, 21-minute burn on the spacecraft's thrusters.
+	A further eight burns are then planned over the summer, with Rosetta set to go into orbit around 67P in the first week of August.
+	Earlier this week, the European Space Agency issued the first pictures of 67P acquired by Osiris since its recommissioning.
+	Rosetta is currently 655 million km from Earth and about 3.8 million km from 67P.
+Comets	Comet C/2013 A1 Siding Spring is plunging toward the Sun along a roughly 1-million-year orbit. The comet, discovered in 2013, was within the radius of Jupiter's orbit when the Hubble Space Telescope photographed it on March 11, 2014. Hubble resolves two jets of dust coming from the solid icy nucleus.
+	These persistent jets were first seen in Hubble pictures taken on Oct. 29, 2013. The feature should allow astronomers to measure the direction of the nucleus's pole, and hence, rotation axis. The comet will make its closest approach to our Sun on Oct. 25, 2014, at a distance of 130 million miles, well outside of Earth's orbit.
+	On its inbound leg, Comet Siding Spring will pass within 84,000 miles of Mars on Oct. 19, 2014, which is less than half the Moon's distance from Earth. The comet is not expected to become bright enough to be seen by the naked eye.
+	An earlier Hubble observation made on Jan. 21, 2014, caught the comet as Earth was crossing the comet's orbital plane. This special geometry allows astronomers to better determine the speed of the dust coming off the nucleus. "This is critical information that we need to determine how likely and how much the dust grains in the coma will impact Mars and Mars spacecraft," said Jian-Yang Li of the Planetary Science Institute in Tucson, Ariz.	

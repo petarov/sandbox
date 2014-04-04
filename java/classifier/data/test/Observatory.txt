@@ -1,0 +1,31 @@
+The biggest civil Earth-observation programme ever conceived begins its rollout on Thursday with the launch of a radar satellite from French Guiana.
+The EU's Sentinel-1a spacecraft will be followed into orbit by a fleet of other satellites in the coming years.
+Together, they will return an unprecedented volume of data on the state of the planet.
+European nations have so far committed 7.5bn euros (£6.2bn; $10.3bn) to the project, through to the decade's end.
+But the vision is that Copernicus, to give the venture its official title, is unending - that every Sentinel satellite is replaced at the demise of its mission, to ensure there is continuity of information deep into this century.
+"There is no Earth observation project as big as this," said Prof Anne Glover, the European Union's chief scientific adviser.
+"It will give European scientists and European citizens the ability to understand precisely what is happening on our planet - from the poles, to the oceans, to the land," she told BBC News.
+Sentinel-1a will be carried into space on a Soyuz rocket, launching from Sinnamary on the Guianese coast at 18:02 local time (21:02 GMT; 22:02 BST).
+The flight, to an altitude just above 690km, should take 23 minutes, putting the satellite on a path that sends it around the Earth via the poles.
+The Sentinel's Synthetic Aperture Radar (Sar) instrument and solar arrays were folded to fit inside the Soyuz, and unfurling them is the priority task once orbit is achieved.
+"That takes up the first 10 hours after separation," explained spacecraft operations manager Ian Shurmer.
+"It's a sequence and we have to do it in the right order or there would be a physical clash between the panels of the Sar and the solar wings."
+A period of checkout and commissioning will then follow before the Sentinel enters operational service in three months' time.
+The EU's Copernicus programme calls in the first instance for six specific satellites and sensors to be put in orbit, with, in the main, two copies of each to be flying at any one time.
+Consequently, Sentinel-1a will be followed by Sentinel-1b in 2015. As a pair, they will be able to acquire a radar image of anywhere on Earth within six days, whatever the weather.
+Radar has myriad uses, from monitoring shipping lanes for pollution or icebergs, to mapping land surfaces to track deforestation or the performance of rice production.
+However, a key use for the Sentinel-1 duo will be in disaster response.
+Radar is especially good at detecting the extent of flood waters, and this type of image is also regularly employed following major earthquakes to assess the damage to infrastructure.
+Although weather satellites have kept a permanent watch on the Earth now for over 40 years, the deployment of general environmental-monitoring spacecraft has been more ad hoc.
+With few notable exceptions, these Earth-watching missions have largely been short-lived research programmes.
+Copernicus therefore represents a major step change.
+"So far, all the data we've collected has come from scientific satellites which were more or less one-offs or two-offs," said Prof Volker Liebig, the director of Earth observation at the European Space Agency (Esa).
+"Now, we are setting up, together with the European Union, an operational system similar to what we have done with meteorological satellites.
+"Today and every day, you get a weather forecast on the TV, and soon I hope you will be getting environmental forecasts from the Sentinels," he told the BBC's Science In Action programme.
+Five further Sentinel missions - to monitor the oceans, land-change, and the composition of the atmosphere - should be in orbit by 2019.
+Their continuous, cross-calibrated, long-term datasets will be a boon to climate studies.
+But the EU hopes the data will prove to be a powerful tool also to help design and enforce community-wide polices, covering diverse areas such as fish stocks management, air quality regulation, and keeping track of waste disposal practices.
+All of the data acquired by the Sentinels will be open and free - anyone, anywhere in the world, will be able to make use of the information.
+Copernicus is the EU's second major space project after the Galileo satellite-navigation system, which is also in the process of roll-out.
+As with "Europe's GPS", Esa has been engaged as the procurement agent, designing the satellites' requirements and contracting with industry to produce them.
+Sentinel-1a's construction has been led by Thales Alenia Space (Italy), with its C-band radar instrument and electronics coming from Airbus (Germany and UK).

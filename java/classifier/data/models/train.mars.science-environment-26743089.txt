@@ -1,0 +1,37 @@
+Mars	The European Space Agency (Esa) has published the "longlist" of eight sites it is considering as a destination for the ExoMars rover.
+	The 300kg vehicle will be put on the surface of the Red Planet in January 2019 to search for evidence of past or present life.
+	It should operate for at least seven months and will carry a drill to probe up to 2m underground.
+	The sites are generally clustered in a relatively tight zone close to the equator. They are: Hypanis Vallis, Simud Vallis, Mawrth, Oxia Planum (x2), Coogoon Valles, Oxia Palus and Southern Isidis.
+	The ExoMars Landing Site Selection Working Group is meeting now in Madrid to begin the process of downselection. The teams that proposed these locations will make their case during the Spanish gathering (two, virtually identical proposals were received for Mawrth).
+	It is hoped to have a shortlist of no more than four locations in June or July. These will then be intensively studied, calling on new high-resolution pictures and mineralogical data acquired by satellites in orbit at Mars.
+	A final decision is likely to be announced in 2017. This will probably take the form of a first choice and a back-up.
+	We've been talking about ExoMars for a long time. The project has had several ups and downs, but it is now moving positively in the right direction.
+	The venture is a joint undertaking with the Russians, who, as well as providing the launch rocket in May 2018, and some of the instrumentation, will also build the landing system. This will see the rover enter the Martian atmosphere in 2019 in a protective shell, deploying parachutes and retro-rockets to reduce the descent velocity.
+	The robotic vehicle will arrive at the surface on a legged lander, driving down a ramp to begin its grand traverse.
+	Everything hinges on a safe touchdown, of course. However, scientifically, it's vital ExoMars goes to the right place.
+	I have used two maps on this page to help explain how the final decision will be made.
+	They are both Mercator projections of Mars which will be familiar from Earth maps that also pull the 360-degree globe on to a flat surface.
+	For reference, I've marked the locations of the two current American rovers - Curiosity and Opportunity - on the top map.
+	Choosing a site is a trade-off between what's scientifically desirable and what's achievable with the available engineering.
+	ExoMars wants to look for life markers. Its best chance of finding these will be to go to places where there is abundant evidence for long-duration, or frequently reoccurring, water activity.
+	This will exist on the old terrains of Mars - ones that are billions of years old.
+	These are places where you would hope to roll across recently exposed fine-grained sediments; the kind of clay-bearing mudstones that Curiosity has been enjoying in Gale Crater.
+	If you get lucky, you just might hit upon preserved organic molecules that hint at some past biology.
+	But choosing the places you'd love to go is the easy part; having the capability to reach them is another question.
+	Engineers describe an ellipse of confidence into which they can put a Mars lander.
+	With the extraordinary skycrane used on Curiosity, this ellipse measured just 20km by 7km. It meant the US space agency had the belief to shoot for one of the deepest holes on Mars.
+	ExoMars, by comparison, will have a landing ellipse that measures about 105km by 15km - not dissimilar to Nasa's Phoenix mission of 2008.
+	So, this immediately rules out places like Gale Crater, for example. The greater uncertainty in landing performance would put ExoMars in danger of slamming into the crater's walls or its big central mountain.
+	Can the eight sites accommodate the Russian landing ellipse?
+	Another consideration: You need to give your parachutes time to work in Mars' thin atmosphere. This means that any terrain that lies above minus 2km datum (what we on Earth would think of as sea level) is out of reach.
+	And yet another: Although ExoMars will have a sizeable drill, it doesn't want to be probing through decimetres of dust, and there are places where Mars' ubiquitous "red dirt" is worse than others. These will be avoided.
+	In addition, energy is an important consideration. ExoMars will use radioisotope heating units to cope with the cold, but it will rely on solar panels for day-to-day power. Given that it is landing in the northern summer, optimal operations will be found in a band between latitudes of 5 degrees South and 25 degrees North.
+	And boulder fields - you need to avoid those, too. Although, the landers' legs will give a surface clearance of about 30-50cm, you want to try to avoid coming down on big rocks.
+	I could go on. The point is the scientists on the mission will be working very closely with the engineers to pick a destination that balances the highest return with the lowest risk.
+	"The eight sites all have possibilities," ExoMars project scientist Dr Jorge Vago told me.
+	"Some have more problems than others and we'll see how the discussions turn out. I have to say, the height constraint is very taxing. There is very little of Mars that is scientifically interesting that also fits the elevation bill."
+	And working group member Dr John Bridges of Leicester University added: "We've got some serious things to discuss, for sure. But I'm very positive about it; I think we've got some cracking sites on the list."
+Mars	Comet C/2013 A1 Siding Spring is plunging toward the Sun along a roughly 1-million-year orbit. The comet, discovered in 2013, was within the radius of Jupiter's orbit when the Hubble Space Telescope photographed it on March 11, 2014. Hubble resolves two jets of dust coming from the solid icy nucleus.
+	These persistent jets were first seen in Hubble pictures taken on Oct. 29, 2013. The feature should allow astronomers to measure the direction of the nucleus's pole, and hence, rotation axis. The comet will make its closest approach to our Sun on Oct. 25, 2014, at a distance of 130 million miles, well outside of Earth's orbit.
+	On its inbound leg, Comet Siding Spring will pass within 84,000 miles of Mars on Oct. 19, 2014, which is less than half the Moon's distance from Earth. The comet is not expected to become bright enough to be seen by the naked eye.
+	An earlier Hubble observation made on Jan. 21, 2014, caught the comet as Earth was crossing the comet's orbital plane. This special geometry allows astronomers to better determine the speed of the dust coming off the nucleus. "This is critical information that we need to determine how likely and how much the dust grains in the coma will impact Mars and Mars spacecraft," said Jian-Yang Li of the Planetary Science Institute in Tucson, Ariz.	
