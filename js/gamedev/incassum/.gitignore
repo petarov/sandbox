@@ -1,0 +1,10 @@
+# Cloud9 files
+.c9*/*
+
+# Eclipse
+.settings/*
+.buildpath*
+.externalToolBuilders*
+
+# Build
+build/*
