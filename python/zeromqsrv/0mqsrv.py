@@ -42,13 +42,19 @@ if len(sys.argv) < 2:
 	sys.exit()
 
 cmd = sys.argv[1]
+port = 7000
+if cmd == 'port':
+	port = sys.argv[2]
+	cmd = sys.argv[3]
+
+print cmd
 
 if cmd == 'server':
-	log('Server listening on port 7000');
-	listen(7000)
+	log('Server listening on port %s' % port);
+	listen(port)
 elif cmd == 'send':
 	msg = sys.argv[2]
-	send(7000, msg)
+	send(port, msg)
 else:
 	log('Invalid command!')
 	sys.exit()
