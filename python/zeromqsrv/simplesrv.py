@@ -12,6 +12,7 @@ def log(msg):
     sys.stdout.flush()
 
 def listen(port):
+	log('Server listening on port %s' % port);
 	ctx = zmq.Context() #.instance()
 	socket = ctx.socket(zmq.REP)
 	socket.bind("tcp://*:%s" % port)
@@ -23,10 +24,10 @@ def listen(port):
 		socket.send_string("Echo: " + msg)
 
 def send(port, msg):
+	log('Sending message to port %s' % port);
 	ctx = zmq.Context()
 	socket = ctx.socket(zmq.REQ)
 	socket.connect("tcp://localhost:%s" % port)
-	log('Sending ....')
 	# socket.send("%s" % msg)
 	socket.send_string(msg)
 	reply = socket.recv_string()
@@ -35,22 +36,15 @@ def send(port, msg):
 
 ### main
 
-if len(sys.argv) < 2:
-	log('No commands!')
-	sys.exit()
-
-cmd = sys.argv[1]
 port = 7000
-if cmd == 'port':
-	port = sys.argv[2]
-	cmd = sys.argv[3]
+cmd = sys.argv[1] if len(sys.argv) > 1 else ""
 
-if cmd == 'server':
-	log('Server listening on port %s' % port);
-	listen(port)
-elif cmd == 'send':
+if cmd.isdigit():
+	port = cmd
+	cmd = sys.argv[2] if len(sys.argv) > 2 else ""
+
+if cmd == 'send':
 	msg = sys.argv[2]
 	send(port, msg)
 else:
-	log('Invalid command!')
-	sys.exit()
+	listen(port)
