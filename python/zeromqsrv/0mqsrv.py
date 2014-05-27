@@ -1,12 +1,10 @@
-#!/usr/bin/python2
-# Python 2.x
+#!/usr/bin/python3
+#
+# requires Python 3.x
 
 import sys
 import os
 import time
-import collections
-from optparse import OptionParser
-
 import zmq
 
 def log(msg):
@@ -19,10 +17,10 @@ def listen(port):
 	socket.bind("tcp://*:%s" % port)
 
 	while True:
-		msg = socket.recv()
+		msg = socket.recv_string()
 		log("Got new message: " + msg)
 		time.sleep(1)
-		socket.send("Echo: " + msg)
+		socket.send_string("Echo: " + msg)
 
 def send(port, msg):
 	ctx = zmq.Context()
@@ -30,8 +28,8 @@ def send(port, msg):
 	socket.connect("tcp://localhost:%s" % port)
 	log('Sending ....')
 	# socket.send("%s" % msg)
-	socket.send(msg)
-	reply = socket.recv()
+	socket.send_string(msg)
+	reply = socket.recv_string()
 	log('Server says: ' + reply)
 
 
@@ -46,8 +44,6 @@ port = 7000
 if cmd == 'port':
 	port = sys.argv[2]
 	cmd = sys.argv[3]
-
-print cmd
 
 if cmd == 'server':
 	log('Server listening on port %s' % port);
