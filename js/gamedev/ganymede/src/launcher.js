@@ -11,7 +11,7 @@
 
     function preload() {
         game.load.image('backgorund', 'assets/background.png');
-        game.load.image('ship', 'assets/spaceship_engine_sharp.png');
+        game.load.image('ship', 'assets/spaceship_engine.png');
     }
 
     function create() {
