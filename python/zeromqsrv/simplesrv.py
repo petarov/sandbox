@@ -11,6 +11,10 @@ def log(msg):
     sys.stdout.write(msg + '\n')
     sys.stdout.flush()
 
+def timeNow():
+	return time.strftime('[%H:%M:%S]', time.gmtime())
+
+
 def listen(port):
 	log('Server listening on port %s' % port);
 	ctx = zmq.Context() #.instance()
@@ -19,7 +23,7 @@ def listen(port):
 
 	while True:
 		msg = socket.recv_string()
-		log("[client] " + msg)
+		log(timeNow() + " Stranger: %s " % msg)
 		time.sleep(1)
 		socket.send_string('Hey! ' + msg)
 
@@ -30,7 +34,7 @@ def send(port, msg):
 	# socket.send("%s" % msg)
 	socket.send_string(msg)
 	reply = socket.recv_string()
-	log('[Stranger]: ' + reply)
+	log(timeNow() + ' Stranger: %s' % reply)
 
 
 ### main
