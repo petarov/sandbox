@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 #
-# requires Python 3.x
+# Simple echo chat server
+#
 
 import sys
 import os
