@@ -2,16 +2,16 @@
 #define __STACK_H
 
 typedef struct variant_t {
-	union {
-		void *ptr;
-		unsigned int uint;
-	} u;
-	struct variant_t *prev;
+    union {
+        void *ptr;
+        unsigned int uint;
+    } u;
+    struct variant_t *prev;
 } variant_t;
 
 typedef struct stack_t {
-	variant_t *var;
-	unsigned int count;
+    variant_t *var;
+    unsigned int count;
 } stack_t;
 
 stack_t* stack_new();

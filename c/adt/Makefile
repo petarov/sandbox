@@ -7,12 +7,12 @@ ODIR = obj
 OBJ = stack.c
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(INC) $(CFLAGS)
+    $(CC) -c -o $@ $< $(INC) $(CFLAGS)
 
 stack: $(OBJ)
-	gcc -o $@ $^ $(INC) $(CFLAGS)
+    gcc -o $@ $^ $(INC) $(CFLAGS)
 
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o
+    rm -f $(ODIR)/*.o
