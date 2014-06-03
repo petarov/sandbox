@@ -1,17 +1,18 @@
-CC=gcc
-CFLAGS=-I. -O3 -std=c99
+CC = gcc
+INC = -I.
+CFLAGS = -g -Wall -std=c99
+
 DEPS = stack.h
+ODIR = obj
 OBJ = stack.c
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(INC) $(CFLAGS)
 
 stack: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS)
+	gcc -o $@ $^ $(INC) $(CFLAGS)
 
 .PHONY: clean
 
 clean:
-	rm -f stack 
-
-#$(ODIR)/*.o *~ core $(INCDIR)/*~ 
+	rm -f $(ODIR)/*.o
