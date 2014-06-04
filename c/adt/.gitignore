@@ -1,3 +1,4 @@
 # ignored
 
 *.o
+tests_*

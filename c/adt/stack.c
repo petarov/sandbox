@@ -1,5 +1,4 @@
 #include <assert.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
 
@@ -41,27 +40,4 @@ void* stack_pop(stack_t *stack) {
 
 int stack_empty(stack_t *stack) {
     return stack->count == 0;
-}
-
-
-int main(int argc, char* argv[]) {
-
-    char *p = malloc(sizeof(int));
-    char *p1 = malloc(sizeof(int));
-    *((int *) p) = 42;
-    *((int *) p1) = 43;
-
-    printf("Before push = %d\n", (int)*((int *)p));
-
-    stack_t *s = stack_new();
-    stack_push(s, p);
-    stack_push(s, p1);
-
-    printf("After push = %d\n", (int)*((int *)stack_pop(s)));
-    printf("After push = %d\n", (int)*((int *)stack_pop(s)));
-
-
-    free(p);
-
-    return 0;
 }

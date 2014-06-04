@@ -1,18 +1,22 @@
 CC = gcc
 INC = -I.
 CFLAGS = -g -Wall -std=c99
+LDFLAGS = -Wall
 
 DEPS = stack.h
 ODIR = obj
-OBJ = stack.c
 
-%.o: %.c $(DEPS)
-    $(CC) -c -o $@ $< $(INC) $(CFLAGS)
+OBJ = stack.o tests_stack.o
 
-stack: $(OBJ)
-    gcc -o $@ $^ $(INC) $(CFLAGS)
+$(OBJ): %.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+all: tests_stack
+
+tests_stack: $(OBJ)
+	gcc -o $@ $^ $(INC) $(LDFLAGS)
 
 .PHONY: clean
 
 clean:
-    rm -f $(ODIR)/*.o
+	rm -f *.o tests_stack
