@@ -1,3 +1,7 @@
+/**
+ * C Stack Implementation
+ */
+
 #include <assert.h>
 #include <stdlib.h>
 #include "stack.h"
@@ -7,6 +11,11 @@ stack_t* stack_new() {
     stack->var = NULL;
     stack->count = 0;
     return stack;
+}
+
+void stack_free(stack_t *stack) {
+    assert(stack != NULL);
+    free(stack);
 }
 
 void stack_push(stack_t *stack, void *ptr) {
@@ -29,6 +38,7 @@ void* stack_pop(stack_t *stack) {
 
     variant_t *var = stack->var;
     void *ptr = var->u.ptr;
+    var->u.ptr = NULL;
 
     stack->var = var->prev;
     free(var);
