@@ -8,7 +8,7 @@
 #include "stack.h"
 
 stack_t* stack_new() {
-    stack_t *stack = (stack_t*) malloc(sizeof(stack_t));
+    stack_t *stack = (stack_t *) malloc(sizeof(stack_t));
     stack->var = NULL;
     stack->count = 0;
     return stack;
