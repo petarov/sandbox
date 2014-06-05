@@ -1,5 +1,6 @@
 /**
  * C (Double) Linked-List Implementation
+ * https://github.com/petarov/
  */
 
 #ifndef __LLIST_H

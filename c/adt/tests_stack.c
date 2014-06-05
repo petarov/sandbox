@@ -1,3 +1,8 @@
+/**
+ * Stack Tests
+ * https://github.com/petarov/
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

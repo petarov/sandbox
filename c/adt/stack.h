@@ -1,5 +1,6 @@
 /**
  * C Stack Implementation
+ * https://github.com/petarov/
  */
 
 #ifndef __STACK_H

@@ -1,3 +1,8 @@
+# Build ADT sources and tests 
+#
+# https://github.com/petarov/
+#
+
 CC = gcc
 INC = -I.
 CFLAGS = -g -Wall -std=c99

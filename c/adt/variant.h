@@ -1,5 +1,7 @@
 /**
- * variant_t
+ * variant_t data type
+ * 
+ * https://github.com/petarov/
  */
 
 #ifndef __VARIANT_H
