@@ -5,13 +5,7 @@
 #ifndef __STACK_H
 #define __STACK_H
 
-typedef struct variant_t {
-    union {
-        void *ptr;
-        unsigned int uint;
-    } u;
-    struct variant_t *prev;
-} variant_t;
+typedef struct variant_t variant_t;
 
 typedef struct stack_t {
     variant_t *var;

@@ -4,6 +4,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <variant.h>
 #include "stack.h"
 
 stack_t* stack_new() {

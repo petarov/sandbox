@@ -3,7 +3,7 @@ INC = -I.
 CFLAGS = -g -Wall -std=c99
 LDFLAGS = -Wall
 
-DEPS = stack.h
+DEPS = 
 ODIR = obj
 
 OBJ = stack.o tests_stack.o
