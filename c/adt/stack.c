@@ -16,8 +16,8 @@ stack_t* stack_new() {
 }
 
 void stack_free(stack_t *stack) {
-    assert(stack != NULL);
     free(stack);
+    stack = NULL;
 }
 
 void stack_push(stack_t *stack, void *ptr) {
