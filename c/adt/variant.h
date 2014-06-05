@@ -1,6 +1,6 @@
 /**
  * variant_t data type
- * 
+ *
  * https://github.com/petarov/
  */
 
@@ -13,5 +13,9 @@ typedef struct variant_t {
         unsigned int uint;
     } u;
 } variant_t;
+
+variant_t* var_ptr(void *ptr);
+variant_t* var_int(int value);
+void var_free(variant_t *var);
 
 #endif

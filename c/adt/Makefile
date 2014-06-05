@@ -11,20 +11,20 @@ LDFLAGS = -Wall
 DEPS = 
 ODIR = obj
 
-OBJ = stack.o tests_stack.o
+OBJ = variant.o
 
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 all: tests_stack tests_llist
 
-tests_stack: stack.o tests_stack.o
+tests_stack: $(OBJ) stack.o tests_stack.o
 	gcc -o $@ $^ $(INC) $(LDFLAGS)
 
-tests_llist: llist.o tests_llist.o
+tests_llist: $(OBJ) llist.o tests_llist.o
 	gcc -o $@ $^ $(INC) $(LDFLAGS)	
 
 .PHONY: clean
 
 clean:
-	rm -f *.o tests_stack
+	rm -f *.o tests_stack tests_llist

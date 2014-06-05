@@ -24,13 +24,12 @@ void stack_push(stack_t *stack, void *ptr) {
     assert(stack != NULL);
 
     // new item
-    variant_t *var = (variant_t *) malloc(sizeof(variant_t));
-    var->u.ptr = ptr;
+    variant_t *var = var_ptr(ptr);
 
     // new node
     stack_node_t *node = (stack_node_t *) malloc(sizeof(stack_node_t));
     node->var = var;
-    
+
     // put new node at the top of the chain
     if (stack->head) {
         node->prev = stack->head;
@@ -55,7 +54,7 @@ void* stack_pop(stack_t *stack) {
 
     // node and variant are no longer needed
     free(node);
-    free(var);
+    var_free(var);
 
     stack->count--;
 

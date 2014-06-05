@@ -12,7 +12,7 @@ llist_t* llist_new() {
     llist_t *llist = (llist_t *) malloc(sizeof(llist_t));
     llist->head = llist->tail = NULL;
     llist->count = 0;
-    return llist;   
+    return llist;
 }
 
 void llist_free(llist_t *llist) {
@@ -24,14 +24,13 @@ void llist_add(llist_t *llist, void *ptr) {
     assert(llist != NULL);
 
     // new item
-    variant_t *var = (variant_t *) malloc(sizeof(variant_t));
-    var->u.ptr = ptr;
+    variant_t *var = var_ptr(ptr);
 
     // insert node
     llist_node_t *node = (llist_node_t *) malloc(sizeof(llist_node_t));
     node->var = var;
     node->next = node->prev = NULL;
-    
+
     // append => assumes both head and tail are not NULL
     if (llist->tail) {
         node->prev = llist->tail;
@@ -60,7 +59,7 @@ void* llist_remove(llist_t *llist) {
         // head and tail point to the same node
         llist->head = llist->tail = NULL;
     }
-    
+
     free(var);
     free(node);
     node = NULL;
