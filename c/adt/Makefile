@@ -8,13 +8,16 @@ ODIR = obj
 
 OBJ = stack.o tests_stack.o
 
-$(OBJ): %.o: %.c $(DEPS)
+%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-all: tests_stack
+all: tests_stack tests_llist
 
-tests_stack: $(OBJ)
+tests_stack: stack.o tests_stack.o
 	gcc -o $@ $^ $(INC) $(LDFLAGS)
+
+tests_llist: llist.o tests_llist.o
+	gcc -o $@ $^ $(INC) $(LDFLAGS)	
 
 .PHONY: clean
 
