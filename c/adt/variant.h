@@ -10,7 +10,6 @@ typedef struct variant_t {
         void *ptr;
         unsigned int uint;
     } u;
-    struct variant_t *prev;
 } variant_t;
 
 #endif

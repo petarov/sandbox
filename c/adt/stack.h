@@ -7,8 +7,13 @@
 
 typedef struct variant_t variant_t;
 
+typedef struct stack_node_t {
+	variant_t *var;
+	struct stack_node_t *prev;
+} stack_node_t;
+
 typedef struct stack_t {
-    variant_t *var;
+    stack_node_t *head;
     unsigned int count;
 } stack_t;
 

@@ -9,7 +9,7 @@
 
 stack_t* stack_new() {
     stack_t *stack = (stack_t *) malloc(sizeof(stack_t));
-    stack->var = NULL;
+    stack->head = NULL;
     stack->count = 0;
     return stack;
 }
@@ -22,26 +22,38 @@ void stack_free(stack_t *stack) {
 void stack_push(stack_t *stack, void *ptr) {
     assert(stack != NULL);
 
+    // new value
     variant_t *var = (variant_t *) malloc(sizeof(variant_t));
     var->u.ptr = ptr;
+
+    // new node
+    stack_node_t *node = (stack_node_t *) malloc(sizeof(stack_node_t));
+    node->var = var;
     
-    if (stack->var) {
-        var->prev = stack->var;
+    // put new node at the top of the chain
+    if (stack->head) {
+        node->prev = stack->head;
     }
-    stack->var = var;
+    stack->head = node;
 
     stack->count++;
 }
 
 void* stack_pop(stack_t *stack) {
     assert(stack != NULL);
-    assert(stack->var != NULL);
+    assert(stack->head != NULL);
 
-    variant_t *var = stack->var;
+    // get value from the top node
+    stack_node_t *node = stack->head;
+    variant_t *var = node->var;
     void *ptr = var->u.ptr;
     var->u.ptr = NULL;
 
-    stack->var = var->prev;
+    // chop off the top node
+    stack->head = node->prev;
+
+    // node and variant are no longer needed
+    free(node);
     free(var);
 
     stack->count--;
