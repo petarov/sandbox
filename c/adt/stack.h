@@ -9,8 +9,8 @@
 typedef struct variant_t variant_t;
 
 typedef struct stack_node_t {
-	variant_t *var;
-	struct stack_node_t *prev;
+    variant_t *var;
+    struct stack_node_t *prev;
 } stack_node_t;
 
 typedef struct stack_t {

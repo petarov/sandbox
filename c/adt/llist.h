@@ -9,9 +9,9 @@
 typedef struct variant_t variant_t;
 
 typedef struct node_t {
-	variant_t *var;
-	struct node_t *prev;
-	struct node_t *next;
+    variant_t *var;
+    struct node_t *prev;
+    struct node_t *next;
 } node_t;
 
 typedef struct llist_t {
