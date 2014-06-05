@@ -23,7 +23,7 @@ void stack_free(stack_t *stack) {
 void stack_push(stack_t *stack, void *ptr) {
     assert(stack != NULL);
 
-    // new value
+    // new item
     variant_t *var = (variant_t *) malloc(sizeof(variant_t));
     var->u.ptr = ptr;
 
@@ -60,6 +60,10 @@ void* stack_pop(stack_t *stack) {
     stack->count--;
 
     return ptr;
+}
+
+int stack_count(stack_t *stack) {
+    return stack->count;
 }
 
 int stack_empty(stack_t *stack) {
