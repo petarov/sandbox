@@ -48,7 +48,7 @@ void test_mixed() {
     stack_t *s = stack_new();
 
     int i1 = 10, i2 = 3434, i3 = 5901223;
-    unsigned long ul1 = 2390232323UL, ul2 = 111111111UL, ul3 = 9999999999999999999UL;
+    unsigned long ul1 = 2390232323UL, ul2 = 111111111UL, ul3 = 0xffffffff;
     char *ch1 = "TEST", *ch2 = "LOOOOOOOOOOOOOOOOOOOONG STRING";
 
     stack_push(s, &i1);
