@@ -34,7 +34,7 @@ void test_tail() {
     llist_add(list, &i1);
     assert(llist_count(list) == 1);
 
-    res = llist_remove(list);
+    res = llist_remove_first(list);
     assert(*((int *)res) == i1);
     assert(llist_count(list) == 0);
 
@@ -55,7 +55,7 @@ void test_tail() {
     // Test 4 - Remove Array
     printf("Test 4 - Remove\n");
     for (int i = ARR_SIZE - 1; i > 0; i--) {
-        res = llist_remove(list);
+        res = llist_remove_last(list);
         assert(*((int *)res) == arr[i]);
         assert(llist_count(list) == i);
     }

@@ -8,6 +8,17 @@
 #include "variant.h"
 #include "llist.h"
 
+static llist_node_t* s_create_node(llist_t *llist, void *ptr) {
+    // new item
+    variant_t *var = var_ptr(ptr);
+
+    // insert node
+    llist_node_t *node = (llist_node_t *) malloc(sizeof(llist_node_t));
+    node->var = var;
+    node->next = node->prev = NULL;
+    return node;
+}
+
 llist_t* llist_new() {
     llist_t *llist = (llist_t *) malloc(sizeof(llist_t));
     llist->head = llist->tail = NULL;
@@ -23,13 +34,7 @@ void llist_free(llist_t *llist) {
 void llist_add(llist_t *llist, void *ptr) {
     assert(llist != NULL);
 
-    // new item
-    variant_t *var = var_ptr(ptr);
-
-    // insert node
-    llist_node_t *node = (llist_node_t *) malloc(sizeof(llist_node_t));
-    node->var = var;
-    node->next = node->prev = NULL;
+    llist_node_t *node = s_create_node(llist, ptr);
 
     // append => assumes both head and tail are not NULL
     if (llist->tail) {
@@ -43,7 +48,7 @@ void llist_add(llist_t *llist, void *ptr) {
     llist->count++;
 }
 
-void* llist_remove(llist_t *llist) {
+void* llist_remove_last(llist_t *llist) {
     assert(llist != NULL);
     assert(llist->tail != NULL);
 
@@ -60,7 +65,7 @@ void* llist_remove(llist_t *llist) {
         llist->head = llist->tail = NULL;
     }
 
-    free(var);
+    var_free(var);
     free(node);
     node = NULL;
 
@@ -70,13 +75,47 @@ void* llist_remove(llist_t *llist) {
 }
 
 void llist_insert(llist_t *llist, void *ptr) {
-    //TODO
+    assert(llist != NULL);
+    assert(llist->tail != NULL);
+
+    llist_node_t *node = s_create_node(llist, ptr);
+
+    // insert => assumes both head and tail are not NULL
+    if (llist->head) {
+        node->next = llist->head;
+        llist->head->prev = node;
+        llist->head = node;
+    } else {
+        llist->head = llist->tail = node;
+    }
+
+    llist->count++;
 }
 
-void* llist_removeLast(llist_t *llist) {
-    //TODO
-    //
-    return NULL;
+void* llist_remove_first(llist_t *llist) {
+    assert(llist != NULL);
+    assert(llist->head != NULL);
+
+    llist_node_t *node = llist->head;
+    variant_t *var = node->var;
+    void *ptr = var->u.ptr;
+    var->u.ptr = NULL;
+
+    if (node->next) {
+        node->next->prev = node->prev;
+        llist->head = node->next;
+    } else {
+        // head and tail point to the same node
+        llist->head = llist->tail = NULL;
+    }
+
+    var_free(var);
+    free(node);
+    node = NULL;
+
+    llist->count--;
+
+    return ptr;
 }
 
 int llist_count(llist_t *llist) {
