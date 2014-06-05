@@ -20,6 +20,34 @@ void travtest(void *ptr) {
     assert(ptr != NULL);
 }
 
+void test_random() {
+    printf("Testing random access ... \n");
+
+    llist_t *list = llist_create();
+
+    int num = 0xffffffff;
+    char *str = "TEST STRING TEST 0001";
+    unsigned long ul = 0xffffffffUL;
+
+    llist_add(list, &num);
+    llist_add(list, str);
+    llist_add(list, &ul);
+
+    assert(*((int *)llist_remove_first(list)) == num);
+    assert(*((unsigned long *)llist_remove_last(list)) == ul);
+    assert(strcmp((char *)llist_remove_first(list), str) == 0);
+
+    llist_add(list, &num);
+    llist_add(list, str);
+    assert(strcmp((char *)llist_remove_last(list), str) == 0);
+
+    llist_add(list, &ul);
+    assert(*((int *)llist_remove_first(list)) == num);
+    assert(*((unsigned long *)llist_remove_first(list)) == ul);
+
+    llist_free(list);
+}
+
 void test_tail() {
     printf("Testing tail ... \n");
 
@@ -29,17 +57,17 @@ void test_tail() {
     llist_t *list = llist_create();
 
     // Test 1 - Simple Insert
-    printf("Test 1 - Simple\n");
+    printf("\tTest 1 - Simple\n");
 
     llist_add(list, &i1);
     assert(llist_count(list) == 1);
 
-    res = llist_remove_first(list);
+    res = llist_remove_last(list);
     assert(*((int *)res) == i1);
     assert(llist_count(list) == 0);
 
     // Test 2 - Insert Array
-    printf("Test 2 - Insert\n");
+    printf("\tTest 2 - Insert\n");
 
     int arr[ARR_SIZE];
     for (int i = 0; i < ARR_SIZE; i++) {
@@ -49,11 +77,11 @@ void test_tail() {
     }
 
     // Test 3 - Traverse Array
-    printf("Test 3 - Traverse\n");
+    printf("\tTest 3 - Traverse\n");
     llist_traverse(list, travtest);
 
     // Test 4 - Remove Array
-    printf("Test 4 - Remove\n");
+    printf("\tTest 4 - Remove\n");
     for (int i = ARR_SIZE - 1; i > 0; i--) {
         res = llist_remove_last(list);
         assert(*((int *)res) == arr[i]);
@@ -66,6 +94,7 @@ void test_tail() {
 int main(int argc, char* argv[]) {
 
     test_tail();
+    test_random();
 
     printf("-----------------\n");
     printf("All Tests Passed!\n");
