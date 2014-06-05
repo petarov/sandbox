@@ -28,5 +28,6 @@ void* llist_remove(llist_t *llist) ;
 void llist_insert(llist_t *llist, void *ptr);
 void* llist_removeLast(llist_t *llist);
 int llist_count(llist_t *llist);
+void llist_traverse(llist_t *llist, void (*funcp)(void *ptr));
 
 #endif

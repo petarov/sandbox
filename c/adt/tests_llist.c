@@ -16,8 +16,12 @@ void quit(char *msg) {
     exit(EXIT_FAILURE);
 }
 
+void travtest(void *ptr) {
+    assert(ptr != NULL);
+}
+
 void test_tail() {
-    printf("Testing add to tail \n");
+    printf("Testing tail ... \n");
 
     void *res = NULL;
     int i1 = 0xffffffff;
@@ -25,7 +29,7 @@ void test_tail() {
     llist_t *list = llist_new();
 
     // Test 1 - Simple Insert
-    printf("Test 1 \n");
+    printf("Test 1 - Simple\n");
 
     llist_add(list, &i1);
     assert(llist_count(list) == 1);
@@ -35,7 +39,7 @@ void test_tail() {
     assert(llist_count(list) == 0);
 
     // Test 2 - Insert Array
-    printf("Test 2 \n");
+    printf("Test 2 - Insert\n");
 
     int arr[ARR_SIZE];
     for (int i = 0; i < ARR_SIZE; i++) {
@@ -43,11 +47,18 @@ void test_tail() {
         llist_add(list, &arr[i]);
         assert(llist_count(list) == i + 1);
     }
+
+    // Test 3 - Traverse Array
+    printf("Test 3 - Traverse\n");
+    llist_traverse(list, travtest);
+
+    // Test 4 - Remove Array
+    printf("Test 4 - Remove\n");
     for (int i = ARR_SIZE - 1; i > 0; i--) {
         res = llist_remove(list);
         assert(*((int *)res) == arr[i]);
         assert(llist_count(list) == i);
-    }    
+    }
 
     llist_free(list);
 }

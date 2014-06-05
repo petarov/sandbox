@@ -83,3 +83,11 @@ void* llist_removeLast(llist_t *llist) {
 int llist_count(llist_t *llist) {
     return llist->count;
 }
+
+void llist_traverse(llist_t *llist, void (*funcp)(void *ptr)) {
+    llist_node_t *cur = llist->head;
+    while (cur != NULL) {
+        (*funcp)(cur->var->u.ptr);
+        cur = cur->next;
+    }
+}
