@@ -1,5 +1,5 @@
 /**
- * variant_t data type
+ * variant_t Data Type
  *
  * https://github.com/petarov/
  */
@@ -10,7 +10,6 @@
 typedef struct variant_t {
     union {
         void *ptr;
-        unsigned int uint;
     } u;
 } variant_t;
 
