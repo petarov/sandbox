@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 #include <assert.h>
 #include "stack.h"
 
@@ -17,13 +18,13 @@ void quit(char *msg) {
 void test_int(int value) {
     printf("Testing int = %d\n", value);
 
-    char *p = malloc(sizeof(int));
-    *((int *) p) = value;
+    char *p = malloc(sizeof(int32_t));
+    *((int32_t *) p) = value;
 
     stack_t *s = stack_create();
     stack_push(s, p);
 
-    int *res = (int *)stack_pop(s);
+    int32_t *res = (int32_t *)stack_pop(s);
     assert(*res == value);
 
     free(p);
@@ -47,8 +48,8 @@ void test_mixed() {
 
     stack_t *s = stack_create();
 
-    int i1 = 10, i2 = 3434, i3 = 5901223;
-    unsigned long ul1 = 2390232323UL, ul2 = 111111111UL, ul3 = 0xffffffff;
+    int32_t i1 = 0xffffffff, i2 = INT32_MAX, i3 = INT32_MIN;
+    uint32_t ul1 = 0xffffffff, ul2 = UINT32_MAX, ul3 = 0;
     char *ch1 = "TEST", *ch2 = "LOOOOOOOOOOOOOOOOOOOONG STRING";
 
     stack_push(s, &i1);
@@ -60,24 +61,23 @@ void test_mixed() {
     stack_push(s, ch2);
     stack_push(s, &ul3);
 
-    assert(*((unsigned long *)stack_pop(s)) == ul3);
+    assert(*((uint32_t *)stack_pop(s)) == ul3);
     assert(strcmp(ch2, (char *)stack_pop(s)) == 0);
-    assert(*((unsigned long *)stack_pop(s)) == ul2);
-    assert(*((int *)stack_pop(s)) == i3);
-    assert(*((unsigned long *)stack_pop(s)) == ul1);
-    assert(*((int *)stack_pop(s)) == i2);
+    assert(*((uint32_t *)stack_pop(s)) == ul2);
+    assert(*((int32_t *)stack_pop(s)) == i3);
+    assert(*((uint32_t *)stack_pop(s)) == ul1);
+    assert(*((int32_t *)stack_pop(s)) == i2);
     assert(strcmp(ch1, (char *)stack_pop(s)) == 0);
-    assert(*((int *)stack_pop(s)) == i1);
+    assert(*((int32_t *)stack_pop(s)) == i1);
 
     stack_free(s);
 }
 
 int main(int argc, char* argv[]) {
 
-    test_int(123);
-    test_int(623434234);
-    test_int(-1);
     test_int(0);
+    test_int(-1);
+    test_int(INT32_MAX);
 
     test_str("test123");
     test_str("1234567890!!@#$%%$^&*()_");

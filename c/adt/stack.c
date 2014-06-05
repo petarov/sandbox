@@ -5,6 +5,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "variant.h"
 #include "stack.h"
 
@@ -60,7 +61,7 @@ int stack_count(stack_t *stack) {
     return stack->count;
 }
 
-int stack_empty(stack_t *stack) {
+bool stack_empty(stack_t *stack) {
     return stack->count == 0;
 }
 
