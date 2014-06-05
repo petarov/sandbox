@@ -8,16 +8,11 @@
 #include "variant.h"
 #include "stack.h"
 
-stack_t* stack_new() {
+stack_t* stack_create() {
     stack_t *stack = (stack_t *) malloc(sizeof(stack_t));
     stack->head = NULL;
     stack->count = 0;
     return stack;
-}
-
-void stack_free(stack_t *stack) {
-    free(stack);
-    stack = NULL;
 }
 
 void stack_push(stack_t *stack, void *ptr) {
@@ -67,4 +62,9 @@ int stack_count(stack_t *stack) {
 
 int stack_empty(stack_t *stack) {
     return stack->count == 0;
+}
+
+void stack_free(stack_t *stack) {
+    free(stack);
+    stack = NULL;
 }

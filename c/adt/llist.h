@@ -21,13 +21,13 @@ typedef struct llist_t {
 } llist_t;
 
 
-llist_t* llist_new();
-void llist_free(llist_t *llist);
+llist_t* llist_create();
 void llist_add(llist_t *llist, void *ptr);
-void* llist_remove_first(llist_t *llist) ;
 void llist_insert(llist_t *llist, void *ptr);
+void* llist_remove_first(llist_t *llist) ;
 void* llist_remove_last(llist_t *llist);
 int llist_count(llist_t *llist);
 void llist_traverse(llist_t *llist, void (*funcp)(void *ptr));
+void llist_free(llist_t *llist);
 
 #endif

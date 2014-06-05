@@ -20,9 +20,9 @@ void test_int(int value) {
     char *p = malloc(sizeof(int));
     *((int *) p) = value;
 
-    stack_t *s = stack_new();
+    stack_t *s = stack_create();
     stack_push(s, p);
-    
+
     int *res = (int *)stack_pop(s);
     assert(*res == value);
 
@@ -33,9 +33,9 @@ void test_int(int value) {
 void test_str(char *value) {
     printf("Testing string = %s\n", value);
 
-    stack_t *s = stack_new();
+    stack_t *s = stack_create();
     stack_push(s, value);
-    
+
     char *res = (char *)stack_pop(s);
     assert(strcmp(res, value) == 0);
 
@@ -45,7 +45,7 @@ void test_str(char *value) {
 void test_mixed() {
     printf("Testing mixed values\n");
 
-    stack_t *s = stack_new();
+    stack_t *s = stack_create();
 
     int i1 = 10, i2 = 3434, i3 = 5901223;
     unsigned long ul1 = 2390232323UL, ul2 = 111111111UL, ul3 = 0xffffffff;

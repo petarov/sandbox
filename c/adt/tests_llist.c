@@ -26,7 +26,7 @@ void test_tail() {
     void *res = NULL;
     int i1 = 0xffffffff;
 
-    llist_t *list = llist_new();
+    llist_t *list = llist_create();
 
     // Test 1 - Simple Insert
     printf("Test 1 - Simple\n");

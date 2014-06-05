@@ -19,16 +19,11 @@ static llist_node_t* s_create_node(llist_t *llist, void *ptr) {
     return node;
 }
 
-llist_t* llist_new() {
+llist_t* llist_create() {
     llist_t *llist = (llist_t *) malloc(sizeof(llist_t));
     llist->head = llist->tail = NULL;
     llist->count = 0;
     return llist;
-}
-
-void llist_free(llist_t *llist) {
-    free(llist);
-    llist = NULL;
 }
 
 void llist_add(llist_t *llist, void *ptr) {
@@ -46,32 +41,6 @@ void llist_add(llist_t *llist, void *ptr) {
     }
 
     llist->count++;
-}
-
-void* llist_remove_last(llist_t *llist) {
-    assert(llist != NULL);
-    assert(llist->tail != NULL);
-
-    llist_node_t *node = llist->tail;
-    variant_t *var = node->var;
-    void *ptr = var->u.ptr;
-    var->u.ptr = NULL;
-
-    if (node->prev) {
-        node->prev->next = node->next;
-        llist->tail = node->prev;
-    } else {
-        // head and tail point to the same node
-        llist->head = llist->tail = NULL;
-    }
-
-    var_free(var);
-    free(node);
-    node = NULL;
-
-    llist->count--;
-
-    return ptr;
 }
 
 void llist_insert(llist_t *llist, void *ptr) {
@@ -118,6 +87,32 @@ void* llist_remove_first(llist_t *llist) {
     return ptr;
 }
 
+void* llist_remove_last(llist_t *llist) {
+    assert(llist != NULL);
+    assert(llist->tail != NULL);
+
+    llist_node_t *node = llist->tail;
+    variant_t *var = node->var;
+    void *ptr = var->u.ptr;
+    var->u.ptr = NULL;
+
+    if (node->prev) {
+        node->prev->next = node->next;
+        llist->tail = node->prev;
+    } else {
+        // head and tail point to the same node
+        llist->head = llist->tail = NULL;
+    }
+
+    var_free(var);
+    free(node);
+    node = NULL;
+
+    llist->count--;
+
+    return ptr;
+}
+
 int llist_count(llist_t *llist) {
     return llist->count;
 }
@@ -128,4 +123,9 @@ void llist_traverse(llist_t *llist, void (*funcp)(void *ptr)) {
         (*funcp)(cur->var->u.ptr);
         cur = cur->next;
     }
+}
+
+void llist_free(llist_t *llist) {
+    free(llist);
+    llist = NULL;
 }
