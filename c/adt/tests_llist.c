@@ -16,9 +16,15 @@ void quit(char *msg) {
     exit(EXIT_FAILURE);
 }
 
-void travtest(llist_node_t *node, void *ptr) {
+void trav(llist_t *list, llist_node_t *node, void *ptr) {
     assert(ptr != NULL);
     assert(node != NULL);
+}
+
+void trav_del(llist_t *list, llist_node_t *node, void *ptr) {
+    assert(ptr != NULL);
+    assert(node != NULL);
+    assert(llist_remove(list, node));
 }
 
 void test_delete() {
@@ -30,15 +36,29 @@ void test_delete() {
 
     llist_t *list = llist_create();
 
+    // Test 1 - Simple Insert
+    printf("\tTest 1 - Random remove\n");
+
     llist_node_t *node_num = llist_add(list, &num);
-    llist_node_t *node_str = llist_add(list, str);
+    llist_add(list, str);
     llist_node_t *node_ul = llist_insert(list, &ul);
 
     assert(llist_remove(list, node_num));
     assert(strcmp((char *)llist_remove_last(list), str) == 0);
     assert(llist_remove(list, node_ul));
-
     assert(llist_count(list) == 0);
+
+    printf("\tTest 2 - Traverse & remove (sequential)\n");
+
+    int arr[ARR_SIZE];
+    for (int i = 0; i < ARR_SIZE; i++) {
+        arr[i] = i;
+        llist_add(list, &arr[i]);
+        assert(llist_count(list) == i + 1);
+    }
+    llist_traverse(list, trav_del);
+    assert(llist_count(list) == 0);
+
 
     llist_free(list);
 }
@@ -101,7 +121,7 @@ void test_tail() {
 
     // Test 3 - Traverse Array
     printf("\tTest 3 - Traverse\n");
-    llist_traverse(list, travtest);
+    llist_traverse(list, trav);
 
     // Test 4 - Remove Array
     printf("\tTest 4 - Remove\n");

@@ -148,10 +148,12 @@ int llist_count(llist_t *llist) {
     return llist->count;
 }
 
-void llist_traverse(llist_t *llist, void (*funcp)(llist_node_t *node, void *ptr)) {
+void llist_traverse(llist_t *llist, 
+    void (*funcp)(llist_t *llist, llist_node_t *node, void *ptr)) {
+
     llist_node_t *cur = llist->head;
     while (cur != NULL) {
-        (*funcp)(cur, cur->var->u.ptr);
+        (*funcp)(llist, cur, cur->var->u.ptr);
         cur = cur->next;
     }
 }

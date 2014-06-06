@@ -30,7 +30,8 @@ void* llist_remove_first(llist_t *llist) ;
 void* llist_remove_last(llist_t *llist);
 bool llist_remove(llist_t *llist, llist_node_t *node);
 int llist_count(llist_t *llist);
-void llist_traverse(llist_t *llist, void (*funcp)(llist_node_t *node, void *ptr));
+void llist_traverse(llist_t *llist, 
+	void (*funcp)(llist_t *llist, llist_node_t *node, void *ptr));
 void llist_free(llist_t *llist);
 
 #endif
