@@ -16,8 +16,31 @@ void quit(char *msg) {
     exit(EXIT_FAILURE);
 }
 
-void travtest(void *ptr) {
+void travtest(llist_node_t *node, void *ptr) {
     assert(ptr != NULL);
+    assert(node != NULL);
+}
+
+void test_delete() {
+    printf("Testing list removals ... \n");
+
+    int num = 0xffffffff;
+    char *str = "TEST STRING TEST 0001";
+    unsigned long ul = 0xffffffffUL;    
+
+    llist_t *list = llist_create();
+
+    llist_node_t *node_num = llist_add(list, &num);
+    llist_node_t *node_str = llist_add(list, str);
+    llist_node_t *node_ul = llist_insert(list, &ul);
+
+    assert(llist_remove(list, node_num));
+    assert(strcmp((char *)llist_remove_last(list), str) == 0);
+    assert(llist_remove(list, node_ul));
+
+    assert(llist_count(list) == 0);
+
+    llist_free(list);
 }
 
 void test_random() {
@@ -95,6 +118,7 @@ int main(int argc, char* argv[]) {
 
     test_tail();
     test_random();
+    test_delete();
 
     printf("-----------------\n");
     printf("All Tests Passed!\n");

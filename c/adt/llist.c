@@ -26,7 +26,7 @@ llist_t* llist_create() {
     return llist;
 }
 
-void llist_add(llist_t *llist, void *ptr) {
+llist_node_t* llist_add(llist_t *llist, void *ptr) {
     assert(llist != NULL);
 
     llist_node_t *node = s_create_node(llist, ptr);
@@ -41,9 +41,11 @@ void llist_add(llist_t *llist, void *ptr) {
     }
 
     llist->count++;
+
+    return node;
 }
 
-void llist_insert(llist_t *llist, void *ptr) {
+llist_node_t* llist_insert(llist_t *llist, void *ptr) {
     assert(llist != NULL);
     assert(llist->tail != NULL);
 
@@ -59,6 +61,8 @@ void llist_insert(llist_t *llist, void *ptr) {
     }
 
     llist->count++;
+
+    return node;
 }
 
 void* llist_remove_first(llist_t *llist) {
@@ -113,14 +117,41 @@ void* llist_remove_last(llist_t *llist) {
     return ptr;
 }
 
+bool llist_remove(llist_t *llist, llist_node_t *node) {
+    llist_node_t *cur = llist->head;
+    while (cur != NULL) {
+        if (node == cur) {
+            // reconnect chain
+            if (cur->prev) {
+                cur->prev->next = node->next;
+            }
+            if (cur->next) {
+                cur->next->prev = node->prev;
+            }
+
+            // free allocated memory for node and variable
+            variant_t *var = node->var;
+            var_free(var);
+            free(node);
+            node = NULL;
+
+            llist->count--;
+
+            return true;
+        }
+        cur = cur->next;
+    }
+    return false;
+}
+
 int llist_count(llist_t *llist) {
     return llist->count;
 }
 
-void llist_traverse(llist_t *llist, void (*funcp)(void *ptr)) {
+void llist_traverse(llist_t *llist, void (*funcp)(llist_node_t *node, void *ptr)) {
     llist_node_t *cur = llist->head;
     while (cur != NULL) {
-        (*funcp)(cur->var->u.ptr);
+        (*funcp)(cur, cur->var->u.ptr);
         cur = cur->next;
     }
 }
