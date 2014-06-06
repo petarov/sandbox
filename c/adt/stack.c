@@ -66,6 +66,7 @@ bool stack_empty(stack_t *stack) {
 }
 
 void stack_free(stack_t *stack) {
+    // TODO: remove all elements
     free(stack);
     stack = NULL;
 }

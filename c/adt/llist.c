@@ -159,6 +159,7 @@ void llist_traverse(llist_t *llist,
 }
 
 void llist_free(llist_t *llist) {
+    // TODO: remove all elements
     free(llist);
     llist = NULL;
 }
