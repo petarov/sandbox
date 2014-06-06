@@ -22,7 +22,6 @@ typedef struct llist_t {
     int count;
 } llist_t;
 
-
 llist_t* llist_create();
 llist_node_t* llist_add(llist_t *llist, void *ptr);
 llist_node_t* llist_insert(llist_t *llist, void *ptr);

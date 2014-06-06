@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include "variant.h"
 
-
 variant_t* var_ptr(void *ptr) {
     variant_t *var = (variant_t *) malloc(sizeof(variant_t));
     var->u.ptr = ptr;
