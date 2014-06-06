@@ -16,7 +16,7 @@ OBJ = variant.o
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-all: tests_stack tests_llist
+all: tests_stack tests_llist tests_btree
 
 tests_stack: $(OBJ) stack.o tests_stack.o
 	gcc -o $@ $^ $(INC) $(LDFLAGS)
@@ -24,7 +24,10 @@ tests_stack: $(OBJ) stack.o tests_stack.o
 tests_llist: $(OBJ) llist.o tests_llist.o
 	gcc -o $@ $^ $(INC) $(LDFLAGS)	
 
+tests_btree: $(OBJ) btree.o tests_btree.o
+	gcc -o $@ $^ $(INC) $(LDFLAGS)	
+
 .PHONY: clean
 
 clean:
-	rm -f *.o tests_stack tests_llist
+	rm -f *.o tests_stack tests_llist tests_btree
