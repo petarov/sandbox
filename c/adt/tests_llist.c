@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <inttypes.h>
 #include "llist.h"
 
 #define ARR_SIZE    0x00010000
@@ -30,9 +31,9 @@ void trav_del(llist_t *list, llist_node_t *node, void *ptr) {
 void test_delete() {
     printf("Testing list removals ... \n");
 
-    int num = 0xffffffff;
+    int32_t num = INT32_MAX;
     char *str = "TEST STRING TEST 0001";
-    unsigned long ul = 0xffffffffUL;    
+    uint32_t ul = UINT32_MAX;
 
     llist_t *list = llist_create();
 
@@ -50,15 +51,12 @@ void test_delete() {
 
     printf("\tTest 2 - Traverse & remove (sequential)\n");
 
-    int arr[ARR_SIZE];
     for (int i = 0; i < ARR_SIZE; i++) {
-        arr[i] = i;
-        llist_add(list, &arr[i]);
+        llist_add(list, str);
         assert(llist_count(list) == i + 1);
     }
     llist_traverse(list, trav_del);
     assert(llist_count(list) == 0);
-
 
     llist_free(list);
 }

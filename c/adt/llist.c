@@ -118,10 +118,12 @@ void* llist_remove_last(llist_t *llist) {
 }
 
 bool llist_remove(llist_t *llist, llist_node_t *node) {
-    llist_node_t *cur = llist->head;
-    while (cur != NULL) {
-        if (node == cur) {
+    assert(node != NULL);
+    // llist_node_t *cur = llist->head;
+    // while (cur != NULL) {
+        // if (node == cur) {
             // reconnect chain
+            llist_node_t *cur = node;
             if (cur->prev) {
                 cur->prev->next = node->next;
             }
@@ -138,23 +140,24 @@ bool llist_remove(llist_t *llist, llist_node_t *node) {
             llist->count--;
 
             return true;
-        }
-        cur = cur->next;
-    }
-    return false;
+        // }
+        // cur = cur->next;
+    // }
+    // return false;
 }
 
 int llist_count(llist_t *llist) {
     return llist->count;
 }
 
-void llist_traverse(llist_t *llist, 
+void llist_traverse(llist_t *llist,
     void (*funcp)(llist_t *llist, llist_node_t *node, void *ptr)) {
 
     llist_node_t *cur = llist->head;
     while (cur != NULL) {
-        (*funcp)(llist, cur, cur->var->u.ptr);
+        llist_node_t *node = cur;
         cur = cur->next;
+        (*funcp)(llist, node, node->var->u.ptr);
     }
 }
 
