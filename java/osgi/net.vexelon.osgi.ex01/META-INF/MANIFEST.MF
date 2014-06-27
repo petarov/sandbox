@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ex01
+Bundle-SymbolicName: net.vexelon.osgi.ex01
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.vexelon.osgi.ex01.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: net.vexelon.osgi.ex02.math,
+ net.vexelon.osgi.ex02.serialize,
+ org.osgi.framework;version="1.3.0",
+ org.osgi.util.tracker;version="1.5.1"

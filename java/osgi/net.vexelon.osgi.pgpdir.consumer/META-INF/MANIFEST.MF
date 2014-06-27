@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Consumer
+Bundle-SymbolicName: net.vexelon.osgi.pgpdir.consumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Service-Component: OSGI-INF/component_ldapservice.xml
+Import-Package: net.vexelon.osgi.pgpdir,
+ net.vexelon.osgi.pgpdir.search
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: Vexelon.NET Services
+Require-Bundle: org.eclipse.osgi;bundle-version="3.9.1",
+ org.eclipse.equinox.console;bundle-version="1.0.100",
+ org.slf4j.api;bundle-version="1.7.2",
+ org.slf4j.osgi-over-slf4j;bundle-version="1.7.7",
+ ch.qos.logback.classic;bundle-version="1.0.7",
+ ch.qos.logback.core;bundle-version="1.0.0"
+Bundle-Activator: net.vexelon.osgi.pgpdir.consumer.Activator

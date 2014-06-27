@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Service
+Bundle-SymbolicName: net.vexelon.osgi.pgpdir.service
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: net.vexelon.osgi.pgpdir,
+ net.vexelon.osgi.pgpdir.search
+Service-Component: OSGI-INF/component_pgpdir.xml
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: Vexelon.NET Services

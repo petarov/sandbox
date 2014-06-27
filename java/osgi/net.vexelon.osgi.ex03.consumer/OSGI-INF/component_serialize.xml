@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" name="ConsumerImpl">
+   <implementation class="net.vexelon.osgi.ex03.consumer.ComponentConsumer"/>
+   <reference bind="setCSV" cardinality="0..1" interface="net.vexelon.osgi.ex03.serialize.CSVSerializable" name="CSVSerializable" policy="static" unbind="unsetCSV"/>
+</scr:component>

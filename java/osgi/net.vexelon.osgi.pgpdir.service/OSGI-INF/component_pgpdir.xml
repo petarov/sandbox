@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="PGPDirLDAPService">
+   <implementation class="net.vexelon.osgi.pgpdir.service.LDAPDirectoryProducer"/>
+   <service>
+      <provide interface="net.vexelon.osgi.pgpdir.search.SearchableProducer"/>
+   </service>
+</scr:component>
