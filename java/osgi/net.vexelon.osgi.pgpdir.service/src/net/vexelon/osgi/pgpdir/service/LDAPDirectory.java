@@ -84,7 +84,7 @@ public class LDAPDirectory implements Searchable {
 	                 //make sure there is not another item available, there should be only 1 match
 	                 if(results.hasMoreElements()) {
 	                     System.err.println("Matched multiple users for the accountName: " + u.getUserId());
-	                     throw new PGPDirException("OHAAAA");
+	                     throw new PGPDirException("More than 1 match found!");
 	                 }	                 
                  } catch (NamingException e) {
                 	 System.err.println("Failed getting user attribute!");
