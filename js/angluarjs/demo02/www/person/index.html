@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+    <head>
+        <title>My first app</title>
+        <script src="lib/angular.min.js"></script>
+        <script src="lib/angular-route.min.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+    <body>
+        <div data-ng-view style="border: 1px solid cyan"></div>
+        <div data-ng-controller="Main">
+            <p style="border: 1px solid black">
+                History: <span data-ng-repeat="b in Breadcrumbs">&gt; <a href="#{{b.uri}}">{{b.name}}</a> </span>
+            </p>
+        </div>
+        <div data-ng-controller="Details">
+            <input type="text" data-ng-model="Vorname">
+            <input type="text" data-ng-model="Nachname">
+            <button data-ng-click="add(Vorname, Nachname)">Add</button>
+            
+            <br/>
+            <br/>
+            Filter: <input type="text" data-ng-model="query">
+            <br/>
+            Liimit: <input type="range" min="1" max="10" data-ng-model="number" data-ng-init="number=8">
+            <br/>
+
+            <table>
+                <tr data-ng-repeat="person in Persons | filter: query | limitTo: number">
+                    <td><input type="text" data-ng-model="person.Vorname" data-ng-change="changed(person)"></td>
+                    <td>{{person.Nachname}}</td>
+                    <td><button data-ng-click="remove(person)">X</button></td>
+                </tr>
+            </table>
+            <p>{{ErrorMessage}}</p>
+            <p>Number of Persons: {{Persons.length}}</p>
+            <button data-ng-click="sync()">Sync Persons</button>
+        </div>
+    </body>
+</html>

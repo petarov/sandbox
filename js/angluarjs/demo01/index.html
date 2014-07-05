@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+    <head>
+        <title>Demo 01</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="lib/angular.min.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+    <body>
+        <div data-ng-controller="main">
+            Name: <input type="text" data-ng-model="vorname" />
+            <br/>
+            Last Name: <input type="text" data-ng-model="nachname" />
+            <br />
+            <button data-ng-click="add(vorname, nachname)">Add Person</button>
+            
+<!--             <br>
+            <button data-ng-click="show(nachname)">Show Name</button>
+            <br>
+            <button data-ng-click="show2(nachname)">Show Last Name</button>
+ -->
+            <br>
+            <br>
+
+            <table border="0" data-ng-repeat="person in Persons">
+                <tr>
+                    <td>{{person.id}}</td>
+                    <td ng-hide="person.editable">{{person.vorname}}</td>
+                    <td ng-hide="person.editable">{{person.nachname}}</td>
+                    <td ng-show="person.editable" ><input type="text" data-ng-model="person.vorname"></td>
+                    <td ng-show="person.editable"><input type="text" data-ng-model="person.nachname"></td>                    
+                    <td ng-hide="person.editable"><button data-ng-click="person.editable=true">Edit</button></td>
+                    <td ng-show="person.editable" ><button data-ng-click="person.editable=false">Done</button></td>
+                    <td ng-hide="person.editable" ><button data-ng-click="remove(person)">Remove</button></td>
+                </tr>
+            </table>
+            <p>{{Persons.length}} total.</p>
+
+            <br>
+            <br>
+            <div id="sview">
+                {{serialized}}
+            </div>
+        </div>
+    </body>
+</html>

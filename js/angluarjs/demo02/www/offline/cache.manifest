@@ -1,0 +1,15 @@
+CACHE MANIFEST
+#3
+
+CACHE:
+videos.json
+large/1.json
+js/index.js
+
+NETWORK:
+/videos
+js/index.js
+http://api.twitter.com
+
+FALLBACK:
+next.html offline.html
