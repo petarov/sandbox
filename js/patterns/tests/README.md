@@ -1,7 +1,5 @@
-Javascript Schulung
+Javascript Tests
 ====================
-
-js Schulung
 
   * [test01](test01.js) - Filesystem operations & Async mode
   * [test02](test02.js) - Javascript inheritance
