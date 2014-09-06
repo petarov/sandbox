@@ -1,6 +1,5 @@
 /* 
  * File:   storage.c
- * Author: necroleak
  *
  * Created on May 10, 2014, 12:38 PM
  */
