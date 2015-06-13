@@ -1,0 +1,8 @@
+{
+  "name": "mavenize",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {
+    "mkdirp": "^0.5.1"
+  }
+}
