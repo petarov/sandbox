@@ -18,4 +18,15 @@ var nn = numbers.map(n => {
 });
 nn.forEach(n => n ? console.log(n) : '');
 
+
+console.log(' --- TIRAZH 1 - AGAIN ---');
+var nnn = (arr) => {
+  arr.forEach(a => console.log(a));
+};
+nnn(numbers);
+
+console.log(' --- TIRAZH 2 ---');
+var obj = () => ({ teglene: 1, chisla: 6});
+console.log(obj());
+
 // eof
