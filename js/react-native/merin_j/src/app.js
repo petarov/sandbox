@@ -6,8 +6,8 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import Firebase from 'firebase';
 import reducers from  './reducers';
-import LoginForm from './components/LoginForm';
 import FirebaseCreds from './creds';
+import AppWithNavigationState from './AppNavigator';
 
 class App extends Component {
 
@@ -20,9 +20,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <View>
-          <LoginForm></LoginForm>
-        </View>
+        <AppWithNavigationState />
       </Provider>
     )
   }

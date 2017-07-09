@@ -2,12 +2,17 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { 
   emailChanged, passwordChanged, loginUser 
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
+
+  constructor() {
+    super();
+  }
 
   onEmailChange(text) {
     this.props.emailChanged(text);
@@ -19,7 +24,7 @@ class LoginForm extends Component {
 
   onSignInPress(text) {
     const { email, password } = this.props;
-    this.props.loginUser({ email, password });
+    this.props.loginUser({ email, password })
   }
 
   renderButton() {
@@ -71,7 +76,7 @@ class LoginForm extends Component {
 const styles = {
   errorTextStyle: {
     fontSize: 20,
-    alignSelf: 'center',
+    alignItems: 'center',
     color: 'red'
   }
 };
@@ -85,6 +90,13 @@ const mapStateToProps = ({ auth }) => {
     error,
     loading
   };
+};
+
+LoginForm.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+LoginForm.navigationOptions = {
+  title: 'App Sign In'
 };
 
 export default connect(mapStateToProps, { 

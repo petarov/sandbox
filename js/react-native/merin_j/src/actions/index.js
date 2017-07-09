@@ -1,10 +1,14 @@
 import firebase from 'firebase';
+import { NavigationActions } from 'react-navigation';
+
 import { 
   EMAIL_CHANGED, 
   PASSWORD_CHANGED,
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILED
+  LOGIN_USER_FAILED,
+  NAV_LOGIN,
+  NAV_LOGOUT
 } from './types';
 
 export const emailChanged = (text) => {
@@ -29,12 +33,15 @@ export const loginUser = ({ email, password }) => {
     dispatch({ type: LOGIN_USER });
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(user => loginUserSuccess(dispatch, user)).catch(() => {
+    .then(user => loginUserSuccess(dispatch, user)).catch((e) => {
+      console.error(e);
       // new user
       firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
       // create new user fails
-      .catch(() => loginUserFailed(dispatch));
+      .catch((e) => {
+        loginUserFailed(dispatch)
+      });
     });
   };
 };
@@ -50,4 +57,14 @@ const loginUserSuccess = (dispatch, user) => {
     type: LOGIN_USER_SUCCESS, 
     payload: user 
   });
+
+  // on success navigate to next page
+  // @see https://github.com/react-community/react-navigation/issues/1401
+  const nav = NavigationActions.navigate({
+    //Let's navigate to Main first
+    routeName: 'Logout',
+    // and then go to BookList
+    action: NavigationActions.navigate({ routeName: 'NAV_LOGOUT' })
+  });
+  dispatch(nav);
 };
