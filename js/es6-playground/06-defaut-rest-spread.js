@@ -31,4 +31,10 @@ let arr1 = [2, 4, 6];
 console.log(`SPREAD1 = ${rest1(1, ...arr1)}`);
 console.log(`SPREAD2 = ${rest2(1, ...arr1)}`);
 
+// copy
+
+let arr3 = [3, ...arr1];
+arr3.forEach((v) => console.log(`ARR3: ${v}`));
+
+
 // eof
