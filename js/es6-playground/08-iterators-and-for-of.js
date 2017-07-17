@@ -1,4 +1,4 @@
-// 08 - Iterator objects enable custom iteration like CLR IEnumerable or Java 
+// 08 - Iterator objects enable custom iteration like CLR IEnumerable or Java
 // Iterable. Generalize for..in to custom iterator-based iteration with for..of
 
 // Iterators
@@ -18,7 +18,7 @@ for (const entry of iterable3) {
   console.log(`ARR3: ${entry}`);
 }
 
-// Generators
+// Generators 1
 
 function* fibonaci() {
   let [x, y] = [0, 1];
@@ -38,5 +38,27 @@ for (let n of fibonaci()) {
   if (n > 100)
     break;
 }
+
+
+// Generators 2
+
+function* trigo() {
+  let phi = 0;
+
+  while (true) {
+    let x = Math.sin(phi);
+    phi += 5.0 * 0.0174533;
+
+    yield x;
+  }
+}
+
+for (let z of trigo()) {
+  console.log(`PHI: ${z}`);
+  if (z > 0.9) {
+    break;
+  }
+}
+
 
 // eof 
