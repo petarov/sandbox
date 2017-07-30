@@ -1,9 +1,0 @@
-nbproject/
-
-*.lo
-*.la
-*.slo
-.libs/
-
-CMakeFiles/
-CMakeCache.txt
