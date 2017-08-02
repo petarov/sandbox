@@ -17,6 +17,7 @@ def simple():
             output += str(i)
 
         print(output)
+
     print ('--------------------------')
 
 def parametrized(mapping):
@@ -29,31 +30,29 @@ def parametrized(mapping):
                 output += v
 
         print(output or str(i))
+
     print ('--------------------------')
 
-def no_if(mapping):
-    ## TODO find a way to kill all conditions
-
-    print ('--- NO IF #1 -----')
+def no_if(numbers, mapping):
+    print ('--- NO IF -----')
 
     def getmod(x, m):
-        return x % m + m
+        return x % m + ((m * 2) + 1)
 
     def mapmod(x):
-        for k, v in mapping.items(): 
-            yield mapping.get(getmod(x, k), x)
+        for n in numbers: 
+            yield mapping.get(getmod(x, n), x)
             
-    #results = map(lambda x: getmod(x), range(0, MAX))
-    #results = map(lambda x: mapmod(x), range(1, MAX))
     for x in range(1, MAX):
+        o = {}
         for p in mapmod(x):
-            print (p)
+            o[p] = str(p)
+        print (*o)
 
-    #print (*results, sep='\n')
     print ('--------------------------')
 
 ### Main ###
 if __name__ == "__main__":
     simple()
     parametrized({3: 'Fizz', 5: 'Buzz'})
-    no_if({3: 'Fizz', 5: 'Buzz'})
+    no_if([3, 5], {7: 'Fizz', 11: 'Buzz'})
