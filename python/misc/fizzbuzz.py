@@ -3,6 +3,8 @@
 # pylint: disable=C0103
 # pylint: disable=C0330
 
+import re
+
 MAX = 31
 
 def simple():
@@ -47,7 +49,8 @@ def no_if(numbers, mapping):
         o = {}
         for p in mapmod(x):
             o[p] = str(p)
-        print (*o)
+        line = ''.join('{}'.format(v) for v in o.values())
+        print (re.sub(r'(\d*(Fizz|Buzz)\d*)', r'\2', line))
 
     print ('--------------------------')
 
