@@ -1,5 +1,6 @@
 {
   "server_url" : "<server_url>",
+  "search_id": "a11223d45b87acaaa3afff4237e8e24f",
   "user" : "<username>",
   "password" : "<password>"
 }
