@@ -8,6 +8,7 @@
 from __future__ import print_function
 import os
 import sys
+import time
 import argparse
 import traceback
 import json
@@ -32,13 +33,13 @@ def config_load(config_path):
 
 def get_session(config):
     print ("Logging in user - '{}'".format(config['user']))
-    session = requests.session()
-    session.post(URL_LOGIN.format(config['server_url']), data={
-        'UserName': config['user'],
-        'PassWord': 'PassWord:' + config['password'],
-        'CookieDate': '1'
-    })
-    return session
+    with requests.session() as session:
+        session.post(URL_LOGIN.format(config['server_url']), data={
+            'UserName': config['user'],
+            'PassWord': config['password'],
+            'CookieDate': '1'
+        })
+        return session
 
 def close_session(session, config):
     print ('Logging out ...')
@@ -72,11 +73,9 @@ def get_posts(session, config):
 def get_auth_key(session, topic_id, post_id, config):
     response = session.get(URL_GOTO_POST.format(config['server_url'], 
         topic_id, post_id))
-    print (*response)
     body = html.fromstring(response.content)
-    auth_key = body.xpath('//input[@name="auth_key"]')
-    print (*auth_key)
-    return auth_key
+    auth_key = body.xpath('(//input[@name="auth_key"])[1]/@value')
+    return auth_key[-1]
 
 def post_edit(session, topic_id, post_id, auth_key, content, config):
     payload = {
@@ -102,9 +101,7 @@ def post_edit(session, topic_id, post_id, auth_key, content, config):
         'iconid': '0',
         'FILE_UPLOAD': ''
     }
-
-    response = session.post(URL_EDIT_POST.format(config['server_url']), 
-        data=payload)
+    session.post(URL_EDIT_POST.format(config['server_url']), data=payload)
 
 #############################################################################
 # Main
@@ -112,21 +109,31 @@ if __name__ == "__main__":
     try:
         g_config = config_load(os.path.join('.', CONFIG_FILE))
         g_session = get_session(g_config)
-        #g_posts = get_posts(g_session, g_config)
+        g_posts = get_posts(g_session, g_config)
 
-        auth_key = get_auth_key(g_session, 
-            topic_id=49445,
-            post_id=416592,
-            config=g_config)
-        print (auth_key)
+        g_authkey = ''
 
-        # for p in g_posts:
-        #     if (p['post_id'] == '416592'):
-        #         auth_key = get_auth_key(g_session, 
-        #         topic_id=p['topic_id'],
-        #         post_id=p['post_id'],
-        #         config=g_config)
-        #         print (auth_key)
+        for p in g_posts:
+            if (p['post_id'] == '416592'):
+
+                if (not g_authkey):
+                    g_authkey = get_auth_key(g_session, 
+                        topic_id=p['topic_id'],
+                        post_id=p['post_id'],
+                        config=g_config)
+                    print ('Found auth key: {}'.format(g_authkey))
+
+                time.sleep(1)
+
+                print ('Editting post - {} ...'.format(p['post_id']))
+                post_edit(g_session, 
+                    topic_id=p['topic_id'],
+                    post_id=p['post_id'],
+                    auth_key=g_authkey,
+                    content='---',
+                    config=g_config)
+
+                time.sleep(1)
 
         close_session(g_session, g_config)
     except Exception as e:
