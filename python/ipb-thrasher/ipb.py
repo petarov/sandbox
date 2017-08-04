@@ -29,7 +29,15 @@ def config_load(config_path):
         raise Exception("Cannot find config file {0}!".format(config_path))
 
     with open(config_path, 'r') as infile:
-        return json.load(infile)
+        props = json.load(infile)
+
+        if not props.get('server_url') or not props.get('search_id'):
+            raise NameError('Server settings not configured!')
+
+        if not props.get('user') or not props.get('password'):
+            raise NameError('User or pass not configured!')
+
+        return props
 
 def get_session(config):
     print ("Logging in user - '{}'".format(config['user']))
@@ -136,6 +144,8 @@ if __name__ == "__main__":
                 time.sleep(1)
 
         close_session(g_session, g_config)
+    except NameError as e:
+        print('[ERROR] {}'.format(e))
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
-        print('[ERROR] {0}'.format(e))
+        print('[ERROR] {}'.format(e))
