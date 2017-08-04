@@ -26,7 +26,7 @@ URL_LOGOUT = "{}/index.php?act=Login&CODE=03"
 
 def config_load(config_path):
     if not os.path.exists(config_path):
-        raise Exception("Cannot find config file {0}!".format(config_path))
+        raise NameError('Cannot find config file {}!'.format(config_path))
 
     with open(config_path, 'r') as infile:
         props = json.load(infile)
@@ -122,9 +122,9 @@ if __name__ == "__main__":
         g_authkey = ''
 
         for p in g_posts:
-            if (p['post_id'] == '416592'):
-
-                if (not g_authkey):
+            ## TEST ##
+            if p['post_id'] == '416592':
+                if not g_authkey:
                     g_authkey = get_auth_key(g_session, 
                         topic_id=p['topic_id'],
                         post_id=p['post_id'],
