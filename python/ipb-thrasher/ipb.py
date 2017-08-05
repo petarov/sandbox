@@ -192,13 +192,13 @@ if __name__ == "__main__":
         if len(sys.argv) > 1:
             if 'verbose' in sys.argv:
                 g_config['verbose'] = True
-            if 'verbose' in sys.argv:
+            if 'archive-only' in sys.argv:
                 g_config['archive-only'] = True                
         
         g_session = get_session(g_config)
         md_file = md_open(g_config)
 
-        batch = 0
+        batch = 500
         g_topics = get_topics(g_config, g_session)
 
         while g_topics.keys():
@@ -210,7 +210,7 @@ if __name__ == "__main__":
                 posts = g_topics.get(k)
                 md_append(g_config, md_file, posts)
 
-                if not g_config.get('archiv-eonly'):
+                if not g_config.get('archive-only'):
                     for p in posts:
                         if not g_authkey:
                             g_authkey = get_auth_key(g_config, g_session, 
