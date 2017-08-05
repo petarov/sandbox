@@ -5,12 +5,16 @@
 # pylint: disable=W0621
 # ------------------------------------------------------------------------
 # Automated posts archiving and removal for Invision Power Board v1.x
+#
+# Usage: ipb.py [verbose|archive-only]
+#  - verbose        Prints additional logs
+#  - archive-only   Does not edit/replace and posts content. Just an archive
+#                   Markdown file.
 
 from __future__ import print_function
 import os
 import sys
 import time
-import argparse
 import traceback
 import json
 import requests
@@ -40,6 +44,9 @@ def config_load(config_path):
 
         if not props.get('user') or not props.get('password'):
             raise NameError('User or pass not configured!')
+
+        if not props.get('content'):
+            raise NameError('Missing content config to replace the posts with!')
 
         return props
 
@@ -89,7 +96,9 @@ def get_topics(config, session, posts_batch=0):
 
         # post id
         post_id = el_link.text.lstrip('#')
-        print ('Found post: {} in topic: {}'.format(post_id, topic_id))        
+
+        if config.get('verbose'):
+            print ('Found post: {} in topic: {}'.format(post_id, topic_id))        
 
         posts = extracted.get(topic_id, [])
         posts.append({
@@ -153,13 +162,14 @@ def md_open(config):
         config['server_url'], config['server_url']))
     return f
 
-def md_append(f, posts):
+def md_append(config, f, posts):
     if posts.count > 0:
         title = posts[-1]['title']
         f.write("# {}\n".format(title.encode('utf-8')))
 
         for p in posts:
-            print ('Writing post {} ...'.format(p['post_id']))
+            if config.get('verbose'):
+                print ('Writing post {} ...'.format(p['post_id']))
 
             f.write("## [Post - {}]({})\n\n".format(
                 p['link'],
@@ -167,8 +177,10 @@ def md_append(f, posts):
             f.write(p['content'].encode('utf-8'))
             f.write('\n')
 
-def md_close(f):
+def md_close(config, f):
     if f:
+        if config.get('verbose'):
+            print ('Archives written to {}'.format(f.name))
         f.close()
 
 #############################################################################
@@ -176,50 +188,60 @@ def md_close(f):
 if __name__ == "__main__":
     try:
         g_config = config_load(os.path.join('.', CONFIG_FILE))
+
+        if len(sys.argv) > 1:
+            if 'verbose' in sys.argv:
+                g_config['verbose'] = True
+            if 'verbose' in sys.argv:
+                g_config['archive-only'] = True                
+        
         g_session = get_session(g_config)
         md_file = md_open(g_config)
 
         batch = 0
         g_topics = get_topics(g_config, g_session)
 
-        while g_topics.keys().count > 0:
-            print ('Processing posts batch: {}', batch)
+        while g_topics.keys():
+            print ('Processing posts batch: {}'.format(batch))
 
             g_authkey = ''
 
             for k in g_topics:
-                md_append(md_file, g_topics.get(k))
+                posts = g_topics.get(k)
+                md_append(g_config, md_file, posts)
 
-                ## TEST ##
-                # if t['post_id'] == '416592':
-                #     if not g_authkey:
-                #         g_authkey = get_auth_key(g_config, g_session, 
-                #             topic_id=p['topic_id'],
-                #             post_id=p['post_id'])
-                #         print ('Found auth key: {}'.format(g_authkey))
+                if not g_config.get('archiv-eonly'):
+                    for p in posts:
+                        if not g_authkey:
+                            g_authkey = get_auth_key(g_config, g_session, 
+                                topic_id=p['topic_id'],
+                                post_id=p['post_id'])
 
-                #     time.sleep(1)
+                            if g_config.get('verbose'):
+                                print ('Found auth key: {}'.format(g_authkey))
 
-                    # print ('Editting post - {} ...'.format(p['post_id']))
-                    # post_edit(g_config, g_session, 
-                    #     topic_id=p['topic_id'],
-                    #     post_id=p['post_id'],
-                    #     auth_key=g_authkey,
-                    #     content='---')
-                    # time.sleep(1)
+                        time.sleep(1)
+
+                        if g_config.get('verbose'):
+                            print ('Editting post - {} ...'.format(p['post_id']))
+                        
+                        post_edit(g_config, g_session, 
+                            topic_id=p['topic_id'],
+                            post_id=p['post_id'],
+                            auth_key=g_authkey,
+                            content=g_config['content'])
+                        time.sleep(1)
             
-            ### TODO ###
-            break
-
             batch += POSTS_PER_BATCH
             g_topics = get_topics(g_config, g_session, batch)
             time.sleep(1)
         
     except NameError as e:
+        traceback.print_exc(file=sys.stdout)
         print('[ERROR] {}'.format(e))
     except Exception as e:
         traceback.print_exc(file=sys.stdout)
         print('[ERROR] {}'.format(e))
     finally:
-        md_close(md_file)
+        md_close(g_config, md_file)
         close_session(g_config, g_session)
