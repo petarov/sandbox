@@ -15,11 +15,12 @@ import json
 import requests
 from lxml import html
 
+POSTS_PER_BATCH = 25
 
 CONFIG_FILE = './ipb.conf'
 URL_LOGIN = "{}/index.php?act=Login&CODE=01"
 URL_LIST_POSTS = "{}/index.php?act=Search&nav=au&CODE=show&searchid={}&\
-    search_in=posts&result_type=posts"
+    search_in=posts&result_type=posts&hl=&st={}"
 URL_GOTO_POST = "{}/index.php?act=Post&CODE=08&f=64&t={}&p={}&st=10"
 URL_EDIT_POST = "{}/index.php?"
 URL_LOGOUT = "{}/index.php?act=Login&CODE=03"
@@ -49,13 +50,13 @@ def get_session(config):
         })
         return session
 
-def close_session(session, config):
-    print ('Logging out ...')
+def close_session(config, session):
+    print ('Logging user out ...')
     session.get(URL_LOGOUT.format(config['server_url']))
 
-def get_posts(session, config):
+def get_posts(config, session, page_posts=0):
     response = session.get(URL_LIST_POSTS.format(
-        config['server_url'], config['search_id']))
+        config['server_url'], config['search_id'], page_posts))
 
     body = html.fromstring(response.content)
     posts = body.xpath('//td[@class="row4"]/a[@class="linkthru"]')
@@ -78,14 +79,14 @@ def get_posts(session, config):
 
     return extracted
 
-def get_auth_key(session, topic_id, post_id, config):
+def get_auth_key(config, session, topic_id, post_id):
     response = session.get(URL_GOTO_POST.format(config['server_url'], 
         topic_id, post_id))
     body = html.fromstring(response.content)
     auth_key = body.xpath('(//input[@name="auth_key"])[1]/@value')
     return auth_key[-1]
 
-def post_edit(session, topic_id, post_id, auth_key, content, config):
+def post_edit(config, session, topic_id, post_id, auth_key, content):
     payload = {
         'st': '10',
         'act': 'Post',
@@ -117,7 +118,7 @@ if __name__ == "__main__":
     try:
         g_config = config_load(os.path.join('.', CONFIG_FILE))
         g_session = get_session(g_config)
-        g_posts = get_posts(g_session, g_config)
+        g_posts = get_posts(g_config, g_session)
 
         g_authkey = ''
 
@@ -125,25 +126,23 @@ if __name__ == "__main__":
             ## TEST ##
             if p['post_id'] == '416592':
                 if not g_authkey:
-                    g_authkey = get_auth_key(g_session, 
+                    g_authkey = get_auth_key(g_config, g_session, 
                         topic_id=p['topic_id'],
-                        post_id=p['post_id'],
-                        config=g_config)
+                        post_id=p['post_id'])
                     print ('Found auth key: {}'.format(g_authkey))
 
                 time.sleep(1)
 
                 print ('Editting post - {} ...'.format(p['post_id']))
-                post_edit(g_session, 
+                post_edit(g_config, g_session, 
                     topic_id=p['topic_id'],
                     post_id=p['post_id'],
                     auth_key=g_authkey,
-                    content='---',
-                    config=g_config)
+                    content='---')
 
                 time.sleep(1)
 
-        close_session(g_session, g_config)
+        close_session(g_config, g_session)
     except NameError as e:
         print('[ERROR] {}'.format(e))
     except Exception as e:
