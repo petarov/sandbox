@@ -1,6 +1,6 @@
 /**
- * 
  * https://www.hackerrank.com/challenges/grading
+ * 
  * HackerLand University has the following grading policy:
  * 
  * Every student receives a  in the inclusive range from  to .
