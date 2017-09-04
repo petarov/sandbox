@@ -47,15 +47,25 @@ function main() {
     let arr = readLine().split(' ');
     arr = arr.map(Number);
     
-    // 4 1 5 2 3
+    // O(n log(n))
+    // Merge sort or Quick sort?
     arr.sort();
+
+    let a = 0, b = 0;
     
-    let a = Array.from(arr).splice(0, 4).reduce(function(sum, value) {
-       return sum + value; 
-    }, 0);
-    let b = Array.from(arr).splice(1, 4).reduce(function(sum, value) {
-       return sum + value; 
-    }, 0);   
+    // O(n)
+    for (let i = 0; i < 4; i++) {
+        a += arr[i];
+        b += arr[4 - i];
+    }
+    
+    // another version using reduce()
+    // let a = Array.from(arr).splice(0, 4).reduce(function(sum, value) {
+    //    return sum + value; 
+    // }, 0);
+    // let b = Array.from(arr).splice(1, 4).reduce(function(sum, value) {
+    //    return sum + value; 
+    // }, 0);   
     
     console.log(a, b)
 }
