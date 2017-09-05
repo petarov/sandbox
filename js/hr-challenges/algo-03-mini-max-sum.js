@@ -43,29 +43,75 @@ function readLine() {
 
 /////////////// ignore above this line ////////////////////
 
-function main() {
-    let arr = readLine().split(' ');
-    arr = arr.map(Number);
-    
+/**
+ * Solve using sort & reduce()
+ * 
+ * @param {Array} arr 
+ */
+function solve1(arr) {
     // O(n log(n))
     // Merge sort or Quick sort?
     arr.sort();
 
-    let a = 0, b = 0;
+    let max = Array.from(arr).splice(0, 4).reduce(function(sum, value) {
+       return sum + value; 
+    }, 0);
+    let min = Array.from(arr).splice(1, 4).reduce(function(sum, value) {
+       return sum + value; 
+    }, 0);
+
+    console.log(min, max);
+}
+
+/**
+ * Solve using sort & array walk
+ * 
+ * @param {Array} arr 
+ */
+function solve2(arr) {
+    // O(n log(n))
+    // Merge sort or Quick sort?
+    arr.sort();
+    
+    let max = 0, min = 0;
     
     // O(n)
     for (let i = 0; i < 4; i++) {
-        a += arr[i];
-        b += arr[4 - i];
+        max += arr[i];
+        min += arr[4 - i];
     }
     
-    // another version using reduce()
-    // let a = Array.from(arr).splice(0, 4).reduce(function(sum, value) {
-    //    return sum + value; 
-    // }, 0);
-    // let b = Array.from(arr).splice(1, 4).reduce(function(sum, value) {
-    //    return sum + value; 
-    // }, 0);   
+    console.log(min, max);
+}
+
+/**
+ * Solve using array walk only
+ * 
+ * @param {Array} arr 
+ */
+function solve3(arr) {
+    let min = Number.MAX_SAFE_INTEGER, max = 0;
     
-    console.log(a, b)
+    // O(n^2)
+    for (let i = 0; i < 5; i++) {
+        let sum = 0;
+
+        for (let j = 0; j < 5; j++) {
+            if (i !== j) {
+                sum += arr[j];
+            }
+        }
+
+        min = Math.min(min, sum);
+        max = Math.max(max, sum);
+    }
+
+    console.log(min, max);
+}
+
+function main() {
+    let arr = readLine().split(' ');
+    arr = arr.map(Number);
+    
+    solve3(arr);
 }
