@@ -41,7 +41,7 @@ function readLine() {
 
 /////////////// ignore above this line ////////////////////
 
-function solve(n, arr, d, m){
+function solve1(n, arr, d, m){
     let result = 0;
     
     // O(nm) or O(n^2)
@@ -58,6 +58,47 @@ function solve(n, arr, d, m){
     return result;
 }
 
+function solve2(n, arr, d, m){
+    let result = 0, 
+        i = 0, 
+        last_idx = -1, 
+        sum = 0;
+    
+    // O(n)
+    while (i < n) {     
+        if (arr[i] === d && m === 1) {
+            result += 1;
+        } else if (arr[i] < d) {
+            if (last_idx === -1) {
+                last_idx = i;
+            }
+            
+            sum += arr[i];
+            
+            if (sum === d && i-last_idx == m-1) {
+                result += 1;
+                sum = 0;
+                i = last_idx;
+                last_idx = -1;
+            } else if (sum > d) {
+                sum = 0;
+                i = last_idx;
+                last_idx = -1;
+            }
+        }
+        
+        // if (last_idx !== -1 && i - last_idx >= m) {
+        //     sum = 0;
+        //     i = last_idx;
+        //     last_idx = -1;
+        // }
+        
+        i++;
+    }
+    
+    return result;
+}
+
 function main() {
     var n = parseInt(readLine());
     s = readLine().split(' ');
@@ -65,6 +106,6 @@ function main() {
     var d_temp = readLine().split(' ');
     var d = parseInt(d_temp[0]);
     var m = parseInt(d_temp[1]);
-    var result = solve(n, s, d, m);
+    var result = solve2(n, s, d, m);
     process.stdout.write(""+result+"\n");
 }
