@@ -44,11 +44,51 @@ function removeBut(s, a, b) {
     return result;
 }
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 /////////////// ignore above this line ////////////////////
 
+// Kind of a Monte Carlo solution
+// Passes 80-90% of the unit tests :)
+function solution2(n, s) {
+    let best = 0;
+    let tested = [];
+    let iter = 0;
+
+    while (iter < 1000) {
+        let a = -1, b = -1;
+        while (a === b || tested.indexOf(a * 10 + b) > 0) {
+            a = getRandomInt(0, n);
+            b = getRandomInt(0, n); 
+        }
+        tested.push(a * 10 + b);
+        
+        let r = removeBut(s, s.charAt(a), s.charAt(b));
+        
+        let pattern = true;
+        for (let k = 0; k < r.length - 1; k++) {
+            if (r.charAt(k) === r.charAt(k + 1)) {
+                pattern = false;
+                break;
+            }
+        }
+
+        if (pattern && r.length > best) {
+            best = r.length;
+        } 
+        
+        iter++;
+    }
+
+    return best;
+}
+
 function solution1(n, s) {
-    let prev = '';
-    let chars = '', removed = '';
+    let prev = '', chars = '', removed = '';
     
     // beabeefeabzf
     for (let i = 0; i < n; i++) {
@@ -91,6 +131,6 @@ function solution1(n, s) {
 function main() {
     var n = parseInt(readLine());
     var s = readLine();
-    var result = solution1(n, s);
+    var result = solution2(n, s);
     process.stdout.write(""+result+"\n");
 }
