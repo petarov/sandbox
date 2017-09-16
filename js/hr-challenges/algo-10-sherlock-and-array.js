@@ -69,6 +69,20 @@ function solve2(a, map) {
   return 'NO';
 }
 
+function solve3(a, right) {
+  // O(n)
+  let left = 0, j = 0;
+  for (let i = a.length - 1; i > 0; i--) {
+      left += a[i];
+      if (left === right) {
+          return 'YES';
+      }
+      right -= a[i];
+  }
+  
+  return 'NO';
+}
+
 function main() {    
   let T = parseInt(readLine());
   
@@ -90,7 +104,8 @@ function main() {
           sumToLeft += num;
           return num;
       });
-      result = solve2(a, map);
+      //result = solve2(a, map);
+      result = solve3(a, sumToLeft);
     }
     
     process.stdout.write(""+ result +"\n");
