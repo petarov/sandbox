@@ -1,10 +1,12 @@
+// a group - a bundle of persons
+
 const Person = require('./person.js');
 
 class Group {
 
   constructor(name) {
     this._name = name;
-    this._persons = {};
+    this._persons = new Map();
   }
 
   get name() {
@@ -12,7 +14,11 @@ class Group {
   }
 
   add(person) {
-    this._persons[person.email] = person;
+    this._persons.set(person.id, person);
+  }
+
+  remove(person) {
+    this._persons.delete(person.id);
   }
 
   get persons() {

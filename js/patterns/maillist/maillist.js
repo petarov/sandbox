@@ -1,3 +1,5 @@
+// mailing list - sends messages from persons to groups or single persons
+
 const Person = require('./person.js');
 const Group = require('./group.js');
 
@@ -21,8 +23,13 @@ class MailList {
       console.log('From: ' + from.address);
       if (to instanceof Group) {
         console.log('To: ' + `<${to.name}>`);
-        console.log('Recipients: ' + Object.keys(to.persons).reduce(
-          (p, c) => (p !== '' ? p + ', ': '') + c, ''));
+        let recipients = '';
+        to.persons.forEach((v, k) => {
+          if (recipients !== '')
+            recipients += ', ';
+          recipients += v.email;
+        });
+        console.log('Recipients: ' + recipients);
       } else {
         console.log('To: ' + to.address);
       }
