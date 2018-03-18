@@ -1,0 +1,12 @@
+{
+	"DEFAULT_NAMEFINDER_PERSON": {
+		"type": "opennlp.tools.namefind.TokenNameFinderModel",
+		"desc": "Person name finder model.",
+		"file": "en-ner-person.bin" 
+	},
+	"DEFAULT_NAMEFINDER_LOCATION": {
+		"type": "opennlp.tools.namefind.TokenNameFinderModel",
+		"desc": "Location name finder model.",
+		"file": "en-ner-location.bin" 
+	}	
+}

@@ -1,0 +1,19 @@
+#############################################################################
+# MayakPush Server Configurations
+# 
+# Instructions
+#    Make a copy of this file and configure it as per your environment
+#############################################################################
+
+## General ##
+mkp.server.name=
+mkp.server.address=http://localhost:8080
+
+## Database server configurations ##
+mkp.db.server.name=
+mkp.db.server.port=
+
+## Cache server configurations ##
+
+## App-specific configurations ##
+
