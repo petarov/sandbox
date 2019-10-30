@@ -36,38 +36,75 @@ class BattleMode {
     this._phi = tools.rad(tools.rnd(0, 360));
     this._fire = 1;
 
-    if (frame < 35) {
-      this._down = 1;
-    } else if (frame < 75) {
-      this._left = 1;
-      this._down = 0;
-    } else {
-      this._left = 0;
-      this._down = 0;
-      let me = tools.getMe(this._id, data);
-      if (me) {
-        if (me.y < 3200) {
+    let me = tools.getMe(this._id, data);
+    if (me) {
+      // console.log(me);
+      if (me.y < 3000) {
+        if (me.x > 3900) {
+          this._left = 1;
+          this._down = 1;
+        } else if (me.x < 3500) {
           this._right = 1;
           this._down = 1;
-          if (me.x > 4100) {
-            this._right = 0;
-            this._left = 1;
-          }
         } else {
+          this._down = 1;
+        }
+      } else {
+        if (me.x < 3300) {
+          this._left = 0;
+          this._right = 1;
+        } else if (me.x > 3900) {
+          this._left = 1;
+          this._right = 0;
+        } else {
+          this._left = 0;
+          this._right = 0;
+        }
+        if (me.y < 3200) {
+          this._up = 0;
+          this._down = 1;
+        } else if (me.y > 3500) {
+          this._up = 1;
           this._down = 0;
-          if (me.x > 3300) {
-            this._left = 1;
-            this._right = 0;
-          } else if (me.x < 3200) {
-            this._left = 0;
-            this._right = 1;
-          } else {
-            this._left = 0;
-            this._right = 0;
-          }
+        } else {
+          this._up = 0;
+          this._down = 0;
         }
       }
     }
+
+    // if (frame < 35) {
+    //   this._down = 1;
+    // } else if (frame < 75) {
+    //   this._left = 1;
+    //   this._down = 0;
+    // } else {
+    //   this._left = 0;
+    //   this._down = 0;
+    //   let me = tools.getMe(this._id, data);
+    //   if (me) {
+    //     if (me.y < 3200) {
+    //       this._right = 1;
+    //       this._down = 1;
+    //       if (me.x > 4100) {
+    //         this._right = 0;
+    //         this._left = 1;
+    //       }
+    //     } else {
+    //       this._down = 0;
+    //       if (me.x > 3300) {
+    //         this._left = 1;
+    //         this._right = 0;
+    //       } else if (me.x < 3200) {
+    //         this._left = 0;
+    //         this._right = 1;
+    //       } else {
+    //         this._left = 0;
+    //         this._right = 0;
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   b_cap_1(frame, data) {
