@@ -12,22 +12,27 @@ const COMMANDS = {
 let teamId = 0, 
   pickles = 0,
   joined = 0,
-  mode = '';
+  mode = '',
+  sp = '';
 
 if (process.argv.length < 3) {
-  console.log('Missing team id!');
+  console.log('Missing spaceport!');
   return;
 } else if (process.argv.length < 4) {
-  console.log('Missing pickles number!');
+  console.log('Missing team id!');
   return;
 } else if (process.argv.length < 5) {
+  console.log('Missing pickles number!');
+  return;
+} else if (process.argv.length < 6) {
   console.log('Missing battle mode!');
   return;
 } else {
   var args = process.argv.slice(2);
-  teamId = parseInt(args[0]);
-  pickles = parseInt(args[1]);
-  mode = args[2];
+  sp = args[0];
+  teamId = parseInt(args[1]);
+  pickles = parseInt(args[2]);
+  mode = args[3];
 }
 
 for (let i = 0; i < pickles; i++) {
@@ -35,7 +40,7 @@ for (let i = 0; i < pickles; i++) {
   const timeout = Math.floor((Math.random() * 500) + 250) ;
 
   setTimeout(() => {
-    let socket = new WebSocket(config.servers.e1);
+    let socket = new WebSocket(config.servers[sp]);
     let frame = 0;
     let id = -1;
     let bm;

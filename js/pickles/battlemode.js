@@ -111,7 +111,7 @@ class BattleMode {
     } else if (frame < 270) {
       this._left = 1;
       this._up = 0;
-    } else if (frame < 370) {
+    } else if (frame < 450) {
       this._up = 1;
       this._left = 0;
     } else {
@@ -122,19 +122,22 @@ class BattleMode {
 
       let me = tools.getMe(this._id, data);
       if (me) {
-        if (me.x < 8300) {
+        if (me.x < 9200) {
           this._right = 1;
           this._left = 0;
         } else {
           this._right = 0;
           this._left = 1;
         }
-        if (me.y > 10600) {
+        if (me.y > 10000) {
           this._up = 1;
           this._down = 0;
-        } else {
+        } else if (me.y < 15000) {
           this._up = 0;
           this._down = 1;
+        } else {
+          this._up = 0;
+          this._down = 0;
         }
       }
     }
