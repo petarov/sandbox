@@ -79,7 +79,7 @@ class BattleMode {
 
     let me = tools.getMe(this._id, data);
     if (me) {
-      console.log(me);
+      // console.log(me);
       if (me.y < 3000) {
         if (me.x > 3900) {
           this._left = 1;
