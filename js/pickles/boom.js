@@ -80,6 +80,9 @@ for (let i = 0; i < pickles; i++) {
         case 'rg1':
           bm.r_guard_g(frame, data);
           break;
+        case 'rc1':
+          bm.r_cap_1(frame, data);
+          break;
         case 'bc1':
           bm.b_cap_1(frame, data); // dgnl
           break;
@@ -91,6 +94,10 @@ for (let i = 0; i < pickles; i++) {
           break;
         default:
           throw 'unknown juice!';
+      }
+
+      if (tools.rnd(0, 100) > 90) {
+        socket.send(COMMANDS.ping);
       }
       
       var payload = {
