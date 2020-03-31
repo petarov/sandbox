@@ -14,17 +14,28 @@ import (
 
 type set map[uint64]int
 
+var (
+	nsize   = 0
+	nleft   = 0
+	nright  = 0
+	known   = make(set)
+	counter = 0
+)
+
 func getSeed() (num uint64, err error) {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print("Enter a 4-digit number: ")
+	fmt.Print("Enter a 2 to 10 digit number: ")
 	text, err := reader.ReadString('\n')
-	text = strings.Trim(text, " \n")
-	if len(text) > 4 {
-		return 0, errors.New("not a 4-digit number")
-	}
 	if err != nil {
 		return 0, err
 	}
+	text = strings.Trim(text, " \n")
+
+	nsize = len(text)
+	if nsize < 2 || nsize > 10 {
+		return 0, errors.New("not a 2 to 10 digit number")
+	}
+
 	num, err = strconv.ParseUint(text, 10, 64)
 	return num, err
 }
@@ -36,10 +47,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	var (
-		known   = make(set)
-		counter = 0
-	)
+	nleft = nsize - (nsize >> 1)
+	nright = nsize + (nsize >> 1)
 
 	fmt.Println("Generating ...")
 
@@ -52,7 +61,7 @@ func main() {
 		}
 		known[num] = counter
 		counter++
-		num, _ = strconv.ParseUint((fmt.Sprintf("%08d", num*num)[2:6]), 10, 64)
+		num, _ = strconv.ParseUint((fmt.Sprintf("%0*d", (nsize * 2), num*num)[nleft:nright]), 10, 64)
 		fmt.Printf("[%d] = %d\n", counter, num)
 	}
 
