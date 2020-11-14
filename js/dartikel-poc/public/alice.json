@@ -1,0 +1,165 @@
+{
+  "in": "Und so war es in der That: jetzt war sie nur noch zehn Zoll hoch, und\nihr Gesicht leuchtete bei dem Gedanken, daß sie nun die rechte Höhe\nhabe, um durch die kleine Thür in den schönen Garten zu gehen. Doch\nerst wartete sie einige Minuten, ob sie noch mehr einschrumpfen werde.\nSie war einigermaßen ängstlich; »denn es könnte damit aufhören,« sagte\nAlice zu sich selbst, »daß ich ganz ausginge, wie ein Licht. Mich\nwundert, wie ich dann aussähe?« Und sie versuchte sich vorzustellen, wie\ndie Flamme von einem Lichte aussieht, wenn das Licht ausgeblasen ist;\naber sie konnte sich nicht erinnern, dies je gesehen zu haben.\n\nNach einer Weile, als sie merkte daß weiter nichts geschah, beschloß\nsie, gleich in den Garten zu gehen. Aber, arme Alice! als sie an die\nThür kam, hatte sie das goldene Schlüsselchen vergessen. Sie ging nach\ndem Tische zurück, es zu holen, fand aber, daß sie es unmöglich\nerreichen konnte. Sie sah es ganz deutlich durch das Glas, und sie gab\nsich alle Mühe an einem der Tischfüße hinauf zu klettern, aber er war zu\nglatt; und als sie sich ganz müde gearbeitet hatte, setzte sich das\narme, kleine Ding hin und weinte.",
+  "out": " Und so war es in <pos-1> That: jetzt war sie nur noch zehn Zoll hoch, und \n ihr Gesicht leuchtete bei <pos-2> Gedanken, daß sie nun <pos-3> rechte Höhe \n habe, um durch <pos-4> kleine Thür in <pos-5> schönen Garten zu gehen. Doch \n erst wartete sie einige Minuten, ob sie noch mehr einschrumpfen werde. \n Sie war einigermaßen ängstlich; »denn es könnte damit aufhören, «sagte \n Alice zu sich selbst, »daß ich ganz ausginge, wie <pos-6> Licht. Mich \n wundert, wie ich dann aussähe? «Und sie versuchte sich vorzustellen, wie \n <pos-7> Flamme von <pos-8> Lichte aussieht, wenn <pos-9> Licht ausgeblasen ist; \n aber sie konnte sich nicht erinnern, dies je gesehen zu haben. \n\n Nach <pos-10> Weile, als sie merkte daß weiter nichts geschah, beschloß \n sie, gleich in <pos-11> Garten zu gehen. Aber, arme Alice! als sie an <pos-12> \n Thür kam, hatte sie <pos-13> goldene Schlüsselchen vergessen. Sie ging nach \n <pos-14> Tische zurück, es zu holen, fand aber, daß sie es unmöglich \n erreichen konnte. Sie sah es ganz deutlich durch <pos-15> Glas, und sie gab \n sich alle Mühe an einem <pos-16> Tischfüße hinauf zu klettern, aber er war zu \n glatt; und als sie sich ganz müde gearbeitet hatte, setzte sich <pos-17> \n arme, kleine Ding hin und weinte.",
+  "pos": [
+    {
+      "id": 1,
+      "pos": "der",
+      "pool": [
+        "der",
+        "die",
+        "das"
+      ]
+    },
+    {
+      "id": 2,
+      "pos": "dem",
+      "pool": [
+        "dem",
+        "den",
+        "der"
+      ]
+    },
+    {
+      "id": 3,
+      "pos": "die",
+      "pool": [
+        "die",
+        "der",
+        "das"
+      ]
+    },
+    {
+      "id": 4,
+      "pos": "die",
+      "pool": [
+        "die",
+        "der",
+        "das"
+      ]
+    },
+    {
+      "id": 5,
+      "pos": "den",
+      "pool": [
+        "den",
+        "dem",
+        "der"
+      ]
+    },
+    {
+      "id": 6,
+      "pos": "ein",
+      "pool": [
+        "ein",
+        "eine",
+        "einem",
+        "einer",
+        "eines"
+      ]
+    },
+    {
+      "id": 7,
+      "pos": "die",
+      "pool": [
+        "die",
+        "der",
+        "das"
+      ]
+    },
+    {
+      "id": 8,
+      "pos": "einem",
+      "pool": [
+        "ein",
+        "eine",
+        "einem",
+        "einer",
+        "eines"
+      ]
+    },
+    {
+      "id": 9,
+      "pos": "das",
+      "pool": [
+        "das",
+        "der",
+        "die"
+      ]
+    },
+    {
+      "id": 10,
+      "pos": "einer",
+      "pool": [
+        "ein",
+        "eine",
+        "einem",
+        "einer",
+        "eines"
+      ]
+    },
+    {
+      "id": 11,
+      "pos": "den",
+      "pool": [
+        "den",
+        "dem",
+        "der"
+      ]
+    },
+    {
+      "id": 12,
+      "pos": "die",
+      "pool": [
+        "die",
+        "der",
+        "das"
+      ]
+    },
+    {
+      "id": 13,
+      "pos": "das",
+      "pool": [
+        "das",
+        "der",
+        "die"
+      ]
+    },
+    {
+      "id": 14,
+      "pos": "dem",
+      "pool": [
+        "dem",
+        "den",
+        "der"
+      ]
+    },
+    {
+      "id": 15,
+      "pos": "das",
+      "pool": [
+        "das",
+        "der",
+        "die"
+      ]
+    },
+    {
+      "id": 16,
+      "pos": "der",
+      "pool": [
+        "der",
+        "die",
+        "das"
+      ]
+    },
+    {
+      "id": 17,
+      "pos": "das",
+      "pool": [
+        "das",
+        "der",
+        "die"
+      ]
+    }
+  ]
+}
