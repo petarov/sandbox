@@ -77,7 +77,7 @@ func main() {
 				}
 				fmt.Printf("PUMP ID=%d  v=%t\n", cid, v)
 				pump1(client, cid, v)
-				time.Sleep(4 * time.Second)
+				time.Sleep(3 * time.Second)
 				<-sem
 				wg.Done()
 			}(id)
