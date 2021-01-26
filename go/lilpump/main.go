@@ -63,7 +63,7 @@ func main() {
 	}
 
 	client, _ := getClient()
-	sem := make(chan byte, 3)
+	sem := make(chan byte, 4)
 	var wg sync.WaitGroup
 
 	for idx := 0; idx < Pumps; idx++ {
@@ -75,9 +75,9 @@ func main() {
 				if rand.Intn(100) <= Chance {
 					v = true
 				}
-				fmt.Printf("PUMP ID=%d  v=%t\n", cid, v)
+				fmt.Printf("Pump ID=%d  v=%t\n", cid, v)
 				pump1(client, cid, v)
-				time.Sleep(3 * time.Second)
+				time.Sleep(time.Duration(rand.Intn(3)+1) * time.Second)
 				<-sem
 				wg.Done()
 			}(id)
