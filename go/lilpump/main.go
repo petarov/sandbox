@@ -105,13 +105,13 @@ func main() {
 			}
 			sem <- 1
 			wg.Add(1)
-			go func() {
-				fmt.Printf("%s %d=%d \n", Method, TargetPid, TargetAid)
+			go func(i int) {
+				fmt.Printf("%s I=%d %d=%d \n", Method, i, TargetPid, TargetAid)
 				pump2(client, TargetPid, TargetAid)
 				time.Sleep(time.Duration(rand.Intn(MaxInterval-MinInterval)+MinInterval) * time.Second)
 				<-sem
 				wg.Done()
-			}()
+			}(idx)
 		default:
 			log.Fatalf("Wrong pump: %s\n", Method)
 		}
