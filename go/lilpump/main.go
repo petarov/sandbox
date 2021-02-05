@@ -40,7 +40,7 @@ func init() {
 	flag.IntVar(&Pumps, "a", 10, "How many pumps?")
 	flag.IntVar(&Chance, "c", 75, "Chance")
 	flag.IntVar(&MinInterval, "min", 3, "min sec")
-	flag.IntVar(&MaxInterval, "max", 10, "max sec")
+	flag.IntVar(&MaxInterval, "max", 5, "max sec")
 }
 
 func getClient() (client *http.Client, err error) {
