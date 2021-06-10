@@ -10,7 +10,7 @@
   
   <properties>
   	<!-- Adapt this to a version found on http://central.maven.org/maven2/org/eclipse/jetty/jetty-maven-plugin/ -->
-  	<jettyVersion>9.1.3.v20140225</jettyVersion>
+  	<jettyVersion>9.4.41.v20210516</jettyVersion>
   	<jdk.version>1.7</jdk.version>
   </properties>
 	  
