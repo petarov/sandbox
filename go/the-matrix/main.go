@@ -54,6 +54,24 @@ func (m *MatrixPure) mul(n MatrixPure) *MatrixPure {
 	return m
 }
 
+func (m *MatrixPure) mul2(n MatrixPure) *MatrixPure {
+	src := *m
+
+	src[0][0] = n[0][0]*src[0][0] + n[0][1]*src[1][0] + n[0][2]*src[2][0]
+	src[0][1] = n[0][0]*src[0][1] + n[0][1]*src[1][1] + n[0][2]*src[2][1]
+	src[0][2] = n[0][0]*src[0][2] + n[0][1]*src[1][2] + n[0][2]*src[2][2]
+
+	src[1][0] = n[1][0]*src[0][0] + n[1][1]*src[1][0] + n[1][2]*src[2][0]
+	src[1][1] = n[1][0]*src[0][1] + n[1][1]*src[1][1] + n[1][2]*src[2][1]
+	src[1][2] = n[1][0]*src[0][2] + n[1][1]*src[1][2] + n[1][2]*src[2][2]
+
+	src[2][0] = n[2][0]*src[0][0] + n[2][1]*src[1][0] + n[2][2]*src[2][0]
+	src[2][1] = n[2][0]*src[0][1] + n[2][1]*src[1][1] + n[2][2]*src[2][1]
+	src[2][2] = n[2][0]*src[0][2] + n[2][1]*src[1][2] + n[2][2]*src[2][2]
+
+	return m
+}
+
 var (
 	id2 = Matrix{
 		3,
@@ -83,4 +101,5 @@ var (
 func main() {
 	fmt.Printf("%+v\n", m.mul(id2))
 	fmt.Printf("%+v\n", pm.mul(pid2))
+	fmt.Printf("%+v\n", pm.mul2(pid2))
 }

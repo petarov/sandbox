@@ -15,3 +15,9 @@ func BenchmarkType(b *testing.B) {
 		pm.mul(pid2)
 	}
 }
+
+func BenchmarkType2(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		pm.mul2(pid2)
+	}
+}
