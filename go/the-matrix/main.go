@@ -1,6 +1,9 @@
+// main.go
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Matrix struct {
 	Size int
@@ -28,29 +31,56 @@ func (m *Matrix) mul(n Matrix) *Matrix {
 	return m
 }
 
-func main() {
+type MatrixPure [][]int
 
-	_ = Matrix{
-		3,
-		[]int{1, 0, 0},
-		[]int{0, 1, 0},
-		[]int{0, 0, 1},
+func (m *MatrixPure) mul(n MatrixPure) *MatrixPure {
+	r := MatrixPure{
+		{0, 0, 0},
+		{0, 0, 0},
+		{0, 0, 0},
 	}
 
-	id2 := Matrix{
+	src := *m
+	for rn := range n {
+		for cm := range src[0] {
+			for rm := range src {
+				r[rn][cm] += n[rn][rm] * src[rm][cm]
+			}
+		}
+	}
+
+	*m = r
+
+	return m
+}
+
+var (
+	id2 = Matrix{
 		3,
 		[]int{2, 0, 0},
 		[]int{0, 2, 0},
 		[]int{0, 0, 2},
 	}
-
-	m1 := Matrix{
+	m = Matrix{
 		3,
 		[]int{1, 2, 3},
 		[]int{4, 5, 6},
 		[]int{7, 8, 9},
 	}
+	pid2 = MatrixPure{
+		{2, 0, 0},
+		{0, 2, 0},
+		{0, 0, 2},
+	}
 
-	fmt.Printf("%+v\n", m1.mul(id2))
+	pm = MatrixPure{
+		{1, 2, 3},
+		{4, 5, 6},
+		{7, 8, 9},
+	}
+)
 
+func main() {
+	fmt.Printf("%+v\n", m.mul(id2))
+	fmt.Printf("%+v\n", pm.mul(pid2))
 }
