@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"sync"
@@ -66,13 +67,15 @@ func get(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port := flag.Int("port", PORT, "port to listen to")
+	flag.Parse()
 
 	fmt.Println("*** Welcome to the mini key/value store! ***")
-	fmt.Printf("*** Listening on: %d ***\n", PORT)
+	fmt.Printf("*** Listening on: %d ***\n", *port)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/put", put)
 	mux.HandleFunc("/get", get)
 
-	http.ListenAndServe(fmt.Sprintf(":%d", PORT), mux)
+	http.ListenAndServe(fmt.Sprintf(":%d", *port), mux)
 }
