@@ -26,17 +26,14 @@ func put(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			http.Error(w, "Error parsing form params", http.StatusBadRequest)
 		} else {
-			key := r.Form.Get("key")
-			if len(key) == 0 {
-				http.Error(w, "Missing key", http.StatusBadRequest)
-			} else {
-				value := r.Form.Get("value")
-				mutx.Lock()
-				cache[key] = value
-				mutx.Unlock()
-
-				w.WriteHeader(http.StatusOK)
-				w.Write([]byte("OK"))
+			mutx.Lock()
+			defer mutx.Unlock()
+			for k, v := range r.Form {
+				if len(k) == 0 {
+					http.Error(w, "Missing key", http.StatusBadRequest)
+					return
+				}
+				cache[k] = v[0]
 			}
 		}
 	}
