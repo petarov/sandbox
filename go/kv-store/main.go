@@ -19,45 +19,47 @@ var (
 )
 
 func put(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "", http.StatusMethodNotAllowed)
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, "Error parsing form params", http.StatusBadRequest)
 	} else {
-		err := r.ParseForm()
-		if err != nil {
-			http.Error(w, "Error parsing form params", http.StatusBadRequest)
-		} else {
-			mutx.Lock()
-			defer mutx.Unlock()
-			for k, v := range r.Form {
-				if len(k) == 0 {
-					http.Error(w, "Missing key", http.StatusBadRequest)
-					return
-				}
-				cache[k] = v[0]
+		mutx.Lock()
+		defer mutx.Unlock()
+		for k, v := range r.Form {
+			if len(k) == 0 {
+				http.Error(w, "Missing key", http.StatusBadRequest)
+				return
 			}
+			cache[k] = v[0]
 		}
 	}
 }
 
 func get(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
-		http.Error(w, "", http.StatusMethodNotAllowed)
+	keys, ok := r.URL.Query()["key"]
+	if !ok || len(keys) < 1 {
+		http.Error(w, "Missing key", http.StatusBadRequest)
 	} else {
-		keys, ok := r.URL.Query()["key"]
-		if !ok || len(keys) < 1 {
-			http.Error(w, "Missing key", http.StatusBadRequest)
-		} else {
-			mutx.RLock()
-			v := cache[keys[0]]
-			mutx.RUnlock()
+		mutx.RLock()
+		v := cache[keys[0]]
+		mutx.RUnlock()
 
-			if len(v) == 0 {
-				http.Error(w, fmt.Sprintf("No value found for '%s'", keys[0]), http.StatusNotFound)
-			} else {
-				w.WriteHeader(http.StatusOK)
-				w.Write([]byte(v))
-			}
+		if len(v) == 0 {
+			http.Error(w, fmt.Sprintf("No value found for '%s'", keys[0]), http.StatusNotFound)
+		} else {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(v))
 		}
+	}
+}
+
+func router(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		get(w, r)
+	} else if r.Method == "POST" || r.Method == "PUT" {
+		put(w, r)
+	} else {
+		http.Error(w, "", http.StatusMethodNotAllowed)
 	}
 }
 
@@ -69,8 +71,7 @@ func main() {
 	fmt.Printf("*** Listening on: %d ***\n", *port)
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/put", put)
-	mux.HandleFunc("/get", get)
+	mux.HandleFunc("/", router)
 
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", *port), mux); err != nil {
 		fmt.Printf("%v\n", err)
