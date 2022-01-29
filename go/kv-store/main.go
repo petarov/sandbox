@@ -17,7 +17,7 @@ const (
 
 var (
 	cache = make(map[string]string)
-	mutx  sync.RWMutex
+	mtx   sync.RWMutex
 )
 
 func put(w http.ResponseWriter, r *http.Request) {
@@ -31,10 +31,16 @@ func put(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			mutx.Lock()
+			// go func(key string, val string) {
+			// lockChn <- struct{}{}
+			mtx.Lock()
 			cache[k] = v[0]
-			mutx.Unlock()
+			mtx.Unlock()
+			// <-lockChn
+			// }(k, v[0])
 		}
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK"))
 	}
 }
 
@@ -43,9 +49,7 @@ func get(w http.ResponseWriter, r *http.Request) {
 	if len(keys) > 1 {
 		found := 0
 		for _, key := range keys {
-			mutx.RLock()
 			value, ok := cache[key]
-			mutx.RUnlock()
 
 			if ok {
 				if found == 0 {
@@ -62,9 +66,7 @@ func get(w http.ResponseWriter, r *http.Request) {
 	} else if len(keys) == 0 {
 		http.Error(w, fmt.Sprintf("No keys specified"), http.StatusNotFound)
 	} else {
-		mutx.RLock()
 		v, ok := cache[keys[0]]
-		mutx.RUnlock()
 
 		if ok {
 			w.WriteHeader(http.StatusOK)
