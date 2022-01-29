@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
 	"sync"
 )
@@ -45,10 +46,11 @@ func get(w http.ResponseWriter, r *http.Request) {
 		mutx.RUnlock()
 
 		if len(v) == 0 {
-			http.Error(w, fmt.Sprintf("No value found for '%s'", keys[0]), http.StatusNotFound)
+			http.Error(w, fmt.Sprintf("No value found for '%s'", keys[0]),
+				http.StatusNotFound)
 		} else {
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(v))
+			w.Write([]byte(url.QueryEscape(v)))
 		}
 	}
 }
