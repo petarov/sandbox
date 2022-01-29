@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"runtime"
 	"sync"
 )
 
@@ -24,14 +25,15 @@ func put(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Error parsing form params", http.StatusBadRequest)
 	} else {
-		mutx.Lock()
-		defer mutx.Unlock()
 		for k, v := range r.Form {
 			if len(k) == 0 {
 				http.Error(w, "Missing key", http.StatusBadRequest)
 				return
 			}
+
+			mutx.Lock()
 			cache[k] = v[0]
+			mutx.Unlock()
 		}
 	}
 }
@@ -57,6 +59,8 @@ func get(w http.ResponseWriter, r *http.Request) {
 		if found == 0 {
 			http.Error(w, "No values found for specified keys", http.StatusNotFound)
 		}
+	} else if len(keys) == 0 {
+		http.Error(w, fmt.Sprintf("No keys specified"), http.StatusNotFound)
 	} else {
 		mutx.RLock()
 		v, ok := cache[keys[0]]
@@ -87,7 +91,7 @@ func main() {
 	flag.Parse()
 
 	fmt.Println("*** Welcome to the mini key/value store! ***")
-	fmt.Printf("*** Listening on: %d ***\n", *port)
+	fmt.Printf("*** Listening on: %d, CPUS: %d ***\n", *port, runtime.GOMAXPROCS(-1))
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", router)
