@@ -37,20 +37,37 @@ func put(w http.ResponseWriter, r *http.Request) {
 }
 
 func get(w http.ResponseWriter, r *http.Request) {
-	keys, ok := r.URL.Query()["key"]
-	if !ok || len(keys) < 1 {
-		http.Error(w, "Missing key", http.StatusBadRequest)
+	keys := r.URL.Query()["key"]
+	if len(keys) > 1 {
+		found := 0
+		for _, key := range keys {
+			mutx.RLock()
+			value, ok := cache[key]
+			mutx.RUnlock()
+
+			if ok {
+				if found == 0 {
+					w.WriteHeader(http.StatusOK)
+				}
+				found += 1
+				w.Write([]byte(fmt.Sprintf("%s;%s\n", url.QueryEscape(key), url.QueryEscape(value))))
+			}
+		}
+
+		if found == 0 {
+			http.Error(w, "No values found for specified keys", http.StatusNotFound)
+		}
 	} else {
 		mutx.RLock()
-		v := cache[keys[0]]
+		v, ok := cache[keys[0]]
 		mutx.RUnlock()
 
-		if len(v) == 0 {
-			http.Error(w, fmt.Sprintf("No value found for '%s'", keys[0]),
-				http.StatusNotFound)
-		} else {
+		if ok {
 			w.WriteHeader(http.StatusOK)
 			w.Write([]byte(url.QueryEscape(v)))
+		} else {
+			http.Error(w, fmt.Sprintf("No value found for '%s'", keys[0]),
+				http.StatusNotFound)
 		}
 	}
 }
