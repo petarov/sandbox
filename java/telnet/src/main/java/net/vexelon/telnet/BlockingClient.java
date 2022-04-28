@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 
 public class BlockingClient {
@@ -15,20 +16,36 @@ public class BlockingClient {
 
         System.out.println("*** Welcome to ACME's Telnet. Enjoy! ***\n");
         var reader = new BufferedReader(new InputStreamReader(System.in));
+        var buffer = new StringBuilder();
+        int read = 0;
 
         for (; ; ) {
             System.out.print("> ");
             var line = reader.readLine();
             if ("exit".equalsIgnoreCase(line) || "quit".equalsIgnoreCase(line)) {
+                socket.close();
                 break;
             }
 
-            if (socket.isClosed()) {
-                System.out.println("Received EOF");
-                break;
+            try {
+                socket.getOutputStream().write((line + "\r\n").getBytes(StandardCharsets.UTF_8));
+            } catch (SocketException e) {
+                if (e.getMessage().toLowerCase().contains("broken pipe")) {
+                    break;
+                } else {
+                    throw e;
+                }
             }
 
-            socket.getOutputStream().write((line + "\r\n").getBytes(StandardCharsets.UTF_8));
+            while ((read = socket.getInputStream().read()) > 0) {
+                if (((char) read) == '\n') {
+                    System.out.println(buffer);
+                    buffer.setLength(0);
+                    break;
+                } else if (((char) read) != '\r') {
+                    buffer.append((char) read);
+                }
+            }
         }
 
         System.out.println("Good bye!");
