@@ -8,10 +8,10 @@ import java.util.concurrent.Executors;
 
 public class BlockingServer {
 
-    public void start(String address, int port) throws Exception {
+    public void start(String host, int port) throws Exception {
         var es = Executors.newFixedThreadPool(10);
         var server = new ServerSocket();
-        server.bind(new InetSocketAddress(address, port));
+        server.bind(new InetSocketAddress(host, port));
 
         var clientId = 0;
 
