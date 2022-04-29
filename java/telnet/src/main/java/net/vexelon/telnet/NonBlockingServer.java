@@ -17,35 +17,37 @@ public class NonBlockingServer {
     private final Map<Integer, EchoClient> clients = new HashMap<>();
 
     public void start(String host, int port) throws Exception {
-        var selector = Selector.open();
-        var ssc = ServerSocketChannel.open();
-        ssc.bind(new InetSocketAddress(host, port));
-        ssc.configureBlocking(false);
-        ssc.register(selector, SelectionKey.OP_ACCEPT);
+        try (var selector = Selector.open();
+             var ssc = ServerSocketChannel.open()) {
+            ssc.bind(new InetSocketAddress(host, port));
+            ssc.configureBlocking(false);
+            ssc.register(selector, SelectionKey.OP_ACCEPT);
 
-        var clientId = 0;
-        var buffer = ByteBuffer.allocate(BUFFER_SIZE);
+            var clientId = 0;
+            var buffer = ByteBuffer.allocate(BUFFER_SIZE);
 
-        for (; ; ) {
-            selector.select();
-            for (var it = selector.selectedKeys().iterator(); it.hasNext(); ) {
-                var key = it.next();
+            for (; ; ) {
+                selector.select();
+                for (var it = selector.selectedKeys().iterator(); it.hasNext(); ) {
+                    var key = it.next();
 
-                if (key.isAcceptable()) {
-                    clientId += 1;
-                    var client = new EchoClient(clientId);
-                    client.register(ssc.accept(), selector);
-                    clients.put(clientId, client);
+                    if (key.isAcceptable()) {
+                        clientId += 1;
+                        var client = new EchoClient(clientId);
+                        client.register(ssc.accept(), selector);
+                        clients.put(clientId, client);
+                    }
+
+                    if (key.isReadable()) {
+                        buffer.clear();
+                        clients.get((Integer) key.attachment()).echo(key, buffer);
+                    }
+
+                    it.remove();
                 }
 
-                if (key.isReadable()) {
-                    buffer.clear();
-                    clients.get((Integer) key.attachment()).echo(key, buffer);
-                }
-
-                it.remove();
+                Thread.sleep(250);
             }
-            Thread.sleep(250);
         }
     }
 
@@ -95,13 +97,12 @@ public class NonBlockingServer {
         private void flush(SocketChannel channel) throws IOException {
             System.out.println("(#" + clientId + ") : " + clientBuffer);
 
-            var output = new StringBuilder();
-            output.append("ECHO : ");
-            output.append(clientBuffer);
-            output.append("\r\n");
+            String output = "ECHO : " +
+                    clientBuffer +
+                    "\r\n";
             clientBuffer.setLength(0);
 
-            var wrapped = ByteBuffer.wrap(output.toString().getBytes(StandardCharsets.UTF_8));
+            var wrapped = ByteBuffer.wrap(output.getBytes(StandardCharsets.UTF_8));
             while (wrapped.hasRemaining()) {
                 channel.write(wrapped);
             }

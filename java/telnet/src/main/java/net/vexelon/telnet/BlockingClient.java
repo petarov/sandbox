@@ -2,7 +2,6 @@ package net.vexelon.telnet;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
@@ -16,8 +15,6 @@ public class BlockingClient {
 
         System.out.println("*** Welcome to ACME's Telnet. Enjoy! ***\n");
         var reader = new BufferedReader(new InputStreamReader(System.in));
-        var buffer = new StringBuilder();
-        int read = 0;
 
         for (; ; ) {
             System.out.print("> ");
@@ -37,15 +34,7 @@ public class BlockingClient {
                 }
             }
 
-            while ((read = socket.getInputStream().read()) > 0) {
-                if (((char) read) == '\n') {
-                    System.out.println(buffer);
-                    buffer.setLength(0);
-                    break;
-                } else if (((char) read) != '\r') {
-                    buffer.append((char) read);
-                }
-            }
+            System.out.println(new BufferedReader(new InputStreamReader(socket.getInputStream())).readLine());
         }
 
         System.out.println("Good bye!");

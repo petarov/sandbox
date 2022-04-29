@@ -1,5 +1,8 @@
 package net.vexelon.telnet;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,48 +11,35 @@ import java.util.concurrent.Executors;
 
 public class BlockingServer {
 
-    public void start(String host, int port) throws Exception {
+    public void start(String host, int port) throws IOException {
         var es = Executors.newFixedThreadPool(10);
-        var server = new ServerSocket();
-        server.bind(new InetSocketAddress(host, port));
 
-        var clientId = 0;
+        try (var server = new ServerSocket()) {
+            server.bind(new InetSocketAddress(host, port));
 
-        for (; ; ) {
-            es.execute(new EchoLoop(++clientId, server.accept()));
+            var clientId = 0;
+
+            while (true) {
+                es.execute(new EchoLoop(++clientId, server.accept()));
+            }
         }
     }
 
-    private static class EchoLoop implements Runnable {
-
-        private int clientId;
-        private Socket client;
-
-        public EchoLoop(int clientId, Socket client) {
-            this.clientId = clientId;
-            this.client = client;
-        }
+    private record EchoLoop(int clientId, Socket client) implements Runnable {
 
         @Override public void run() {
             try {
                 var addr = client.getInetAddress().getHostAddress();
                 System.out.println("(#" + clientId + ") : New client connection from " + addr);
 
-                var buffer = new StringBuilder();
-                var input = client.getInputStream();
                 int eofs = 0;
-                int read;
+                while (eofs < 3) {
+                    var line = new BufferedReader(new InputStreamReader(client.getInputStream())).readLine();
+                    if (line == null) break; // conn closed
 
-                while (eofs < 3 && (read = input.read()) != -1) {
-                    if (((char) read) == '\n') {
-                        eofs += 1;
-                        System.out.println("(#" + clientId + ") : " + buffer);
-                        client.getOutputStream().write(("ECHO : " + buffer + "\r\n").getBytes(StandardCharsets.UTF_8));
-                        buffer.setLength(0);
-                    } else if (((char) read) != '\r') {
-                        eofs = 0;
-                        buffer.append((char) read);
-                    }
+                    eofs += line.isEmpty() ? 1 : 0; // client sent empty lines
+
+                    client.getOutputStream().write(("ECHO : " + line + "\r\n").getBytes(StandardCharsets.UTF_8));
                 }
 
                 client.close();
