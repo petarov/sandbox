@@ -9,12 +9,20 @@ public class Main {
 
         try {
             switch (args[0]) {
+                // --- BIO ---
+
                 case "server":
                     new BlockingServer().start(args[1], Integer.parseInt(args[2]));
                     break;
 
                 case "client":
                     new BlockingClient().connect(args[1], Integer.parseInt(args[2]));
+                    break;
+
+                // --- NIO ---
+
+                case "nio-server":
+                    new NonBlockingServer().start(args[1], Integer.parseInt(args[2]));
                     break;
             }
         } catch (Throwable t) {
