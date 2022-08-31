@@ -17,24 +17,29 @@
 
     if (!state.lang.net) {
       const config = {
-        iterations: 5000,
+        iterations: 15000,
         log: true,
         logPeriod: 100,
-        layers: [7],
+        layers: [10],
       };
         
       const data = [
-        { input: 'A lot of people invest in $TSLA for the first time, because they believe in Musk.', output: '$TSLA'},
-        { input: 'That was a great opening for $TGT last sunday with an up margin of 4%.', output: '$TGT'},
-        { input: '$PG down 1.7% with a low cap bust on Sunday. Investors are angry af.', output: '$PG'},
-        { input: 'Looks like there is no hope for the $MMM ship sailing anytime soon. Investors keep their fingers crossed anyway.', output: '$MMM'},
-        { input: 'Some brave people cashed out $TSLA and $JNJ stocks today. All went home happy!', output: '$TSLA $JNJ'},
-        { input: 'As usual, $GOOG are killing it in the long run.', output: '$GOOG'},
-        { input: 'No more downtime for $AMZN, as they move even upper in the charts of stock success.', output: '$AMZN'},
-        { input: '$NFLX with astnoishing new series, invites new subscribers and ups their game.', output: '$NFLX'},
-        { input: '$SNAP out of it, if you have invested a ton of your hard earned money.', output: '$SNAP'},
-        { input: 'It is gonna be a dark day for $PLUG investors, as the stock plummets even more today.', output: '$PLUG'},
-        { input: 'Grab all the $GRAB you can get. Take out your wallet, drop the $GOOG and do $GRAB.', output: '$GRAB $GOOG'}
+        { input: 'A lot of people invest in $TSLA for the first time, because they believe in Musk.', output: '$y'},
+        { input: 'That was a great opening for $TGT last sunday with an up margin of 4%.', output: 'y'},
+        { input: '$PG down 1.7% with a low cap bust on Sunday. Investors are angry af.', output: 'y'},
+        { input: 'Looks like there is no hope for the $MMM ship sailing anytime soon. Investors keep their fingers crossed anyway.', output: 'y'},
+        { input: 'Some brave people cashed out $TSLA and $JNJ stocks today. All went home happy!', output: 'y'},
+        { input: 'As usual, $GOOG are killing it in the long run.', output: 'y'},
+        { input: 'No more downtime for $AMZN, as they move even upper in the charts of stock success.', output: 'y'},
+        { input: '$NFLX with astnoishing new series, invites new subscribers and ups their game.', output: 'y'},
+        { input: '$SNAP out of it, if you have invested a ton of your hard earned money.', output: 'y'},
+        { input: 'It is gonna be a dark day for $PLUG investors, as the stock plummets even more today.', output: 'y'},
+        { input: 'Grab all the $GRAB you can get. Take out your wallet, drop the $GOOG and do $GRAB.', output: 'y'},
+
+        { input: 'Grab all the stocks, no matter the price.', output: 'n'},
+        { input: 'We are definitely making winnings this year. Just wait and see.', output: 'n'},
+        { input: 'There are more open money slots and stocks to invest in, in the USA than any other place in the world.', output: 'n'},
+        { input: 'No more downtime for Amazon, as they move even upper in the charts of stock success.', output: 'n'},
       ];
 
       const network = new brain.recurrent.LSTM();
@@ -46,7 +51,7 @@
     const result = state.lang.net.run(text);
     console.log('result : ', result);
 
-    $$('lang-result').innerHTML = result;
+    $$('lang-result').innerHTML = result === 'yes' ? 'YES' : 'NO';
   };
 
   const doXor = function() {
