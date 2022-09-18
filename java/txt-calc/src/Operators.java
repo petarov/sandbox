@@ -4,22 +4,28 @@ import java.util.Optional;
 
 public enum Operators implements Operation {
 
-	PLUS('+', BigInteger::add),
-	MINUS('-', BigInteger::subtract),
-	MUL('*', BigInteger::multiply),
-	DIV('/', BigInteger::divide),
+	PLUS('+', 1, BigInteger::add),
+	MINUS('-', 1, BigInteger::subtract),
+	MUL('*', 2, BigInteger::multiply),
+	DIV('/', 2, BigInteger::divide),
 	;
 
 	private final char      notation;
+	private final int       priority;
 	private final Operation operation;
 
-	Operators(char notation, Operation operation) {
+	Operators(char notation, int priority, Operation operation) {
 		this.notation = notation;
+		this.priority = priority;
 		this.operation = operation;
 	}
 
 	public char getNotation() {
 		return notation;
+	}
+
+	public int getPriority() {
+		return priority;
 	}
 
 	@Override
