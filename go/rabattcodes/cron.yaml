@@ -1,0 +1,10 @@
+cron:
+- description: "downloads coupons"
+  url: /tasks/sync
+  schedule: every 24 hours
+- description: "cleans up old coupons"
+  url: /tasks/cleanup
+  schedule: every monday 09:00
+# - description: "notify signedup people about coupons"
+#   url: /tasks/notify
+#   schedule: every 24 hours
