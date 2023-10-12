@@ -3,8 +3,10 @@ package main
 import (
 	"image"
 	"image/color"
+	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
@@ -57,7 +59,7 @@ func drawPath(screen *ebiten.Image, path vector.Path, line bool) {
 	screen.DrawTriangles(vs, is, whiteSubImage, op)
 }
 
-func drawBoard(screen *ebiten.Image) {
+func drawBoardOutline(screen *ebiten.Image) {
 	var path vector.Path
 	w := float32(screenWidth)
 	h := float32(screenHeight)
@@ -107,14 +109,33 @@ func drawX(screen *ebiten.Image, x, y int) {
 }
 
 func (g *Game) Update() error {
+
+	pressed := inpututil.IsMouseButtonJustReleased(ebiten.MouseButtonLeft)
+
+	if pressed {
+		// translate to board coordinates
+		x, y := ebiten.CursorPosition()
+		col := int(math.Floor(float64(x) / float64(screenWidth*0.333)))
+		row := int(math.Floor(float64(y) / float64(screenHeight*0.333)))
+		g.board[row][col] = X
+	}
+
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	//screen.Fill(color.RGBA{0xe0, 0xe0, 0xe0, 0xff})
-	drawBoard(screen)
-	drawO(screen, 0, 0)
-	drawX(screen, 1, 0)
+	drawBoardOutline(screen)
+
+	for row := 0; row < 3; row++ {
+		for col := 0; col < 3; col++ {
+			switch g.board[row][col] {
+			case X:
+				drawX(screen, col, row)
+			case O:
+				drawO(screen, col, row)
+			}
+		}
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
