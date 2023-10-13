@@ -8,30 +8,30 @@ const (
 	O     = 2
 )
 
-func checkWin(board Board, player int) bool {
+func (b *Board) checkWin(player int) bool {
 	// Check rows, columns, and diagonals for a win
 	for i := 0; i < 3; i++ {
-		if board[i][0] == player && board[i][1] == player && board[i][2] == player {
+		if b[i][0] == player && b[i][1] == player && b[i][2] == player {
 			return true // Row win
 		}
-		if board[0][i] == player && board[1][i] == player && board[2][i] == player {
+		if b[0][i] == player && b[1][i] == player && b[2][i] == player {
 			return true // Column win
 		}
 	}
-	if board[0][0] == player && board[1][1] == player && board[2][2] == player {
+	if b[0][0] == player && b[1][1] == player && b[2][2] == player {
 		return true // Diagonal win (top-left to bottom-right)
 	}
-	if board[0][2] == player && board[1][1] == player && board[2][0] == player {
+	if b[0][2] == player && b[1][1] == player && b[2][0] == player {
 		return true // Diagonal win (top-right to bottom-left)
 	}
 	return false
 }
 
-func checkDraw(board Board) bool {
+func (b *Board) checkDraw() bool {
 	// Check for a draw (all cells filled)
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++ {
-			if board[i][j] == Empty {
+			if b[i][j] == Empty {
 				return false // There's an empty cell, not a draw
 			}
 		}
