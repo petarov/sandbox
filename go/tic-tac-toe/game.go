@@ -164,7 +164,7 @@ func (g *Game) Update() error {
 			}
 		} else {
 			// computer X
-			_, bestMove := Minimax(*g.board, X)
+			_, bestMove := Minimax(*g.board, X, 10)
 			row, col := bestMove/3, bestMove%3
 			fmt.Printf("X decided: col=%d  row=%d\n", col, row)
 

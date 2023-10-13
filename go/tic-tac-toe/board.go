@@ -44,16 +44,16 @@ func (b *Board) checkDraw() bool {
 	return true // All cells are filled, it's a draw
 }
 
-func Minimax(b Board, player int) (int, int) {
-	win1, _, _ := b.checkWin(X)
-	if win1 {
+func Minimax(board Board, player, depth int) (int, int) {
+	win, _, _ := board.checkWin(O)
+	if win {
 		return -1, -1
 	}
-	win2, _, _ := b.checkWin(O)
-	if win2 {
+	win, _, _ = board.checkWin(X)
+	if win {
 		return 1, -1
 	}
-	if b.checkDraw() {
+	if board.checkDraw() {
 		return 0, -1
 	}
 
@@ -68,10 +68,10 @@ func Minimax(b Board, player int) (int, int) {
 
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++ {
-			if b[i][j] == Empty {
-				b[i][j] = player
-				score, _ := Minimax(b, 3-player)
-				b[i][j] = Empty
+			if board[i][j] == Empty {
+				board[i][j] = player
+				score, _ := Minimax(board, 3-player, depth-1)
+				board[i][j] = Empty
 
 				if player == X {
 					if score > bestScore {
