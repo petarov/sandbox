@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"math"
@@ -31,6 +32,8 @@ type Game struct {
 	state    int
 	nextTurn int
 	winner   int
+	winPos   int
+	winCoord int
 	board    *Board
 }
 
@@ -151,19 +154,30 @@ func (g *Game) Update() error {
 			case X:
 				g.board[row][col] = X
 				g.nextTurn = O
+				won, pos, coord := g.board.checkWin(X)
+				if won {
+					fmt.Println("X wins")
+					g.state = gameStateWin
+					g.winner = X
+					g.winPos = pos
+					g.winCoord = coord
+				}
 			case O:
 				g.board[row][col] = O
 				g.nextTurn = X
+				won, pos, coord := g.board.checkWin(O)
+				if won {
+					fmt.Println("O wins")
+					g.state = gameStateWin
+					g.winner = O
+					g.winPos = pos
+					g.winCoord = coord
+				}
 			}
 
-			if g.board.checkDraw() {
+			if g.state == gameStatePlay && g.board.checkDraw() {
+				fmt.Println("DRAW")
 				g.state = gameStateDraw
-			} else if g.board.checkWin(X) {
-				g.state = gameStateWin
-				g.winner = X
-			} else if g.board.checkWin(O) {
-				g.state = gameStateWin
-				g.winner = O
 			}
 		} else {
 			// new game
@@ -190,9 +204,17 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		}
 	}
 
-	switch g.state {
-	case gameStateWin:
-		drawColLine(screen, 0)
+	if g.state == gameStateWin {
+		switch g.winPos {
+		case WinCol:
+			drawColLine(screen, g.winCoord)
+		case WinRow:
+			drawRowLine(screen, g.winCoord)
+		case WinTLD:
+			drawTopLeftLine(screen)
+		case WinTRD:
+			drawTopRightLine(screen)
+		}
 	}
 }
 
@@ -206,6 +228,7 @@ func NewGame() *Game {
 		gameStatePlay,
 		rand.Intn(O) + X,
 		Empty,
+		0, 0,
 		NewBoard(),
 	}
 }

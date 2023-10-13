@@ -3,28 +3,33 @@ package main
 type Board [3][3]int
 
 const (
-	Empty = 0
-	X     = 1
-	O     = 2
+	Empty  = 0
+	X      = 1
+	O      = 2
+	WinCol = 10
+	WinRow = 11
+	WinTLD = 12
+	WinTRD = 13
 )
 
-func (b *Board) checkWin(player int) bool {
+func (b *Board) checkWin(player int) (bool, int, int) {
 	// Check rows, columns, and diagonals for a win
 	for i := 0; i < 3; i++ {
 		if b[i][0] == player && b[i][1] == player && b[i][2] == player {
-			return true // Row win
+			return true, WinRow, i // Row win
 		}
 		if b[0][i] == player && b[1][i] == player && b[2][i] == player {
-			return true // Column win
+			return true, WinCol, i // Column win
 		}
 	}
 	if b[0][0] == player && b[1][1] == player && b[2][2] == player {
-		return true // Diagonal win (top-left to bottom-right)
+		return true, WinTLD, 0 // Diagonal win (top-left to bottom-right)
 	}
 	if b[0][2] == player && b[1][1] == player && b[2][0] == player {
-		return true // Diagonal win (top-right to bottom-left)
+		return true, WinTRD, 0 // Diagonal win (top-right to bottom-left)
 	}
-	return false
+
+	return false, 0, 0
 }
 
 func (b *Board) checkDraw() bool {
