@@ -140,29 +140,17 @@ func drawTopRightLine(screen *ebiten.Image) {
 }
 
 func (g *Game) Update() error {
-
 	pressed := inpututil.IsMouseButtonJustReleased(ebiten.MouseButtonLeft)
 
-	if pressed {
-		if g.state == gameStatePlay {
-			// translate to board coordinates
-			x, y := ebiten.CursorPosition()
-			col := int(math.Floor(float64(x) / float64(screenWidth*0.333)))
-			row := int(math.Floor(float64(y) / float64(screenHeight*0.333)))
+	if g.state == gameStatePlay {
+		if g.nextTurn == O {
+			// human O
+			if pressed {
+				// translate to board coordinates
+				x, y := ebiten.CursorPosition()
+				col := int(math.Floor(float64(x) / float64(screenWidth*0.333)))
+				row := int(math.Floor(float64(y) / float64(screenHeight*0.333)))
 
-			switch g.nextTurn {
-			case X:
-				g.board[row][col] = X
-				g.nextTurn = O
-				won, pos, coord := g.board.checkWin(X)
-				if won {
-					fmt.Println("X wins")
-					g.state = gameStateWin
-					g.winner = X
-					g.winPos = pos
-					g.winCoord = coord
-				}
-			case O:
 				g.board[row][col] = O
 				g.nextTurn = X
 				won, pos, coord := g.board.checkWin(O)
@@ -174,17 +162,33 @@ func (g *Game) Update() error {
 					g.winCoord = coord
 				}
 			}
-
-			if g.state == gameStatePlay && g.board.checkDraw() {
-				fmt.Println("DRAW")
-				g.state = gameStateDraw
-			}
 		} else {
-			// new game
-			g.state = gameStatePlay
-			g.nextTurn = rand.Intn(O) + X
-			g.board = NewBoard()
+			// computer X
+			_, bestMove := Minimax(*g.board, X)
+			row, col := bestMove/3, bestMove%3
+			fmt.Printf("X decided: col=%d  row=%d\n", col, row)
+
+			g.board[row][col] = X
+			g.nextTurn = O
+			won, pos, coord := g.board.checkWin(X)
+			if won {
+				fmt.Println("X wins")
+				g.state = gameStateWin
+				g.winner = X
+				g.winPos = pos
+				g.winCoord = coord
+			}
 		}
+
+		if g.state == gameStatePlay && g.board.checkDraw() {
+			fmt.Println("DRAW")
+			g.state = gameStateDraw
+		}
+	} else if pressed {
+		// new game
+		g.state = gameStatePlay
+		g.nextTurn = rand.Intn(O) + X
+		g.board = NewBoard()
 	}
 
 	return nil

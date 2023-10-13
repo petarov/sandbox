@@ -44,6 +44,55 @@ func (b *Board) checkDraw() bool {
 	return true // All cells are filled, it's a draw
 }
 
+func Minimax(b Board, player int) (int, int) {
+	win1, _, _ := b.checkWin(X)
+	if win1 {
+		return -1, -1
+	}
+	win2, _, _ := b.checkWin(O)
+	if win2 {
+		return 1, -1
+	}
+	if b.checkDraw() {
+		return 0, -1
+	}
+
+	var bestScore int
+	var bestMoveX, bestMoveY int
+
+	if player == X {
+		bestScore = -1
+	} else {
+		bestScore = 1
+	}
+
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			if b[i][j] == Empty {
+				b[i][j] = player
+				score, _ := Minimax(b, 3-player)
+				b[i][j] = Empty
+
+				if player == X {
+					if score > bestScore {
+						bestScore = score
+						bestMoveX = i
+						bestMoveY = j
+					}
+				} else {
+					if score < bestScore {
+						bestScore = score
+						bestMoveX = i
+						bestMoveY = j
+					}
+				}
+			}
+		}
+	}
+
+	return bestScore, bestMoveX*3 + bestMoveY
+}
+
 func NewBoard() *Board {
 	return &Board{
 		{Empty, Empty, Empty},
@@ -51,21 +100,3 @@ func NewBoard() *Board {
 		{Empty, Empty, Empty},
 	}
 }
-
-// func main() {
-// 	board := Board{
-// 		{X, O, X},
-// 		{Empty, X, O},
-// 		{O, X, O},
-// 	}
-
-// 	if checkWin(board, X) {
-// 		fmt.Println("Player X wins!")
-// 	} else if checkWin(board, O) {
-// 		fmt.Println("Player O wins!")
-// 	} else if checkDraw(board) {
-// 		fmt.Println("It's a draw!")
-// 	} else {
-// 		fmt.Println("The game is still ongoing.")
-// 	}
-// }
