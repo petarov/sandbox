@@ -4,6 +4,7 @@ import (
 	"image"
 	"image/color"
 	"math"
+	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -127,11 +128,11 @@ func drawColLine(screen *ebiten.Image, col int) {
 	vector.StrokeLine(screen, mid, float32(0), mid, float32(screenHeight), strokeWidth, winColor, true)
 }
 
-func drawLeftDiagLine(screen *ebiten.Image) {
+func drawTopLeftLine(screen *ebiten.Image) {
 	vector.StrokeLine(screen, 0, 0, float32(screenWidth), float32(screenHeight), strokeWidth, winColor, true)
 }
 
-func drawRightDiagLine(screen *ebiten.Image) {
+func drawTopRightLine(screen *ebiten.Image) {
 	vector.StrokeLine(screen, float32(screenWidth), 0, 0, float32(screenHeight), strokeWidth, winColor, true)
 }
 
@@ -140,20 +141,35 @@ func (g *Game) Update() error {
 	pressed := inpututil.IsMouseButtonJustReleased(ebiten.MouseButtonLeft)
 
 	if pressed {
-		// translate to board coordinates
-		x, y := ebiten.CursorPosition()
-		col := int(math.Floor(float64(x) / float64(screenWidth*0.333)))
-		row := int(math.Floor(float64(y) / float64(screenHeight*0.333)))
-		g.board[row][col] = X
+		if g.state == gameStatePlay {
+			// translate to board coordinates
+			x, y := ebiten.CursorPosition()
+			col := int(math.Floor(float64(x) / float64(screenWidth*0.333)))
+			row := int(math.Floor(float64(y) / float64(screenHeight*0.333)))
 
-		if g.board.checkDraw() {
-			g.state = gameStateDraw
-		} else if g.board.checkWin(X) {
-			g.state = gameStateWin
-			g.winner = X
-		} else if g.board.checkWin(O) {
-			g.state = gameStateWin
-			g.winner = O
+			switch g.nextTurn {
+			case X:
+				g.board[row][col] = X
+				g.nextTurn = O
+			case O:
+				g.board[row][col] = O
+				g.nextTurn = X
+			}
+
+			if g.board.checkDraw() {
+				g.state = gameStateDraw
+			} else if g.board.checkWin(X) {
+				g.state = gameStateWin
+				g.winner = X
+			} else if g.board.checkWin(O) {
+				g.state = gameStateWin
+				g.winner = O
+			}
+		} else {
+			// new game
+			g.state = gameStatePlay
+			g.nextTurn = rand.Intn(O) + X
+			g.board = NewBoard()
 		}
 	}
 
@@ -162,8 +178,6 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	drawBoardOutline(screen)
-	drawLeftDiagLine(screen)
-	drawRightDiagLine(screen)
 
 	for row := 0; row < 3; row++ {
 		for col := 0; col < 3; col++ {
@@ -175,6 +189,11 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			}
 		}
 	}
+
+	switch g.state {
+	case gameStateWin:
+		drawColLine(screen, 0)
+	}
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
@@ -185,7 +204,7 @@ func NewGame() *Game {
 	whiteImage.Fill(color.White)
 	return &Game{
 		gameStatePlay,
-		X,
+		rand.Intn(O) + X,
 		Empty,
 		NewBoard(),
 	}
