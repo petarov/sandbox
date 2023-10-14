@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	screenWidth   = 640
-	screenHeight  = 480
+	screenWidth   = 800
+	screenHeight  = 600
 	strokeWidth   = 5
 	gameStatePlay = 1
 	gameStateWin  = 2
@@ -22,8 +22,8 @@ const (
 )
 
 var (
-	lineColor     = color.RGBA{0x33, 0x33, 0xb0, 0}
-	winColor      = color.RGBA{0xb0, 0x33, 0x33, 0}
+	lineColor     = color.RGBA{0x33, 0x33, 0xb0, 1}
+	winColor      = color.RGBA{0xb0, 0x33, 0x33, 1}
 	whiteImage    = ebiten.NewImage(3, 3)
 	whiteSubImage = whiteImage.SubImage(image.Rect(1, 1, 2, 2)).(*ebiten.Image)
 )
