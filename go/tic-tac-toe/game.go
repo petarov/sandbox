@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	screenWidth   = 800
-	screenHeight  = 600
+	screenWidth   = 640
+	screenHeight  = 480
 	strokeWidth   = 5
 	gameStatePlay = 1
 	gameStateWin  = 2
