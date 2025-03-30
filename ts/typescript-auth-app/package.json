@@ -1,0 +1,37 @@
+{
+  "name": "typescript-auth-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "dev:watch": "DB_USERNAME=myuser DB_PASSWORD=mypassword DB_NAME=mydb nodemon",
+    "build": "ts-node esbuild.config.ts && cp package.json dist",
+    "watch": "tsc -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.1",
+    "@types/express-handlebars": "^5.3.1",
+    "@types/express-session": "^1.18.1",
+    "@types/node": "^22.13.14",
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.2",
+    "express-handlebars": "^8.0.1",
+    "express-session": "^1.18.1",
+    "mariadb": "^3.4.0",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.21",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.2",
+    "nodemon": "^3.1.9"
+  }
+}

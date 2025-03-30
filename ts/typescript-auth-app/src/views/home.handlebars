@@ -1,0 +1,28 @@
+<div class="welcome-container">
+  <h2>Welcome to the Dashboard</h2>
+  
+  <div class="welcome-message" style="margin: 20px 0; padding: 15px; background-color: #f9f9f9; border-radius: 5px; border-left: 5px solid #333;">
+    <h3>Hello, {{fullname}}!</h3>
+    <p>You have successfully logged in to the application.</p>
+    
+    {{#if error}}
+      <div class="error-message">{{error}}</div>
+    {{else}}
+      <div class="user-details" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
+        <p><strong>Username:</strong> {{username}}</p>
+        {{#if email}}
+          <p><strong>Email:</strong> {{email}}</p>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+  
+  <div class="actions" style="margin-top: 30px;">
+    <a 
+      href="/logout" 
+      style="display: inline-block; background-color: #d9534f; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px;"
+    >
+      Logout
+    </a>
+  </div>
+</div>
