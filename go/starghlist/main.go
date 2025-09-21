@@ -37,7 +37,7 @@ func main() {
 	}
 
 	ctx := context.Background()
-	ghCreateClient(ctx, token)
+	createGitHubClient(ctx, token)
 
 	server := mcp.NewServer(&mcp.Implementation{
 		Name:    "starghlist-server",
@@ -45,9 +45,19 @@ func main() {
 	}, nil)
 
 	mcp.AddTool(server, &mcp.Tool{
-		Name:        "getStars",
+		Name:        "getStarred",
 		Description: "Get the users's starred repositories",
 	}, GetStars)
+
+	mcp.AddTool(server, &mcp.Tool{
+		Name:        "addStar",
+		Description: "Add star or star one or more repositories",
+	}, AddStar)
+
+	mcp.AddTool(server, &mcp.Tool{
+		Name:        "removeStar",
+		Description: "Remove star or unstar one or more repositories",
+	}, RemoveStar)
 
 	handler := mcp.NewStreamableHTTPHandler(func(req *http.Request) *mcp.Server {
 		return server
