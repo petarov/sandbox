@@ -16,6 +16,7 @@ import xml.etree.ElementTree as ET
 
 ITUNES_ID = "1504249446"
 OUTPUT_DIR = "ole_podcast"
+MIN_FILE_SIZE = 10240  # 10KB - reasonable minimum for an MP3 file
 
 
 def sanitize(name: str) -> str:
@@ -73,8 +74,8 @@ def cmd_download(episodes: list[dict]) -> None:
         dest = os.path.join(OUTPUT_DIR, ep["filename"])
         if os.path.exists(dest):
             size = os.path.getsize(dest)
-            if size >= 1024:
-                print(f"[{ep['index']:04d}] Already exists, skipping: {ep['filename']}")
+            if size >= MIN_FILE_SIZE:
+                print(f"[{ep['index']:04d}] Already exists ({size}B), skipping: {ep['filename']}")
                 continue
             else:
                 print(f"[{ep['index']:04d}] File too small ({size}B), redownloading: {ep['filename']}")
@@ -84,6 +85,7 @@ def cmd_download(episodes: list[dict]) -> None:
         with urllib.request.urlopen(req) as resp, open(dest, "wb") as f:
             f.write(resp.read())
     print("\nDone.")
+
 
 def main() -> None:
     if len(sys.argv) != 2 or sys.argv[1] not in ("preview", "download"):
